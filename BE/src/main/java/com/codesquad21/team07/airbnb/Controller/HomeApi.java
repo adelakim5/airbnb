@@ -72,4 +72,20 @@ public class HomeApi {
         return result;
     }
 
+    @GetMapping("/search/서울")
+    public SearchContents searchSeoul() {
+        Province seoul = new Province(1L, "서울특별시", "http://imgurl", 12.2, 5.3);
+        Town town = new Town(1L, seoul.getId(), "서초구");
+        Address address = new Address(1L, town.getId(), "양재1동", 12.2, 5.3);
+        Address address2 = new Address(2L, town.getId(), "양재2동", 22.2, 15.3);
+
+        List<Address> addresses = new ArrayList<>();
+        addresses.add(address);
+        addresses.add(address2);
+
+        SearchContents searchContents = new SearchContents(seoul,town,addresses);
+
+        return searchContents;
+    }
+
 }
