@@ -1,4 +1,4 @@
-package com.codesquad21.team07.airbnb.BE;
+package com.codesquad21.team07.airbnb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
