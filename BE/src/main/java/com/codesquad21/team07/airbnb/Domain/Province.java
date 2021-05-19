@@ -1,6 +1,6 @@
 package com.codesquad21.team07.airbnb.Domain;
 
-public class City {
+public class Province {
 
     private final Long id;
 
@@ -8,17 +8,17 @@ public class City {
 
     private final String thumbnail;
 
-    private final Double latitude;
+    private final Double latitude; //INFO. Room 중에서 인기도 1순위의 좌표로 업데이트한다.
 
-    private final Double longtitue;
+    private final Double longitude;
 
 
-    public City(Long id, String name, String thumbnail, Double latitude, Double longtitue) {
+    public Province(Long id, String name, String thumbnail, Double latitude, Double longitude) {
         this.id = id;
         this.name = name;
         this.thumbnail = thumbnail;
         this.latitude = latitude;
-        this.longtitue = longtitue;
+        this.longitude = longitude;
     }
 
     public Long getId() {
@@ -37,7 +37,7 @@ public class City {
         return latitude;
     }
 
-    public Double getLongtitue() {
-        return longtitue;
+    public Double getLongitude() {
+        return longitude;
     }
 }
