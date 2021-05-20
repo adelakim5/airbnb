@@ -1,9 +1,14 @@
 package com.codesquad21.team07.airbnb.Controller;
 
-import com.codesquad21.team07.airbnb.Domain.*;
+import com.codesquad21.team07.airbnb.Domain.Address;
+import com.codesquad21.team07.airbnb.Domain.Province;
+import com.codesquad21.team07.airbnb.Domain.Theme;
+import com.codesquad21.team07.airbnb.Domain.Town;
 import com.codesquad21.team07.airbnb.Dto.Response.CityInfo;
 import com.codesquad21.team07.airbnb.Dto.Response.HomeContents;
 import com.codesquad21.team07.airbnb.Dto.Response.SearchCity;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,12 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+@Api(tags = {"HomeApi"})
 @RestController
 @RequestMapping("api")
 public class HomeApi {
 
-    @GetMapping("home-category")
-    private HomeContents home() {
+    @ApiOperation(value = "홈 카테고리", notes = "지역별 또는 테마별로 제공합니다.")
+    @GetMapping("home")
+    public HomeContents home() {
         Province province1 = new Province(1L, "서울", "http://imgurl", 12.2, 5.3);
         Province province2 = new Province(2L, "의정부시", "http://imgurl", 32.2, 15.3);
         Province province3 = new Province(3L, "대구", "http://imgurl", 42.2, 55.3);
