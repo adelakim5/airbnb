@@ -1,11 +1,9 @@
 package com.codesquad21.team07.airbnb.Controller;
 
-import com.codesquad21.team07.airbnb.Domain.Address;
-import com.codesquad21.team07.airbnb.Domain.Province;
-import com.codesquad21.team07.airbnb.Domain.Theme;
-import com.codesquad21.team07.airbnb.Domain.Town;
+import com.codesquad21.team07.airbnb.Domain.*;
+import com.codesquad21.team07.airbnb.Dto.Response.CityInfo;
 import com.codesquad21.team07.airbnb.Dto.Response.HomeContents;
-import com.codesquad21.team07.airbnb.Dto.Response.SearchContents;
+import com.codesquad21.team07.airbnb.Dto.Response.SearchCity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +15,7 @@ import java.util.List;
 @RequestMapping("api")
 public class HomeApi {
 
-    @GetMapping("home")
+    @GetMapping("home-category")
     private HomeContents home() {
         Province province1 = new Province(1L, "서울", "http://imgurl", 12.2, 5.3);
         Province province2 = new Province(2L, "의정부시", "http://imgurl", 32.2, 15.3);
@@ -41,51 +39,35 @@ public class HomeApi {
         return new HomeContents(cities, themes);
     }
 
-    @GetMapping("/search")
-    public List<SearchContents> searchCity() {
-        Province seoul = new Province(1L, "서울특별시", "http://imgurl", 12.2, 5.3);
-        Town town = new Town(1L, seoul.getId(), "서초구");
-        Address address = new Address(1L, town.getId(), "양재1동", 12.2, 5.3);
-        Address address2 = new Address(2L, town.getId(), "양재2동", 22.2, 15.3);
-
-        List<Address> addresses = new ArrayList<>();
-        addresses.add(address);
-        addresses.add(address2);
-
-        SearchContents searchContents = new SearchContents(seoul,town,addresses);
-
-        Province incheon = new Province(2L, "인천광역시", "http://imgurl", 32.2, 5.3);
-        Town namdonggu = new Town(1L, incheon.getId(), "남동구");
-        Address guwol = new Address(1L, town.getId(), "구월동", 12.2, 5.3);
-
-        List<Address> addresses2 = new ArrayList<>();
-        addresses2.add(guwol);
-
-        SearchContents searchContents2 = new SearchContents(incheon,namdonggu,addresses2);
-
-
-        List<SearchContents> result = new ArrayList<>();
-
-        result.add(searchContents);
-        result.add(searchContents2);
-
-        return result;
-    }
 
     @GetMapping("/search/서울")
-    public SearchContents searchSeoul() {
+    public SearchCity searchSeoul() {
         Province seoul = new Province(1L, "서울특별시", "http://imgurl", 12.2, 5.3);
-        Town town = new Town(1L, seoul.getId(), "서초구");
-        Address address = new Address(1L, town.getId(), "양재1동", 12.2, 5.3);
-        Address address2 = new Address(2L, town.getId(), "양재2동", 22.2, 15.3);
+        Town town = new Town(1L, seoul.getId(), "강남구");
+        Address address = new Address(1L, town.getId(), "", 12.2, 5.3);
 
-        List<Address> addresses = new ArrayList<>();
-        addresses.add(address);
-        addresses.add(address2);
+        Town town2 = new Town(2L, seoul.getId(), "종로구");
+        Address address2 = new Address(1L, town2.getId(), "", 22.2, 5.3);
 
-        SearchContents searchContents = new SearchContents(seoul,town,addresses);
+        Town town3 = new Town(3L, seoul.getId(), "마포구");
+        Address address3 = new Address(1L, town3.getId(), "", 32.2, 15.3);
 
-        return searchContents;
+        Town town4 = new Town(4L, seoul.getId(), "서초구");
+        Address address4 = new Address(1L, town4.getId(), "양재동", 52.2, 115.3);
+
+
+        CityInfo cityInfo = new CityInfo(seoul, town, address);
+        CityInfo cityInfo2 = new CityInfo(seoul, town2, address2);
+        CityInfo cityInfo3 = new CityInfo(seoul, town3, address3);
+        CityInfo cityInfo4 = new CityInfo(seoul, town4, address4);
+
+        SearchCity searchCity = new SearchCity();
+        searchCity.add(cityInfo);
+        searchCity.add(cityInfo2);
+        searchCity.add(cityInfo3);
+        searchCity.add(cityInfo4);
+
+        return searchCity;
     }
 
 }
