@@ -1,8 +1,12 @@
-package com.codesquad21.team07.airbnb.Domain;
+package com.codesquad21.team07.airbnb.Dto.Response;
 
+import com.codesquad21.team07.airbnb.Domain.Amenity;
+import com.codesquad21.team07.airbnb.Domain.Image;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class Room {
+public class RoomDTO {
 
     private final Double latitude;
 
@@ -34,9 +38,9 @@ public class Room {
 
     private final String roomAndPropertyType;
 
-    private final List<Image> images;
+    private final List<String> images;
 
-    private final List<Amenity> amenities;
+    private final List<String> amenities;
 
     public static class Builder {
 
@@ -70,9 +74,9 @@ public class Room {
 
         private String roomAndPropertyType;
 
-        private List<Image> images;
+        private List<String> images = new ArrayList<>();
 
-        private List<Amenity> amenities;
+        private List<String> amenities = new ArrayList<>();
 
 
         public Builder latitude(Double latitude){
@@ -150,23 +154,29 @@ public class Room {
             return this;
         }
 
-       public Builder images(List<Image> images){
-            this.images = images;
+        public Builder images(List<Image> images){
+
+            for(Image image : images){
+                this.images.add(image.getType()+": "+image.getUrl());
+            }
+
             return this;
         }
 
         public Builder amenities(List<Amenity> amenities){
-            this.amenities = amenities;
+            for(Amenity amenity : amenities){
+                this.amenities.add(amenity.getName()+" ");
+            }
             return this;
         }
 
-        public Room build(){
-            return new Room(this);
+        public RoomDTO build(){
+            return new RoomDTO(this);
         }
 
     }
 
-    private Room(Builder builder){
+    public RoomDTO(Builder builder) {
         this.latitude = builder.latitude;
         this.logitude = builder.logitude;
         this.addressId = builder.addressId;
@@ -246,11 +256,11 @@ public class Room {
         return roomAndPropertyType;
     }
 
-    public List<Image> getImages() {
+    public List<String> getImages() {
         return images;
     }
 
-    public List<Amenity> getAmenities() {
+    public List<String> getAmenities() {
         return amenities;
     }
 }
