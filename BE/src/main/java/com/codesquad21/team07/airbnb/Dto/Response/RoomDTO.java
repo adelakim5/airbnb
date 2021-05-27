@@ -4,9 +4,13 @@ import com.codesquad21.team07.airbnb.Domain.Amenity;
 import com.codesquad21.team07.airbnb.Domain.Image;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class RoomDTO {
+
+    private final Long id;
 
     private final Double latitude;
 
@@ -40,9 +44,13 @@ public class RoomDTO {
 
     private final List<String> images;
 
+    private final List<Map<String,String>> imagesFe;
+
     private final List<String> amenities;
 
     public static class Builder {
+
+        private Long id;
 
         private Double latitude;
 
@@ -76,8 +84,15 @@ public class RoomDTO {
 
         private List<String> images = new ArrayList<>();
 
+        private List<Map<String,String>> imagesFe = new ArrayList<>();;
+
         private List<String> amenities = new ArrayList<>();
 
+
+        public Builder id(Long id){
+            this.id = id;
+            return this;
+        }
 
         public Builder latitude(Double latitude){
             this.latitude = latitude;
@@ -163,6 +178,14 @@ public class RoomDTO {
             return this;
         }
 
+        public Builder imagesFe(List<Image> images){
+
+            for(Image image : images){
+                this.imagesFe.add(Collections.singletonMap(image.getType(),image.getUrl()));
+            }
+            return this;
+        }
+
         public Builder amenities(List<Amenity> amenities){
             for(Amenity amenity : amenities){
                 this.amenities.add(amenity.getName()+" ");
@@ -177,6 +200,7 @@ public class RoomDTO {
     }
 
     public RoomDTO(Builder builder) {
+        this.id = builder.id;
         this.latitude = builder.latitude;
         this.logitude = builder.logitude;
         this.addressId = builder.addressId;
@@ -193,6 +217,7 @@ public class RoomDTO {
         this.avgRating = builder.avgRating;
         this.roomAndPropertyType = builder.roomAndPropertyType;
         this.images = builder.images;
+        this.imagesFe = builder.imagesFe;
         this.amenities = builder.amenities;
     }
 
@@ -262,5 +287,9 @@ public class RoomDTO {
 
     public List<String> getAmenities() {
         return amenities;
+    }
+
+    public List<Map<String, String>> getImagesFe() {
+        return imagesFe;
     }
 }

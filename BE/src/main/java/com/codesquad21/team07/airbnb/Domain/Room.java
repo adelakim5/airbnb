@@ -4,6 +4,8 @@ import java.util.List;
 
 public class Room {
 
+    private final Long id;
+
     private final Double latitude;
 
     private final Double logitude;
@@ -40,6 +42,8 @@ public class Room {
 
     public static class Builder {
 
+        private Long id;
+
         private Double latitude;
 
         private Double logitude;
@@ -74,6 +78,11 @@ public class Room {
 
         private List<Amenity> amenities;
 
+
+        public Builder id(Long id){
+            this.id = id;
+            return this;
+        }
 
         public Builder latitude(Double latitude){
             this.latitude = latitude;
@@ -167,6 +176,7 @@ public class Room {
     }
 
     private Room(Builder builder){
+        this.id = builder.id;
         this.latitude = builder.latitude;
         this.logitude = builder.logitude;
         this.addressId = builder.addressId;
@@ -252,5 +262,9 @@ public class Room {
 
     public List<Amenity> getAmenities() {
         return amenities;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

@@ -10,12 +10,11 @@ import com.codesquad21.team07.airbnb.Dto.Response.SearchCity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Api(tags = {"HomeApi"})
 @RestController
@@ -49,34 +48,63 @@ public class HomeApi {
     }
 
 
-    @GetMapping("/search/서울")
-    public SearchCity searchSeoul() {
-        Province seoul = new Province(1L, "서울특별시", "http://imgurl", 12.2, 5.3);
-        Town town = new Town(1L, seoul.getId(), "강남구");
-        Address address = new Address(1L, town.getId(), "", 12.2, 5.3);
-
-        Town town2 = new Town(2L, seoul.getId(), "종로구");
-        Address address2 = new Address(1L, town2.getId(), "", 22.2, 5.3);
-
-        Town town3 = new Town(3L, seoul.getId(), "마포구");
-        Address address3 = new Address(1L, town3.getId(), "", 32.2, 15.3);
-
-        Town town4 = new Town(4L, seoul.getId(), "서초구");
-        Address address4 = new Address(1L, town4.getId(), "양재동", 52.2, 115.3);
-
-
-        CityInfo cityInfo = new CityInfo(seoul, town, address);
-        CityInfo cityInfo2 = new CityInfo(seoul, town2, address2);
-        CityInfo cityInfo3 = new CityInfo(seoul, town3, address3);
-        CityInfo cityInfo4 = new CityInfo(seoul, town4, address4);
+    @GetMapping("/search/{location}")
+    public SearchCity searchSeoul(@PathVariable String location) {
 
         SearchCity searchCity = new SearchCity();
-        searchCity.add(cityInfo);
-        searchCity.add(cityInfo2);
-        searchCity.add(cityInfo3);
-        searchCity.add(cityInfo4);
+
+        if (location.equals("서울")) {
+            Province seoul = new Province(1L, "서울특별시", "http://imgurl", 12.2, 5.3);
+            Town town = new Town(1L, seoul.getId(), "강남구");
+            Address address = new Address(1L, town.getId(), "", 12.2, 5.3);
+
+            Town town2 = new Town(2L, seoul.getId(), "종로구");
+            Address address2 = new Address(1L, town2.getId(), "", 22.2, 5.3);
+
+            Town town3 = new Town(3L, seoul.getId(), "마포구");
+            Address address3 = new Address(1L, town3.getId(), "", 32.2, 15.3);
+
+            Town town4 = new Town(4L, seoul.getId(), "서초구");
+            Address address4 = new Address(1L, town4.getId(), "양재동", 52.2, 115.3);
+
+
+            CityInfo cityInfo = new CityInfo(seoul, town, address);
+            CityInfo cityInfo2 = new CityInfo(seoul, town2, address2);
+            CityInfo cityInfo3 = new CityInfo(seoul, town3, address3);
+            CityInfo cityInfo4 = new CityInfo(seoul, town4, address4);
+
+            searchCity.add(cityInfo);
+            searchCity.add(cityInfo2);
+            searchCity.add(cityInfo3);
+            searchCity.add(cityInfo4);
+        }
 
         return searchCity;
     }
+
+
+    @GetMapping("/search/priceList")
+    public Map<String, Map<Integer, Integer>> getPriceList() {
+        Map<Integer, Integer> prices = new HashMap<>();
+
+        Random random = new Random();
+
+        for (int i = 11000; i < 300000; i += 1000) {
+            int val = (int) (random.nextGaussian() * 25 + 2);
+
+            if(val >0) {
+                prices.put(i, val);
+            }else{
+                prices.put(i, 0);
+            }
+
+        }
+
+        Map<String, Map<Integer, Integer>> wrappingPriceList = new HashMap<>();
+        wrappingPriceList.put("price-list",prices);
+
+        return wrappingPriceList;
+    }
+
 
 }
