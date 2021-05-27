@@ -4,9 +4,7 @@ import com.codesquad21.team07.airbnb.Domain.Amenity;
 import com.codesquad21.team07.airbnb.Domain.Image;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class RoomDTO {
 
@@ -44,7 +42,7 @@ public class RoomDTO {
 
     private final List<String> images;
 
-    private final List<Map<String,String>> imagesFe;
+    private final ImageFe imagesFe;
 
     private final List<String> amenities;
 
@@ -84,7 +82,7 @@ public class RoomDTO {
 
         private List<String> images = new ArrayList<>();
 
-        private List<Map<String,String>> imagesFe = new ArrayList<>();;
+        private ImageFe imagesFe = new ImageFe();
 
         private List<String> amenities = new ArrayList<>();
 
@@ -179,9 +177,8 @@ public class RoomDTO {
         }
 
         public Builder imagesFe(List<Image> images){
-
-            for(Image image : images){
-                this.imagesFe.add(Collections.singletonMap(image.getType(),image.getUrl()));
+            for (Image image : images) {
+                this.imagesFe.add(image.getUrl());
             }
             return this;
         }
@@ -289,7 +286,7 @@ public class RoomDTO {
         return amenities;
     }
 
-    public List<Map<String, String>> getImagesFe() {
+    public ImageFe getImagesFe() {
         return imagesFe;
     }
 }
