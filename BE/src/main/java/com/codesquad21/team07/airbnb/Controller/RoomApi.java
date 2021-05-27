@@ -51,7 +51,7 @@ public class RoomApi {
         RoomDTO.Builder builder = new RoomDTO.Builder();
         builder.latitude(12.2);
         builder.logitude(13.3);
-        builder.addressId(1L);
+        builder.locationId(1L);
         builder.themeId(1L);
         builder.name("#역삼역4번출구 도보3분 409");
         builder.rentalFeePerNight(15000);
@@ -85,7 +85,7 @@ public class RoomApi {
         RoomDTO.Builder builder2 = new RoomDTO.Builder();
         builder2.latitude(22.2);
         builder2.logitude(33.3);
-        builder2.addressId(1L);
+        builder2.locationId(1L);
         builder2.themeId(2L);
         builder2.name("#2 홍대입구역 도보 5분 조용하고 깔끔한 집");
         builder2.rentalFeePerNight(25000);

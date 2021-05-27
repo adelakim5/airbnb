@@ -1,6 +1,6 @@
 package com.codesquad21.team07.airbnb.Domain;
 
-public class Province {
+public class City {
 
     private final Long id;
 
@@ -13,7 +13,8 @@ public class Province {
     private final Double longitude;
 
 
-    public Province(Long id, String name, String thumbnail, Double latitude, Double longitude) {
+    //TODO. 인기 여행지의 지역을  나타내는 클래스이므로, 위도, 경도는 해당 지역의 숙소 리스트중에서 별점이 가장 높은 숙소의 좌표로 업데이트한다.
+    public City(Long id, String name, String thumbnail, Double latitude, Double longitude) {
         this.id = id;
         this.name = name;
         this.thumbnail = thumbnail;

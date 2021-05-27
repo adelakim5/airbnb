@@ -14,7 +14,7 @@ public class RoomDTO {
 
     private final Double logitude;
 
-    private final Long addressId;
+    private final Long locationId;
 
     private final Long themeId;
 
@@ -54,7 +54,7 @@ public class RoomDTO {
 
         private Double logitude;
 
-        private Long addressId;
+        private Long locationId;
 
         private Long themeId;
 
@@ -102,8 +102,8 @@ public class RoomDTO {
             return this;
         }
 
-        public Builder addressId(Long addressId){
-            this.addressId = addressId;
+        public Builder locationId(Long locationId){
+            this.locationId = locationId;
             return this;
         }
 
@@ -200,7 +200,7 @@ public class RoomDTO {
         this.id = builder.id;
         this.latitude = builder.latitude;
         this.logitude = builder.logitude;
-        this.addressId = builder.addressId;
+        this.locationId = builder.locationId;
         this.themeId = builder.themeId;
         this.name = builder.name;
         this.rentalFeePerNight = builder.rentalFeePerNight;
@@ -226,8 +226,8 @@ public class RoomDTO {
         return logitude;
     }
 
-    public Long getAddressId() {
-        return addressId;
+    public Long getLocationId() {
+        return locationId;
     }
 
     public Long getThemeId() {

@@ -10,7 +10,7 @@ public class Room {
 
     private final Double logitude;
 
-    private final Long addressId;
+    private final Long locationId;
 
     private final Long themeId;
 
@@ -48,7 +48,7 @@ public class Room {
 
         private Double logitude;
 
-        private Long addressId;
+        private Long locationId;
 
         private Long themeId;
 
@@ -94,8 +94,8 @@ public class Room {
             return this;
         }
 
-        public Builder addressId(Long addressId){
-            this.addressId = addressId;
+        public Builder locationId(Long locationId){
+            this.locationId = locationId;
             return this;
         }
 
@@ -179,7 +179,7 @@ public class Room {
         this.id = builder.id;
         this.latitude = builder.latitude;
         this.logitude = builder.logitude;
-        this.addressId = builder.addressId;
+        this.locationId = builder.locationId;
         this.themeId = builder.themeId;
         this.name = builder.name;
         this.rentalFeePerNight = builder.rentalFeePerNight;
@@ -204,8 +204,8 @@ public class Room {
         return logitude;
     }
 
-    public Long getAddressId() {
-        return addressId;
+    public Long getLocationId() {
+        return locationId;
     }
 
     public Long getThemeId() {
