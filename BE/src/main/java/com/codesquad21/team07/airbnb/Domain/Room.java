@@ -4,11 +4,13 @@ import java.util.List;
 
 public class Room {
 
+    private final Long id;
+
     private final Double latitude;
 
     private final Double logitude;
 
-    private final Long addressId;
+    private final Long locationId;
 
     private final Long themeId;
 
@@ -40,11 +42,13 @@ public class Room {
 
     public static class Builder {
 
+        private Long id;
+
         private Double latitude;
 
         private Double logitude;
 
-        private Long addressId;
+        private Long locationId;
 
         private Long themeId;
 
@@ -75,6 +79,11 @@ public class Room {
         private List<Amenity> amenities;
 
 
+        public Builder id(Long id){
+            this.id = id;
+            return this;
+        }
+
         public Builder latitude(Double latitude){
             this.latitude = latitude;
             return this;
@@ -85,8 +94,8 @@ public class Room {
             return this;
         }
 
-        public Builder addressId(Long addressId){
-            this.addressId = addressId;
+        public Builder locationId(Long locationId){
+            this.locationId = locationId;
             return this;
         }
 
@@ -167,9 +176,10 @@ public class Room {
     }
 
     private Room(Builder builder){
+        this.id = builder.id;
         this.latitude = builder.latitude;
         this.logitude = builder.logitude;
-        this.addressId = builder.addressId;
+        this.locationId = builder.locationId;
         this.themeId = builder.themeId;
         this.name = builder.name;
         this.rentalFeePerNight = builder.rentalFeePerNight;
@@ -194,8 +204,8 @@ public class Room {
         return logitude;
     }
 
-    public Long getAddressId() {
-        return addressId;
+    public Long getLocationId() {
+        return locationId;
     }
 
     public Long getThemeId() {
@@ -252,5 +262,9 @@ public class Room {
 
     public List<Amenity> getAmenities() {
         return amenities;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

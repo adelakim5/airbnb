@@ -8,11 +8,13 @@ import java.util.List;
 
 public class RoomDTO {
 
+    private final Long id;
+
     private final Double latitude;
 
     private final Double logitude;
 
-    private final Long addressId;
+    private final Long locationId;
 
     private final Long themeId;
 
@@ -40,15 +42,19 @@ public class RoomDTO {
 
     private final List<String> images;
 
+    private final ImageFe imagesFe;
+
     private final List<String> amenities;
 
     public static class Builder {
+
+        private Long id;
 
         private Double latitude;
 
         private Double logitude;
 
-        private Long addressId;
+        private Long locationId;
 
         private Long themeId;
 
@@ -76,8 +82,15 @@ public class RoomDTO {
 
         private List<String> images = new ArrayList<>();
 
+        private ImageFe imagesFe = new ImageFe();
+
         private List<String> amenities = new ArrayList<>();
 
+
+        public Builder id(Long id){
+            this.id = id;
+            return this;
+        }
 
         public Builder latitude(Double latitude){
             this.latitude = latitude;
@@ -89,8 +102,8 @@ public class RoomDTO {
             return this;
         }
 
-        public Builder addressId(Long addressId){
-            this.addressId = addressId;
+        public Builder locationId(Long locationId){
+            this.locationId = locationId;
             return this;
         }
 
@@ -163,6 +176,13 @@ public class RoomDTO {
             return this;
         }
 
+        public Builder imagesFe(List<Image> images){
+            for (Image image : images) {
+                this.imagesFe.add(image.getUrl());
+            }
+            return this;
+        }
+
         public Builder amenities(List<Amenity> amenities){
             for(Amenity amenity : amenities){
                 this.amenities.add(amenity.getName()+" ");
@@ -177,9 +197,10 @@ public class RoomDTO {
     }
 
     public RoomDTO(Builder builder) {
+        this.id = builder.id;
         this.latitude = builder.latitude;
         this.logitude = builder.logitude;
-        this.addressId = builder.addressId;
+        this.locationId = builder.locationId;
         this.themeId = builder.themeId;
         this.name = builder.name;
         this.rentalFeePerNight = builder.rentalFeePerNight;
@@ -193,6 +214,7 @@ public class RoomDTO {
         this.avgRating = builder.avgRating;
         this.roomAndPropertyType = builder.roomAndPropertyType;
         this.images = builder.images;
+        this.imagesFe = builder.imagesFe;
         this.amenities = builder.amenities;
     }
 
@@ -204,8 +226,8 @@ public class RoomDTO {
         return logitude;
     }
 
-    public Long getAddressId() {
-        return addressId;
+    public Long getLocationId() {
+        return locationId;
     }
 
     public Long getThemeId() {
@@ -262,5 +284,9 @@ public class RoomDTO {
 
     public List<String> getAmenities() {
         return amenities;
+    }
+
+    public ImageFe getImagesFe() {
+        return imagesFe;
     }
 }

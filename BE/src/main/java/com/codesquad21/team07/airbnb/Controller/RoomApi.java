@@ -18,10 +18,9 @@ import java.util.List;
 @RequestMapping("api")
 public class RoomApi {
 
-    //@GetMapping("/search/서울-강남구/rooms?placeId=1&checkIn=2021-05-24&checkOut=2021-05-28&priceMin=100000&priceMax=300000&adults=1&children=1&infants=1")
-    @GetMapping("/search/서울-강남구/rooms")
-    public RoomList SearchFilteredList(@RequestParam Long placeId,
-                                   @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkIn,
+    //http://localhost:8080/api/search/seoul-gangnam/rooms?checkIn=2021-05-24&checkOut=2021-05-28&priceMin=100000&priceMax=300000&adults=1&children=1&infants=1
+    @GetMapping("/search/seoul-gangnam/rooms")
+    public RoomList SearchFilteredList(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkIn,
                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkOut,
                                    @RequestParam int priceMin,
                                    @RequestParam int priceMax,
@@ -44,17 +43,15 @@ public class RoomApi {
         amenities.add(amenity3);
         amenities.add(amenity4);
 
-
         List<Image> imageList = new ArrayList<>();
         imageList.add(image1);
         imageList.add(image2);
         imageList.add(image3);
 
-
         RoomDTO.Builder builder = new RoomDTO.Builder();
         builder.latitude(12.2);
         builder.logitude(13.3);
-        builder.addressId(1L);
+        builder.locationId(1L);
         builder.themeId(1L);
         builder.name("#역삼역4번출구 도보3분 409");
         builder.rentalFeePerNight(15000);
@@ -68,6 +65,7 @@ public class RoomApi {
         builder.avgRating(4.73);
         builder.roomAndPropertyType("콘도(아파트) 전체");
         builder.images(imageList);
+        builder.imagesFe(imageList);
         builder.amenities(amenities);
 
         RoomDTO room = builder.build();
@@ -84,11 +82,10 @@ public class RoomApi {
         imageList.add(image3);
 
 
-
         RoomDTO.Builder builder2 = new RoomDTO.Builder();
         builder2.latitude(22.2);
         builder2.logitude(33.3);
-        builder2.addressId(1L);
+        builder2.locationId(1L);
         builder2.themeId(2L);
         builder2.name("#2 홍대입구역 도보 5분 조용하고 깔끔한 집");
         builder2.rentalFeePerNight(25000);
@@ -105,12 +102,14 @@ public class RoomApi {
         builder2.avgRating(4.73);
         builder2.roomAndPropertyType("레지던스 전체");
         builder2.images(imageList);
+        builder2.imagesFe(imageList);
         builder2.amenities(amenities);
 
         RoomDTO room2 = builder2.build();
 
 
         RoomList rooms = new RoomList();
+
 
         rooms.add(room);
         rooms.add(room2);
