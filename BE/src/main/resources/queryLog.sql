@@ -7,6 +7,6 @@ WHERE CONCAT(city, district, neighborhood, town) REGEXP '리';
 
 
 # 필드별 출력
-SELECT DISTINCT id, city, district, neighborhood, town AS 'location'
+EXPLAIN SELECT DISTINCT id, city, district, neighborhood, town AS 'location'
 FROM Location
 WHERE CONCAT(city, district, neighborhood, town) REGEXP :input;
