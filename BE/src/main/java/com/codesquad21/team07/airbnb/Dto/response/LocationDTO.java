@@ -1,20 +1,19 @@
-package com.codesquad21.team07.airbnb.Dto.Response;
+package com.codesquad21.team07.airbnb.dto.response;
 
-import com.codesquad21.team07.airbnb.Domain.Location;
+import com.codesquad21.team07.airbnb.domain.Location;
 
 public class LocationDTO {
 
-    private final Long id;
+    private Long id;
 
-    private final String address; //INFO. "인천광역시,남동구,구월동"
+    private String address; //INFO. "인천광역시,남동구,구월동"
 
-    private final Double latitude;
+    private Double latitude;
 
-    private final Double logitude;
+    private Double logitude;
 
-    public static LocationDTO of(Location location){
-        return new LocationDTO(location);
-    }
+
+    public LocationDTO(){}
 
     public LocationDTO(Location location) {
         this.id = location.getId();
@@ -23,14 +22,19 @@ public class LocationDTO {
         this.logitude = location.getLogitude();
     }
 
+    public static LocationDTO of(Location location) {
+        return new LocationDTO(location);
+    }
+
     //TODO. 인자가 너무많음 나중에 줄일 것, 빈 문자열일 경우에 대한 예외처리도 하기
     private String concatAddress(String city, String district, String neighborhood, String town) {
-        if(!town.equals("")){
+        if(town != null){
             return (city+","+district+","+neighborhood+","+town);
         }else{
             return (city+","+district+","+neighborhood);
         }
     }
+
 
 
     public Long getId() {
@@ -47,5 +51,21 @@ public class LocationDTO {
 
     public Double getLogitude() {
         return logitude;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLogitude(Double logitude) {
+        this.logitude = logitude;
     }
 }

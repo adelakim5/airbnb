@@ -1,9 +1,10 @@
 package com.codesquad21.team07.airbnb.controller;
 
-import com.codesquad21.team07.airbnb.domain.Location;
 import com.codesquad21.team07.airbnb.dto.response.HomeContents;
+import com.codesquad21.team07.airbnb.dto.response.LocationDTO;
 import com.codesquad21.team07.airbnb.dto.response.SearchCity;
 import com.codesquad21.team07.airbnb.service.CityService;
+import com.codesquad21.team07.airbnb.service.LocationService;
 import com.codesquad21.team07.airbnb.service.ThemeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -23,10 +25,12 @@ public class HomeApi {
 
     private final CityService cityService;
     private final ThemeService themeService;
+    private final LocationService locationService;
 
-    public HomeApi(CityService cityService, ThemeService themeService) {
+    public HomeApi(CityService cityService, ThemeService themeService, LocationService locationService) {
         this.cityService = cityService;
         this.themeService = themeService;
+        this.locationService = locationService;
     }
 
     @ApiOperation(value = "홈 카테고리", notes = "지역별 또는 테마별로 제공합니다.")
@@ -39,20 +43,9 @@ public class HomeApi {
     @GetMapping("/search/{location}")
     public SearchCity searchSeoul(@PathVariable String location) {
 
-        SearchCity searchCity = new SearchCity();
+        List<LocationDTO> locationDTO = locationService.findByAddress(location);
+        SearchCity searchCity = new SearchCity(locationDTO);
 
-        if (location.equals("인천")) {
-
-            Location address = new Location(1L, "인천광역시", "남동구", "구월동", "", 12.2, 5.3);
-            Location address2 = new Location(2L, "인천광역시", "계양구", "서운동", "", 22.2, 25.3);
-            Location address3 = new Location(3L, "인천광역시", "서구", "연희동", "", 32.2, 35.3);
-            Location address4 = new Location(4L, "인천광역시", "강화군", "화도면", "흥왕리", 42.2, 45.3);
-
-            searchCity.add(address);
-            searchCity.add(address2);
-            searchCity.add(address3);
-            searchCity.add(address4);
-        }
         return searchCity;
     }
 
