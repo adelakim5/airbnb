@@ -2,6 +2,7 @@ package com.codesquad21.team07.airbnb.repository;
 
 import com.codesquad21.team07.airbnb.domain.Location;
 import com.codesquad21.team07.airbnb.dto.response.LocationDTO;
+import com.codesquad21.team07.airbnb.utils.sql.LocationSQL;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -24,15 +25,11 @@ public class LocationRepository implements MyRepository<Location>{
         jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
 
-
     public List<LocationDTO> findByAddress(String address) {
         Map<String, String> parameter = Collections.singletonMap("input",address);
 
-        String sql = "SELECT DISTINCT id, city, district, neighborhood, town AS 'location'\n" +
-                "FROM Location\n" +
-                "WHERE CONCAT(city, district, neighborhood, town) REGEXP :input";
-
-        List<Location> location = jdbc.query(sql, parameter, rowMapper);
+        // 지금 Location 도메인 클래스에 setter가 있는데 나중에 없애기
+        List<Location> location = jdbc.query(LocationSQL.FIND_ADDRESS_BY_KEYWORD, parameter, rowMapper);
 
         return location.stream().map(LocationDTO::of).collect(Collectors.toList());
     }
