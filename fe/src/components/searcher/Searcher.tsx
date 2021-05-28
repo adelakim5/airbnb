@@ -26,7 +26,7 @@ const Searcher = (): React.ReactElement => {
         <Search>
             <SearcherStateContext.Provider value={searcherState}>
                 <SearcherDispatchContext.Provider value={searcherDispatch}>
-                    <BarSection>
+                    <BarSection className="searcher">
                         <LocationTab />
                         <CheckInTab />
                         <CheckOutTab />

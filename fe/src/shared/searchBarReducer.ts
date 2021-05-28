@@ -2,6 +2,15 @@ import { SearcherContext, SearchAction } from './interface';
 
 export function searchReducer(state: SearcherContext, action: SearchAction): SearcherContext {
     switch (action.type) {
+        case 'CLOSE_ALL':
+            return {
+                ...state,
+                locationLayer: false,
+                checkInCalendarLayer: false,
+                checkOutCalendarLayer: false,
+                feeLayer: false,
+                peopleLayer: false,
+            };
         case 'SHOW_LOCATION_LIST':
             return { ...state, locationList: action.list };
         case 'SHOW_LOCATION_LAYER':

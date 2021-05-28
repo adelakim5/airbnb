@@ -64,7 +64,8 @@ export type SearchAction =
     | { type: 'SHOW_CHECKIN_CALENDAR_LAYER'; state: boolean }
     | { type: 'SHOW_CHECKOUT_CALENDAR_LAYER'; state: boolean }
     | { type: 'SHOW_FEE_LAYER'; state: boolean }
-    | { type: 'SHOW_PEOPLE_LAYER'; state: boolean };
+    | { type: 'SHOW_PEOPLE_LAYER'; state: boolean }
+    | { type: 'CLOSE_ALL' };
 
 export type SearcherLayerStateAction =
     | { type: 'SELECT_LOCATION_TAB' }
