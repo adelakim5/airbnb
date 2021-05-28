@@ -10,7 +10,7 @@ public class CityDTO {
 
     private String thumbnail;
 
-    private Double latitude; //INFO. Room 중에서 인기도 1순위의 좌표로 업데이트한다.
+    private Double latitude; //INFO. Room 중에서 인기도 1순위의 좌표로 업데이트한다..
 
     private Double longitude;
 
