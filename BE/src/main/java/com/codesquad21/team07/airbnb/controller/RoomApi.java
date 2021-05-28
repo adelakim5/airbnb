@@ -1,9 +1,9 @@
-package com.codesquad21.team07.airbnb.Controller;
+package com.codesquad21.team07.airbnb.controller;
 
-import com.codesquad21.team07.airbnb.Domain.Amenity;
-import com.codesquad21.team07.airbnb.Domain.Image;
-import com.codesquad21.team07.airbnb.Dto.Response.RoomDTO;
-import com.codesquad21.team07.airbnb.Dto.Response.RoomList;
+import com.codesquad21.team07.airbnb.domain.Amenity;
+import com.codesquad21.team07.airbnb.domain.Image;
+import com.codesquad21.team07.airbnb.dto.response.RoomDTO;
+import com.codesquad21.team07.airbnb.dto.response.RoomList;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

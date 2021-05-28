@@ -1,4 +1,4 @@
-package com.codesquad21.team07.airbnb.Dto.Response;
+package com.codesquad21.team07.airbnb.dto.response;
 
 public class ImageFe {
 
