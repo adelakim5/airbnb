@@ -1,4 +1,4 @@
-package com.codesquad21.team07.airbnb.Domain;
+package com.codesquad21.team07.airbnb.domain;
 
 public class Amenity {
     private final Long id;

@@ -1,4 +1,4 @@
-package com.codesquad21.team07.airbnb.Domain;
+package com.codesquad21.team07.airbnb.domain;
 
 import java.util.List;
 
