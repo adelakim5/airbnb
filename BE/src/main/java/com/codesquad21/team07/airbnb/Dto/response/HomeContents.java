@@ -1,7 +1,7 @@
-package com.codesquad21.team07.airbnb.Dto.Response;
+package com.codesquad21.team07.airbnb.dto.response;
 
-import com.codesquad21.team07.airbnb.Domain.City;
-import com.codesquad21.team07.airbnb.Domain.Theme;
+import com.codesquad21.team07.airbnb.domain.City;
+import com.codesquad21.team07.airbnb.domain.Theme;
 
 import java.util.ArrayList;
 import java.util.List;
