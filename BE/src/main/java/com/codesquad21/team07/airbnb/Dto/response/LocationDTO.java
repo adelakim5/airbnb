@@ -10,7 +10,7 @@ public class LocationDTO {
 
     private Double latitude;
 
-    private Double logitude;
+    private Double longitude;
 
 
     public LocationDTO(){}
@@ -19,7 +19,7 @@ public class LocationDTO {
         this.id = location.getId();
         this.address = concatAddress(location.getCity(),location.getDistrict(),location.getNeighborhood(),location.getTown());
         this.latitude = location.getLatitude();
-        this.logitude = location.getLogitude();
+        this.longitude = location.getLongitude();
     }
 
     public static LocationDTO of(Location location) {
@@ -49,8 +49,8 @@ public class LocationDTO {
         return latitude;
     }
 
-    public Double getLogitude() {
-        return logitude;
+    public Double getLongitude() {
+        return longitude;
     }
 
     public void setId(Long id) {
@@ -65,7 +65,7 @@ public class LocationDTO {
         this.latitude = latitude;
     }
 
-    public void setLogitude(Double logitude) {
-        this.logitude = logitude;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }

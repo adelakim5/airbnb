@@ -14,18 +14,18 @@ public class Location {
 
     private  Double latitude;
 
-    private  Double logitude;
+    private  Double longitude;
 
 
     public Location(){}
-    public Location(Long id, String city, String district, String neighborhood, String town, Double latitude, Double logitude) {
+    public Location(Long id, String city, String district, String neighborhood, String town, Double latitude, Double longitude) {
         this.id = id;
         this.city = city;
         this.district = district;
         this.neighborhood = neighborhood;
         this.town = town;
         this.latitude = latitude;
-        this.logitude = logitude;
+        this.longitude = longitude;
     }
 
     public Long getId() {
@@ -52,8 +52,8 @@ public class Location {
         return latitude;
     }
 
-    public Double getLogitude() {
-        return logitude;
+    public Double getLongitude() {
+        return longitude;
     }
 
     public void setId(Long id) {
@@ -80,7 +80,7 @@ public class Location {
         this.latitude = latitude;
     }
 
-    public void setLogitude(Double logitude) {
-        this.logitude = logitude;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }
