@@ -16,4 +16,9 @@ export default Account;
 
 const Container = styled.div`
     background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 4px 4px 4px 16px;
+    border: 1px solid #bdbdbd;
+    border-radius: 30px;
 `;

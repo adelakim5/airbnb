@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useSearcherDispatch, useSearcherState } from '../../../../hooks/SearcherHook';
+import { useSearcherDispatch } from '../../../../hooks/SearcherHook';
 import { ModalLayerType, LayerSpecType } from '../../../../shared/interface';
 
 const ModalLayer = ({ children, options }: ModalLayerType): React.ReactElement => {
@@ -33,11 +33,13 @@ const Layer = styled.ul<LayerSpecType>`
     position: ${({ theme }) => theme.LayerTheme.position};
     top: ${({ top }) => top}px;
     left: ${({ left }) => left}px;
-    border: ${({ theme }) => theme.LayerTheme.border};
+    // border: ${({ theme }) => theme.LayerTheme.border};
     width: ${({ width }) => width}px;
     height: ${({ height }) => height}px;
     background: #fff;
     z-index: 111111110;
+    border-radius: 40px;
+    box-shadow: 0px 4px 10px rgba(51, 51, 51, 0.1), 0px 0px 4px rgba(51, 51, 51, 0.05);
 `;
 
 export default ModalLayer;

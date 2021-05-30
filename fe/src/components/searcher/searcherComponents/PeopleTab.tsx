@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
-import { Container, NavigatingText, Tab } from './common/shared.style';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
+import { Container, NavigatingText, ResultText, Tab } from './common/shared.style';
 import { Link } from 'react-router-dom';
 import { useSearcherDispatch, useSearcherState } from '../../../hooks/SearcherHook';
 import { PeopleCount } from '../../../shared/interface';
@@ -56,17 +58,21 @@ const PeopleTab = (): React.ReactElement => {
     const renderPeopleCountList = () => {
         const keys: Array<keyof PeopleCount> = ['adult', 'children', 'kids'];
         return (
-            <ul>
+            <PeopleCountContent>
                 {keys.map((key) => (
-                    <li>
-                        <h4>{peopleType[key]}</h4>
-                        <p>{peopleCount[key]}</p>
-                        <button onClick={() => handleCount(key, 1)}>+</button>
-                        <button onClick={() => handleCount(key, -1)}>-</button>
-                    </li>
+                    <CountList>
+                        <PeopleTypeTitle>{peopleType[key]}</PeopleTypeTitle>
+                        <div>
+                            <PeopleCountController>
+                                <AddIcon onClick={() => handleCount(key, 1)}>+</AddIcon>
+                                <p>{peopleCount[key]}</p>
+                                <RemoveIcon onClick={() => handleCount(key, -1)}>-</RemoveIcon>
+                            </PeopleCountController>
+                        </div>
+                    </CountList>
                 ))}
-                <button onClick={handleSubmitPeopleCount}>확인</button>
-            </ul>
+                {/* <button onClick={handleSubmitPeopleCount}>확인</button> */}
+            </PeopleCountContent>
         );
     };
 
@@ -76,15 +82,22 @@ const PeopleTab = (): React.ReactElement => {
         localStorage.setItem('reservationState', JSON.stringify(reservationState));
     };
 
+    const isGuestExisted = () => {
+        const { adult, children, kids } = peopleCount;
+        return adult + children + kids > 0;
+    };
+
     return (
         <Container>
             <Tab onClick={handlePeopleLayer}>
                 <PeopleTabBox>
                     <PeopleText>
                         <NavigatingText>인원</NavigatingText>
-                        <p>
-                            게스트: {peopleCount.adult + peopleCount.children}, 유아: {peopleCount.kids}
-                        </p>
+                        <ResultText>
+                            {isGuestExisted()
+                                ? `게스트: ${peopleCount.adult + peopleCount.children}, 유아: ${peopleCount.kids}`
+                                : '게스트추가'}
+                        </ResultText>
                     </PeopleText>
                     <Link to="/accomodation">
                         <SearchButton onClick={handleSearchWithAllReservationInfo}>
@@ -114,11 +127,36 @@ export default PeopleTab;
 const SearchButton = styled.button`
     width: 40px;
     height: 40px;
+    background: #e84c60;
+    border-radius: 30px;
+    color: #fff;
+    margin-top: 18px;
+    margin-right: 18px;
 `;
 
 const PeopleTabBox = styled.div`
     display: flex;
     justify-content: space-between;
+    width: 200px;
 `;
 
 const PeopleText = styled.div``;
+
+const PeopleCountContent = styled.ul`
+    margin: 64px;
+`;
+
+const CountList = styled.li`
+    height: 91px;
+    display: flex;
+    justify-content: space-between;
+`;
+
+const PeopleCountController = styled.div`
+    display: flex;
+    width: 110px;
+    border: 1px solid red;
+    justify-content: space-between;
+`;
+
+const PeopleTypeTitle = styled.h3``;

@@ -1,4 +1,4 @@
-import { Dispatch } from 'react';
+import { Dispatch, MutableRefObject } from 'react';
 
 export interface UsefulObject {
     [key: string]: string;

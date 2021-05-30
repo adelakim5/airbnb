@@ -4,7 +4,7 @@ import { useReservationDispatch, useReservationState } from '../../../hooks/Rese
 import { useSearcherDispatch, useSearcherState } from '../../../hooks/SearcherHook';
 import Calendar from './calendar/Calendar';
 import { isNotCheckedDate } from './calendar/calendarChecker';
-import { Container, NavigatingText, Tab } from './common/shared.style';
+import { Container, NavigatingText, ResultText, Tab } from './common/shared.style';
 
 const CheckOutTab = (): React.ReactElement => {
     const { checkOut } = useReservationState();
@@ -26,8 +26,10 @@ const CheckOutTab = (): React.ReactElement => {
         <Container>
             <Tab onClick={handleCalendarLayer}>
                 <NavigatingText>체크아웃</NavigatingText>
-                <CheckOutDateText>{!isNotCheckedDate(checkOut) && `${year} - ${month} - ${day}`}</CheckOutDateText>
-                {!isNotCheckedDate(checkOut) && <button onClick={handleCancel}>취소</button>}
+                <CheckOutDateText>
+                    <ResultText>{!isNotCheckedDate(checkOut) ? `${year} - ${month} - ${day}` : '날짜입력'}</ResultText>
+                    {!isNotCheckedDate(checkOut) && <button onClick={handleCancel}>취소</button>}
+                </CheckOutDateText>
                 {checkOutCalendarLayer && <Calendar isCheckIn={false} />}
             </Tab>
         </Container>
@@ -36,4 +38,7 @@ const CheckOutTab = (): React.ReactElement => {
 
 export default CheckOutTab;
 
-const CheckOutDateText = styled.div``;
+const CheckOutDateText = styled.div`
+    line-height: 23px;
+    display: flex;
+`;

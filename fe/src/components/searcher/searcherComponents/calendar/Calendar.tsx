@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { MonthsPresenter } from './calendar.presenter';
 import { getInitialDate } from './calendarDate';
 import { CalendarType } from '../../../../shared/interface';
 import { useReservationDispatch, useReservationState } from '../../../../hooks/ReservationHook';
 import { useSearcherDispatch } from '../../../../hooks/SearcherHook';
-
 import { getDateSum, isBefore, isNotCheckedDate } from './calendarChecker';
 import ModalLayer from '../common/ModalLayer';
 import { CalendarContainer, CarouselBox, LayerContentContainer } from './calendar.style';
@@ -101,21 +102,28 @@ const Calendar = ({ isCheckIn }: CalendarType): React.ReactElement => {
                 width: theme.LayerSize.lgWidth,
                 top: theme.LayerLocation.top,
                 left: theme.LayerLocation.left,
-                height: theme.LayerSize.lgHeight,
+                height: theme.LayerSize.xlgHeight,
             }}
         >
             <LayerContentContainer>
                 <CalendarContainer>
                     <div>
-                        <button onClick={() => handleCalendarButton(-1)}>◀</button>
+                        <NavigateBeforeIcon onClick={() => handleCalendarButton(-1)} />
                     </div>
                     <CarouselBox>
                         <MonthsPresenter
-                            {...{ x, checkIn, checkOut, calendarQueue, handleCheckDate, transitionValue }}
+                            {...{
+                                x,
+                                checkIn,
+                                checkOut,
+                                calendarQueue,
+                                handleCheckDate,
+                                transitionValue,
+                            }}
                         />
                     </CarouselBox>
                     <div>
-                        <button onClick={() => handleCalendarButton(1)}>▶</button>
+                        <NavigateNextIcon onClick={() => handleCalendarButton(1)} />
                     </div>
                 </CalendarContainer>
             </LayerContentContainer>

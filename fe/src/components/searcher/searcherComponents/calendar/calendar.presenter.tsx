@@ -2,6 +2,8 @@ import { CalendarBox, CalendarList, CalendarTitle, Dates, Day, DayName, Week } f
 import { loadYYMM } from './calendarDate';
 import { Td, Date as IDate } from '../../../../shared/interface';
 import { isPossibleToCheckDate, getTypeOfDate } from './calendarChecker';
+import { theme } from '../../../../styles/theme';
+import { MutableRefObject } from 'react';
 
 interface CalendarPresenterProps {
     checkIn: IDate;
@@ -21,6 +23,7 @@ interface MonthProps extends CalendarPresenterProps {
 
 export function MonthsPresenter(props: MonthProps) {
     const { checkIn, checkOut, handleCheckDate, calendarQueue, x, transitionValue } = props;
+
     return (
         <CalendarList x={x} transitionValue={transitionValue}>
             {calendarQueue.map((date) => {

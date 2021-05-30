@@ -18,6 +18,7 @@ export const theme: DefaultTheme = {
         smWidth: 400,
         lgWidth: 916,
         lgHeight: 512,
+        xlgHeight: 538,
         mdHeight: 355,
         mdWidth: 493,
     },

@@ -4,7 +4,7 @@ import { useSearcherDispatch, useSearcherState } from '../../../hooks/SearcherHo
 import { LocationList, Location } from '../../../shared/interface';
 import { mockupLocationData } from '../../../data/location';
 import { useReservationDispatch } from '../../../hooks/ReservationHook';
-import { Container, Tab } from './common/shared.style';
+import { Container, Tab, NavigatingText, ResultText } from './common/shared.style';
 import ModalLayer from './common/ModalLayer';
 import { theme } from '../../../styles/theme';
 
@@ -57,12 +57,14 @@ const LocationTab = (): React.ReactElement => {
         <Container>
             <Tab onClick={handleInputLayer}>
                 <NavigatingText>위치</NavigatingText>
-                <LocationInput
-                    ref={inputRef}
-                    onFocus={() => searcherDispatch({ type: 'SHOW_LOCATION_LAYER', state: true })}
-                    onChange={handleInputLocationList}
-                    disabled
-                />
+                <ResultText>
+                    <LocationInput
+                        ref={inputRef}
+                        onFocus={() => searcherDispatch({ type: 'SHOW_LOCATION_LAYER', state: true })}
+                        onChange={handleInputLocationList}
+                        disabled
+                    />
+                </ResultText>
             </Tab>
             {locationLayer && (
                 <ModalLayer
@@ -73,11 +75,13 @@ const LocationTab = (): React.ReactElement => {
                         height: theme.LayerSize.mdHeight,
                     }}
                 >
-                    {locationList?.map((place: Location) => (
-                        <li key={place.address_id} onClick={() => setUpLocation(place)}>
-                            {place.address}
-                        </li>
-                    ))}
+                    <LocationResultListAll>
+                        {locationList?.map((place: Location) => (
+                            <ResultList key={place.address_id} onClick={() => setUpLocation(place)}>
+                                {place.address}
+                            </ResultList>
+                        ))}
+                    </LocationResultListAll>
                 </ModalLayer>
             )}
         </Container>
@@ -86,10 +90,14 @@ const LocationTab = (): React.ReactElement => {
 
 export default LocationTab;
 
-const NavigatingText = styled.p`
+const LocationInput = styled.input`
     margin: 0;
 `;
 
-const LocationInput = styled.input`
-    margin: 0;
+const LocationResultListAll = styled.ul`
+    margin: 60px;
+`;
+
+const ResultList = styled.li`
+    margin-bottom: 10px;
 `;

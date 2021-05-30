@@ -1,11 +1,12 @@
-import { Slider } from '@material-ui/core';
+// import { Slider } from '@material-ui/core';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useReservationDispatch, useReservationState } from '../../../hooks/ReservationHook';
 import { useSearcherDispatch, useSearcherState } from '../../../hooks/SearcherHook';
 import { theme } from '../../../styles/theme';
 import ModalLayer from './common/ModalLayer';
-import { Container, NavigatingText, Tab } from './common/shared.style';
+import { Container, NavigatingText, ResultText, Tab } from './common/shared.style';
+import Slider from './Slider';
 
 const FeeTab = (): React.ReactElement => {
     const { fee } = useReservationState();
@@ -14,27 +15,27 @@ const FeeTab = (): React.ReactElement => {
     const { feeLayer } = useSearcherState();
     const searcherDispatch = useSearcherDispatch();
 
-    const [feeValue, setFeeValue] = useState<number[] | number>([27, 35]);
+    const [feeValue, setFeeValue] = useState<number[]>([0, 100]);
 
     const handleFeeLayer: React.MouseEventHandler<HTMLDivElement> = () => {
         searcherDispatch({ type: 'SHOW_FEE_LAYER', state: true });
     };
 
-    const handleSliderChange = (event: React.ChangeEvent<unknown>, newValue: number[] | number) => {
+    const handleSliderChange = (newValue: number[]) => {
         setFeeValue(newValue);
         reservationDispatch({ type: 'FEE', fee: newValue });
     };
 
-    const handleSubmitFee = () => {
-        reservationDispatch({ type: 'FEE', fee: feeValue });
-        searcherDispatch({ type: 'SHOW_FEE_LAYER', state: false });
-    };
+    // const handleSubmitFee = () => {
+    //     reservationDispatch({ type: 'FEE', fee: feeValue });
+    //     searcherDispatch({ type: 'SHOW_FEE_LAYER', state: false });
+    // };
 
     return (
         <Container>
             <Tab onClick={handleFeeLayer}>
                 <NavigatingText>요금</NavigatingText>
-                <PriceText>{typeof fee === 'number' ? `${fee}원` : `${fee[0]}만원 ${fee[1]}만원`}</PriceText>
+                <ResultText>{typeof fee === 'number' ? `${fee}원` : `${fee[0]}만원 ${fee[1]}만원`}</ResultText>
             </Tab>
             {feeLayer && (
                 <ModalLayer
@@ -45,8 +46,11 @@ const FeeTab = (): React.ReactElement => {
                         height: theme.LayerSize.smHeight,
                     }}
                 >
-                    <Slider value={feeValue} onChange={handleSliderChange} valueLabelDisplay="auto" />
-                    <button onClick={handleSubmitFee}>확인</button>
+                    <Slide>
+                        <Slider feeValue={feeValue} setFeeValue={handleSliderChange} />
+                        {/* <Slider value={feeValue} onChange={handleSliderChange} valueLabelDisplay="auto" /> */}
+                    </Slide>
+                    {/* <button onClick={handleSubmitFee}>확인</button> */}
                 </ModalLayer>
             )}
         </Container>
@@ -56,3 +60,7 @@ const FeeTab = (): React.ReactElement => {
 export default FeeTab;
 
 const PriceText = styled.div``;
+
+const Slide = styled.div`
+    margin: 60px;
+`;
