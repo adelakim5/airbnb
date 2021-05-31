@@ -13,8 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.codesquad21.team07.airbnb.utils.sql.CitySQL.FIND_ALL;
-
+import static com.codesquad21.team07.airbnb.utils.sql.CitySQLKt.*;
 
 @Repository
 public class CityRepository implements MyRepository<City> {
@@ -28,7 +27,7 @@ public class CityRepository implements MyRepository<City> {
 
     @Override
     public List<City> findAll() {
-        List<CityDTO> cityDTOS = jdbc.query(FIND_ALL, Collections.emptyMap(), rowMapper);
+        List<CityDTO> cityDTOS = jdbc.query(FIND_ALL_CITY, Collections.emptyMap(), rowMapper);
         return cityDTOS.stream().map(City::update).collect(Collectors.toList());
     }
 

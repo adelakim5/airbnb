@@ -2,7 +2,7 @@ package com.codesquad21.team07.airbnb.repository;
 
 import com.codesquad21.team07.airbnb.domain.Theme;
 import com.codesquad21.team07.airbnb.dto.response.ThemeDTO;
-import com.codesquad21.team07.airbnb.utils.sql.ThemeSQL;
+import com.codesquad21.team07.airbnb.utils.sql.ThemeSQLKt;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -26,7 +26,7 @@ public class ThemeRepository implements MyRepository<Theme> {
 
     @Override
     public List<Theme> findAll() {
-        List<ThemeDTO> themeDTOS = jdbc.query(ThemeSQL.FIND_ALL, Collections.emptyMap(), rowMapper);
+        List<ThemeDTO> themeDTOS = jdbc.query(ThemeSQLKt.FIND_ALL_THEME, Collections.emptyMap(), rowMapper);
         return themeDTOS.stream().map(Theme::update).collect(Collectors.toList());
     }
 

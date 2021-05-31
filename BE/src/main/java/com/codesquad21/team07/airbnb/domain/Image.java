@@ -4,11 +4,11 @@ public class Image {
 
     private final Long id;
 
+    private final Long roomId;
+
     private final String type;
 
     private final String url;
-
-    private final Long roomId;
 
     public Image(Long id, String type, String url, Long roomId) {
         this.id = id;

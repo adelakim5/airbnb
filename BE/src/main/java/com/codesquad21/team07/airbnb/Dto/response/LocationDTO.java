@@ -13,11 +13,12 @@ public class LocationDTO {
     private Double longitude;
 
 
-    public LocationDTO(){}
+    public LocationDTO() {
+    }
 
     public LocationDTO(Location location) {
         this.id = location.getId();
-        this.address = concatAddress(location.getCity(),location.getDistrict(),location.getNeighborhood(),location.getTown());
+        this.address = concatAddress(location.getCity(), location.getDistrict());
         this.latitude = location.getLatitude();
         this.longitude = location.getLongitude();
     }
@@ -27,14 +28,9 @@ public class LocationDTO {
     }
 
     //TODO. 인자가 너무많음 나중에 줄일 것, 빈 문자열일 경우에 대한 예외처리도 하기
-    private String concatAddress(String city, String district, String neighborhood, String town) {
-        if(town != null){
-            return (city+","+district+","+neighborhood+","+town);
-        }else{
-            return (city+","+district+","+neighborhood);
-        }
+    private String concatAddress(String city, String district) {
+        return (city + "," + district);
     }
-
 
 
     public Long getId() {

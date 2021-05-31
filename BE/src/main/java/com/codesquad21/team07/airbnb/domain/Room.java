@@ -6,15 +6,21 @@ public class Room {
 
     private final Long id;
 
-    private final Double latitude;
-
-    private final Double logitude;
-
     private final Long locationId;
+
+    private final Long hostId;
 
     private final Long themeId;
 
+    private final Double latitude;
+
+    private final Double longitude;
+
     private final String name;
+
+    private final String roomAndPropertyType;
+
+    private final Double avgRating;
 
     private final int rentalFeePerNight;
 
@@ -32,10 +38,6 @@ public class Room {
 
     private final int bathrooms;
 
-    private final Double avgRating;
-
-    private final String roomAndPropertyType;
-
     private final List<Image> images;
 
     private final List<Amenity> amenities;
@@ -49,6 +51,8 @@ public class Room {
         private Double logitude;
 
         private Long locationId;
+
+        private Long hostId;
 
         private Long themeId;
 
@@ -81,6 +85,11 @@ public class Room {
 
         public Builder id(Long id){
             this.id = id;
+            return this;
+        }
+
+        public Builder hostId(Long hostId){
+            this.hostId = hostId;
             return this;
         }
 
@@ -169,6 +178,7 @@ public class Room {
             return this;
         }
 
+
         public Room build(){
             return new Room(this);
         }
@@ -177,8 +187,9 @@ public class Room {
 
     private Room(Builder builder){
         this.id = builder.id;
+        this.hostId = builder.hostId;
         this.latitude = builder.latitude;
-        this.logitude = builder.logitude;
+        this.longitude = builder.logitude;
         this.locationId = builder.locationId;
         this.themeId = builder.themeId;
         this.name = builder.name;
@@ -200,8 +211,8 @@ public class Room {
         return latitude;
     }
 
-    public Double getLogitude() {
-        return logitude;
+    public Double getLongitude() {
+        return longitude;
     }
 
     public Long getLocationId() {
@@ -266,5 +277,9 @@ public class Room {
 
     public Long getId() {
         return id;
+    }
+
+    public Long getHostId() {
+        return hostId;
     }
 }

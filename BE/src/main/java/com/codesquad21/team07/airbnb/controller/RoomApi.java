@@ -5,10 +5,7 @@ import com.codesquad21.team07.airbnb.domain.Image;
 import com.codesquad21.team07.airbnb.dto.response.RoomDTO;
 import com.codesquad21.team07.airbnb.dto.response.RoomList;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,14 +16,14 @@ import java.util.List;
 public class RoomApi {
 
     //http://localhost:8080/api/search/seoul-gangnam/rooms?checkIn=2021-05-24&checkOut=2021-05-28&priceMin=100000&priceMax=300000&adults=1&children=1&infants=1
-    @GetMapping("/search/seoul-gangnam/rooms")
+    @GetMapping("/search/{locationId}/rooms")
     public RoomList SearchFilteredList(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkIn,
                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkOut,
                                    @RequestParam int priceMin,
                                    @RequestParam int priceMax,
                                    @RequestParam int adults,
                                    @RequestParam int children,
-                                   @RequestParam int infants) {
+                                   @RequestParam int infants, @PathVariable Long locationId) {
 
         Image image1 = new Image(1L,"thumbnail","https://a0.muscache.com/im/pictures/miso/Hosting-44552310/original/3914cc46-8881-41cd-8090-33e679305107.jpeg?im_w=1200",1L);
         Image image2 = new Image(2L,"big","https://a0.muscache.com/im/pictures/67f4ea10-0e7e-41f5-a2b6-190215610d41.jpg?im_w=720",1L);

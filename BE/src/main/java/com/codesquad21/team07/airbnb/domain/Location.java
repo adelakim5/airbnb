@@ -2,28 +2,24 @@ package com.codesquad21.team07.airbnb.domain;
 
 public class Location {
 
-    private  Long id;
+    private Long id;
 
-    private  String city; //INFO 특별시/광역시/도
+    private String city; //INFO 특별시/광역시/도
 
-    private  String district; //INFO 군/구
+    private String district; //INFO 군/구
 
-    private  String neighborhood; //INFO 동/읍
+    private Double latitude;
 
-    private  String town; //INFO 면/리
-
-    private  Double latitude;
-
-    private  Double longitude;
+    private Double longitude;
 
 
-    public Location(){}
-    public Location(Long id, String city, String district, String neighborhood, String town, Double latitude, Double longitude) {
+    public Location() {
+    }
+
+    public Location(Long id, String city, String district, Double latitude, Double longitude) {
         this.id = id;
         this.city = city;
         this.district = district;
-        this.neighborhood = neighborhood;
-        this.town = town;
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -38,14 +34,6 @@ public class Location {
 
     public String getDistrict() {
         return district;
-    }
-
-    public String getNeighborhood() {
-        return neighborhood;
-    }
-
-    public String getTown() {
-        return town;
     }
 
     public Double getLatitude() {
@@ -66,14 +54,6 @@ public class Location {
 
     public void setDistrict(String district) {
         this.district = district;
-    }
-
-    public void setNeighborhood(String neighborhood) {
-        this.neighborhood = neighborhood;
-    }
-
-    public void setTown(String town) {
-        this.town = town;
     }
 
     public void setLatitude(Double latitude) {

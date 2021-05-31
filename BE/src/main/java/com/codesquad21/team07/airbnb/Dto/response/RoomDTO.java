@@ -10,15 +10,21 @@ public class RoomDTO {
 
     private final Long id;
 
-    private final Double latitude;
-
-    private final Double logitude;
-
     private final Long locationId;
+
+    private final Long hostId;
 
     private final Long themeId;
 
+    private final Double latitude;
+
+    private final Double longitude;
+
     private final String name;
+
+    private final String roomAndPropertyType;
+
+    private final Double avgRating;
 
     private final int rentalFeePerNight;
 
@@ -36,13 +42,9 @@ public class RoomDTO {
 
     private final int bathrooms;
 
-    private final Double avgRating;
-
-    private final String roomAndPropertyType;
+    private final ImageFe imagesFe;
 
     private final List<String> images;
-
-    private final ImageFe imagesFe;
 
     private final List<String> amenities;
 
@@ -55,6 +57,8 @@ public class RoomDTO {
         private Double logitude;
 
         private Long locationId;
+
+        private Long hostId;
 
         private Long themeId;
 
@@ -109,6 +113,11 @@ public class RoomDTO {
 
         public Builder themeId(Long themeId){
             this.themeId = themeId;
+            return this;
+        }
+
+        public Builder hostId(Long hostId){
+            this.hostId = hostId;
             return this;
         }
 
@@ -199,9 +208,10 @@ public class RoomDTO {
     public RoomDTO(Builder builder) {
         this.id = builder.id;
         this.latitude = builder.latitude;
-        this.logitude = builder.logitude;
+        this.longitude = builder.logitude;
         this.locationId = builder.locationId;
         this.themeId = builder.themeId;
+        this.hostId = builder.hostId;
         this.name = builder.name;
         this.rentalFeePerNight = builder.rentalFeePerNight;
         this.weeklyPriceFactor = builder.weeklyPriceFactor;
@@ -222,8 +232,8 @@ public class RoomDTO {
         return latitude;
     }
 
-    public Double getLogitude() {
-        return logitude;
+    public Double getLongitude() {
+        return longitude;
     }
 
     public Long getLocationId() {
@@ -288,5 +298,13 @@ public class RoomDTO {
 
     public ImageFe getImagesFe() {
         return imagesFe;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getHostId() {
+        return hostId;
     }
 }

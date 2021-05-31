@@ -2,7 +2,7 @@ package com.codesquad21.team07.airbnb.repository;
 
 import com.codesquad21.team07.airbnb.domain.Location;
 import com.codesquad21.team07.airbnb.dto.response.LocationDTO;
-import com.codesquad21.team07.airbnb.utils.sql.LocationSQL;
+import com.codesquad21.team07.airbnb.utils.sql.LocationSQLKt;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -29,7 +29,7 @@ public class LocationRepository implements MyRepository<Location>{
         Map<String, String> parameter = Collections.singletonMap("input",address);
 
         // 지금 Location 도메인 클래스에 setter가 있는데 나중에 없애기
-        List<Location> location = jdbc.query(LocationSQL.FIND_ADDRESS_BY_KEYWORD, parameter, rowMapper);
+        List<Location> location = jdbc.query(LocationSQLKt.FIND_ADDRESS_BY_KEYWORD, parameter, rowMapper);
 
         return location.stream().map(LocationDTO::of).collect(Collectors.toList());
     }
