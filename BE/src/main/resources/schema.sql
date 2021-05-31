@@ -95,8 +95,8 @@ CREATE TABLE IF NOT EXISTS Reservation
     id        BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '예약번호',
     room_id   BIGINT   NOT NULL COMMENT '방 번호',
     user_id   BIGINT   NOT NULL COMMENT '예약한 유저가 누구인지?',
-    check_in  DATETIME NOT NULL,
-    check_out DATETIME NOT NULL,
+    check_in  DATE NOT NULL,
+    check_out DATE NOT NULL,
     FOREIGN KEY (room_id) REFERENCES Room (id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES User (id) ON UPDATE CASCADE ON DELETE CASCADE
 );

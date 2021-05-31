@@ -1,6 +1,6 @@
 package com.codesquad21.team07.airbnb.domain;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Reservation {
 
@@ -10,11 +10,11 @@ public class Reservation {
 
     private final Long userId;
 
-    private final LocalDateTime checkIn;
+    private final LocalDate checkIn;
 
-    private final LocalDateTime checkOut;
+    private final LocalDate checkOut;
 
-    public Reservation(Long id, Long roomId, Long userId, LocalDateTime checkIn, LocalDateTime checkOut) {
+    public Reservation(Long id, Long roomId, Long userId, LocalDate checkIn, LocalDate checkOut) {
         this.id = id;
         this.roomId = roomId;
         this.userId = userId;
@@ -34,11 +34,11 @@ public class Reservation {
         return userId;
     }
 
-    public LocalDateTime getCheckIn() {
+    public LocalDate getCheckIn() {
         return checkIn;
     }
 
-    public LocalDateTime getCheckOut() {
+    public LocalDate getCheckOut() {
         return checkOut;
     }
 }
