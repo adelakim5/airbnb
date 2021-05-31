@@ -6,7 +6,8 @@ import { useSearcherDispatch, useSearcherState } from '../../../hooks/SearcherHo
 import { theme } from '../../../styles/theme';
 import ModalLayer from './common/ModalLayer';
 import { Container, NavigatingText, ResultText, Tab } from './common/shared.style';
-import Slider from './Slider';
+import FeeController from './feeController/FeeController';
+import Slider from './feeController/Slider';
 
 const FeeTab = (): React.ReactElement => {
     const { fee } = useReservationState();
@@ -15,16 +16,14 @@ const FeeTab = (): React.ReactElement => {
     const { feeLayer } = useSearcherState();
     const searcherDispatch = useSearcherDispatch();
 
-    const [feeValue, setFeeValue] = useState<number[]>([0, 100]);
-
     const handleFeeLayer: React.MouseEventHandler<HTMLDivElement> = () => {
         searcherDispatch({ type: 'SHOW_FEE_LAYER', state: true });
     };
 
-    const handleSliderChange = (newValue: number[]) => {
-        setFeeValue(newValue);
-        reservationDispatch({ type: 'FEE', fee: newValue });
-    };
+    // const handleSliderChange = (newValue: number[]) => {
+    //     setFeeValue(newValue);
+    //     reservationDispatch({ type: 'FEE', fee: newValue });
+    // };
 
     // const handleSubmitFee = () => {
     //     reservationDispatch({ type: 'FEE', fee: feeValue });
@@ -46,10 +45,9 @@ const FeeTab = (): React.ReactElement => {
                         height: theme.LayerSize.smHeight,
                     }}
                 >
-                    <Slide>
-                        <Slider feeValue={feeValue} setFeeValue={handleSliderChange} />
-                        {/* <Slider value={feeValue} onChange={handleSliderChange} valueLabelDisplay="auto" /> */}
-                    </Slide>
+                    <FeeController></FeeController>
+                    {/* <Slider feeValue={feeValue} setFeeValue={handleSliderChange} /> */}
+                    {/* <Slider value={feeValue} onChange={handleSliderChange} valueLabelDisplay="auto" /> */}
                     {/* <button onClick={handleSubmitFee}>확인</button> */}
                 </ModalLayer>
             )}
@@ -61,6 +59,6 @@ export default FeeTab;
 
 const PriceText = styled.div``;
 
-const Slide = styled.div`
-    margin: 60px;
-`;
+// const Slide = styled.div`
+//     margin: 60px;
+// `;

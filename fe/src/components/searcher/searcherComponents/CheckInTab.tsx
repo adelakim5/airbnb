@@ -5,6 +5,7 @@ import Calendar from './calendar/Calendar';
 import { Container, Tab, NavigatingText, ResultText } from './common/shared.style';
 import { useReservationDispatch, useReservationState } from '../../../hooks/ReservationHook';
 import { isNotCheckedDate } from './calendar/calendarChecker';
+import CloseIcon from '@material-ui/icons/Close';
 
 const CheckInTab = (): React.ReactElement => {
     const { checkIn } = useReservationState();
@@ -28,7 +29,7 @@ const CheckInTab = (): React.ReactElement => {
                 <NavigatingText>체크인</NavigatingText>
                 <CheckInDateText>
                     <ResultText>{!isNotCheckedDate(checkIn) ? `${year} - ${month} - ${day}` : '날짜입력'}</ResultText>
-                    {!isNotCheckedDate(checkIn) && <button onClick={handleCancel}>취소</button>}
+                    {!isNotCheckedDate(checkIn) && <CloseIcon onClick={handleCancel}>취소</CloseIcon>}
                 </CheckInDateText>
             </Tab>
             {checkInCalendarLayer && <Calendar isCheckIn={true} />}

@@ -17,9 +17,15 @@ const peopleType = {
     kids: '유아',
 };
 
+const peopleDescription = {
+    adult: '만 13세 이상',
+    children: '만 2~12세',
+    kids: '만 2세 미만',
+};
+
 const PeopleTab = (): React.ReactElement => {
     const reservationState = useReservationState();
-    const reservationDispatch = useReservationDispatch();
+    // const reservationDispatch = useReservationDispatch();
     const { adult, children, kids } = reservationState.people;
     const { peopleLayer } = useSearcherState();
     const searcherDispatch = useSearcherDispatch();
@@ -39,20 +45,11 @@ const PeopleTab = (): React.ReactElement => {
         if (payload >= 0) newCount = peopleCount[key] + payload;
         else newCount = peopleCount[key] + payload >= 0 ? peopleCount[key] + payload : 0;
 
-        if (key === 'adult') {
-            setPeopleCount({ ...peopleCount, [key]: newCount });
-            return;
-        }
-
         const currAdult = peopleCount.adult;
+        const others = peopleCount.children + peopleCount.kids;
         if (currAdult <= 0 && newCount > 0) setPeopleCount({ ...peopleCount, adult: 1, [key]: newCount });
+        else if (key === 'adult' && newCount <= 0 && others > 0) setPeopleCount({ ...peopleCount, adult: 1 });
         else setPeopleCount({ ...peopleCount, [key]: newCount });
-    };
-
-    const handleSubmitPeopleCount = () => {
-        const { adult, children, kids } = peopleCount;
-        reservationDispatch({ type: 'PEOPLE', adult, children, kids });
-        searcherDispatch({ type: 'SHOW_PEOPLE_LAYER', state: false });
     };
 
     const renderPeopleCountList = () => {
@@ -61,17 +58,23 @@ const PeopleTab = (): React.ReactElement => {
             <PeopleCountContent>
                 {keys.map((key) => (
                     <CountList>
-                        <PeopleTypeTitle>{peopleType[key]}</PeopleTypeTitle>
+                        <div>
+                            <PeopleTypeTitle>{peopleType[key]}</PeopleTypeTitle>
+                            <p>{peopleDescription[key]}</p>
+                        </div>
                         <div>
                             <PeopleCountController>
-                                <AddIcon onClick={() => handleCount(key, 1)}>+</AddIcon>
+                                <button className="addButton">
+                                    <AddIcon onClick={() => handleCount(key, 1)} />
+                                </button>
                                 <p>{peopleCount[key]}</p>
-                                <RemoveIcon onClick={() => handleCount(key, -1)}>-</RemoveIcon>
+                                <button className="removeButton">
+                                    <RemoveIcon onClick={() => handleCount(key, -1)} />
+                                </button>
                             </PeopleCountController>
                         </div>
                     </CountList>
                 ))}
-                {/* <button onClick={handleSubmitPeopleCount}>확인</button> */}
             </PeopleCountContent>
         );
     };
@@ -143,13 +146,15 @@ const PeopleTabBox = styled.div`
 const PeopleText = styled.div``;
 
 const PeopleCountContent = styled.ul`
-    margin: 64px;
+    margin: 32px 64px;
 `;
 
 const CountList = styled.li`
     height: 91px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
 `;
 
 const PeopleCountController = styled.div`
@@ -157,6 +162,15 @@ const PeopleCountController = styled.div`
     width: 110px;
     border: 1px solid red;
     justify-content: space-between;
+
+    button {
+        all: unset;
+        border-radius: 50%;
+        border: 1px solid #828282;
+        color: #828282;
+        display: flex;
+        align-items: center;
+    }
 `;
 
 const PeopleTypeTitle = styled.h3``;

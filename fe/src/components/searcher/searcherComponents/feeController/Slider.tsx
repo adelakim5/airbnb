@@ -1,13 +1,18 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
+import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
+import Chart from './Chart';
 
-interface FeeProps {
+export interface FeeProps {
     feeValue: number[];
-    setFeeValue: (newValue: number[]) => void;
 }
 
-const Slider = (props: FeeProps): React.ReactElement => {
-    const { feeValue, setFeeValue } = props;
+interface SlideProps extends FeeProps {
+    handleSliderChange: (newValue: number[]) => void;
+}
+
+const Slider = (props: SlideProps): React.ReactElement => {
+    const { feeValue, handleSliderChange } = props;
 
     const inputLeft = useRef<HTMLInputElement>(null);
     const inputRight = useRef<HTMLInputElement>(null);
@@ -27,7 +32,9 @@ const Slider = (props: FeeProps): React.ReactElement => {
         const percent = ((newMinValue - min) / (max - min)) * 100;
         thumbLeft.current.style.left = `${percent}%`;
         range.current.style.left = `${percent}%`;
+        handleSliderChange([Math.floor(percent), feeValue[1]]);
     };
+
     const setRightValue = () => {
         if (!range.current || !inputLeft.current || !inputRight.current || !thumbLeft.current || !thumbRight.current)
             return;
@@ -39,95 +46,85 @@ const Slider = (props: FeeProps): React.ReactElement => {
         const percent = ((newMaxValue - min) / (max - min)) * 100;
         thumbRight.current.style.right = `${100 - percent}%`;
         range.current.style.right = `${100 - percent}%`;
-    };
-
-    const handleChangeMinValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = Number(e.target.value);
-        setFeeValue([value, feeValue[1]]);
-    };
-    const handleChangeMaxValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = Number(e.target.value);
-        setFeeValue([feeValue[0], value]);
+        handleSliderChange([feeValue[0], Math.floor(percent)]);
     };
 
     return (
-        <Middle className="middle">
+        <Slide>
+            <Chart feeValue={feeValue} />
             <div className="multi-range-slider">
                 <RangeInputLeft
                     ref={inputLeft}
                     type="range"
-                    id="input-left"
                     min="0"
                     max="100"
                     step="1"
                     value={feeValue[0]}
                     onInput={setLeftValue}
-                    onChange={handleChangeMinValue}
                 />
                 <RangeInputRight
                     ref={inputRight}
                     type="range"
-                    id="input-right"
                     min="0"
                     max="100"
                     value={feeValue[1]}
                     onInput={setRightValue}
-                    onChange={handleChangeMaxValue}
                 />
 
-                <SliderDiv className="slider">
-                    <Track className="track"></Track>
-                    <Range ref={range} className="range"></Range>
-                    <ThumbLeft ref={thumbLeft} className="thumb left"></ThumbLeft>
-                    <ThumbRight ref={thumbRight} className="thumb right"></ThumbRight>
-                </SliderDiv>
+                <BarSlider>
+                    <Track></Track>
+                    <Range ref={range}></Range>
+                    <ThumbLeft ref={thumbLeft}>
+                        <PauseCircleOutlineIcon />
+                    </ThumbLeft>
+                    <ThumbRight ref={thumbRight}>
+                        <PauseCircleOutlineIcon />
+                    </ThumbRight>
+                </BarSlider>
             </div>
-        </Middle>
+        </Slide>
     );
 };
 
 export default Slider;
 
-const Middle = styled.div`
+const Slide = styled.div`
     position: relative;
     height: fit-content;
-    max-width: 500px;
 `;
 
-const SliderDiv = styled.div`
+const BarSlider = styled.div`
     position: relative;
     z-index: 1;
-    height: 10px;
+    height: 1px;
+    margin: 0 15px;
 `;
 
-const Track = styled.div`
+const Horizon = styled.div`
     position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 5px;
+`;
+
+const Track = styled(Horizon)`
     z-index: 1;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    border-radius: 5px;
-    background: #c6aee7;
+    background: #ddd;
 `;
 
-const Range = styled.div`
-    position: absolute;
+const Range = styled(Horizon)`
     z-index: 2;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    border-radius: 5px;
-    background: #6200ee;
+    background: #000;
 `;
 
 const Thumb = styled.div`
     position: absolute;
     z-index: 3;
-    width: 30px;
-    height: 30px;
-    background: #6200ee;
+    width: 20px;
+    height: 20px;
+    background: #fff;
     border-radius: 50%;
 `;
 
@@ -152,16 +149,12 @@ const RangeInput = styled.input`
 
     &::-webkit-slider-thumb {
         pointer-events: all;
-        width: 38px;
-        height: 38px;
+        width: 20px;
+        height: 20px;
         -webkit-appearance: none;
         background: red;
     }
 `;
 
-const RangeInputLeft = styled(RangeInput)`
-    // top: -100px;
-`;
-const RangeInputRight = styled(RangeInput)`
-    // top: -50px;
-`;
+const RangeInputLeft = styled(RangeInput)``;
+const RangeInputRight = styled(RangeInput)``;

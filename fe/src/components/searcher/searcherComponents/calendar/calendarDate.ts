@@ -17,14 +17,10 @@ export const getFirstDay = (yy: number, mm: number): Date => new Date(yy, mm, 1)
 export const getLastDay = (yy: number, mm: number): Date => new Date(yy, mm + 1, 0);
 
 export const loadYYMM = (fullDate: Date): Td[][] => {
-    // const today = new Date();
     const yy: number = fullDate.getFullYear();
     const mm: number = fullDate.getMonth();
     const firstDay: Date = getFirstDay(yy, mm);
     const lastDay: Date = getLastDay(yy, mm);
-    // let markToday;
-
-    // if (mm === today.getMonth() && yy === today.getFullYear()) markToday = today.getDate();
 
     const table = [];
     let startCount = 0;

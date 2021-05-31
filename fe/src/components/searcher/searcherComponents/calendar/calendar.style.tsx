@@ -93,7 +93,7 @@ export const Day = styled.div`
     justify-content: center;
     align-items: center;
     font-size: 12px;
-    &+.day: hover {
+    &+.true: hover {
         border-radius: 50%;
         background: #000;
         color: #fff;
