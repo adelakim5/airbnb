@@ -2,30 +2,26 @@ package com.codesquad21.team07.airbnb.domain;
 
 public class Location {
 
-    private  Long id;
+    private Long id;
 
-    private  String city; //INFO 특별시/광역시/도
+    private String city; //INFO 특별시/광역시/도
 
-    private  String district; //INFO 군/구
+    private String district; //INFO 군/구
 
-    private  String neighborhood; //INFO 동/읍
+    private Double latitude;
 
-    private  String town; //INFO 면/리
-
-    private  Double latitude;
-
-    private  Double logitude;
+    private Double longitude;
 
 
-    public Location(){}
-    public Location(Long id, String city, String district, String neighborhood, String town, Double latitude, Double logitude) {
+    public Location() {
+    }
+
+    public Location(Long id, String city, String district, Double latitude, Double longitude) {
         this.id = id;
         this.city = city;
         this.district = district;
-        this.neighborhood = neighborhood;
-        this.town = town;
         this.latitude = latitude;
-        this.logitude = logitude;
+        this.longitude = longitude;
     }
 
     public Long getId() {
@@ -40,20 +36,12 @@ public class Location {
         return district;
     }
 
-    public String getNeighborhood() {
-        return neighborhood;
-    }
-
-    public String getTown() {
-        return town;
-    }
-
     public Double getLatitude() {
         return latitude;
     }
 
-    public Double getLogitude() {
-        return logitude;
+    public Double getLongitude() {
+        return longitude;
     }
 
     public void setId(Long id) {
@@ -68,19 +56,11 @@ public class Location {
         this.district = district;
     }
 
-    public void setNeighborhood(String neighborhood) {
-        this.neighborhood = neighborhood;
-    }
-
-    public void setTown(String town) {
-        this.town = town;
-    }
-
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public void setLogitude(Double logitude) {
-        this.logitude = logitude;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }

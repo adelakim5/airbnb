@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.codesquad21.team07.airbnb.utils.sql.CitySQL.FIND_ALL;
+import static com.codesquad21.team07.airbnb.repository.sql.CityQueriesKt.FIND_ALL_CITY;
 
 
 @Repository
@@ -28,12 +28,12 @@ public class CityRepository implements MyRepository<City> {
 
     @Override
     public List<City> findAll() {
-        List<CityDTO> cityDTOS = jdbc.query(FIND_ALL, Collections.emptyMap(), rowMapper);
+        List<CityDTO> cityDTOS = jdbc.query(FIND_ALL_CITY, Collections.emptyMap(), rowMapper);
         return cityDTOS.stream().map(City::update).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<City> findById(Long id) {
+    public Optional<City> findRoomById(Long id) {
         return Optional.empty();
     }
 

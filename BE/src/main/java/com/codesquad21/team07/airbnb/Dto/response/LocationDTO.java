@@ -10,16 +10,17 @@ public class LocationDTO {
 
     private Double latitude;
 
-    private Double logitude;
+    private Double longitude;
 
 
-    public LocationDTO(){}
+    public LocationDTO() {
+    }
 
     public LocationDTO(Location location) {
         this.id = location.getId();
-        this.address = concatAddress(location.getCity(),location.getDistrict(),location.getNeighborhood(),location.getTown());
+        this.address = concatAddress(location.getCity(), location.getDistrict());
         this.latitude = location.getLatitude();
-        this.logitude = location.getLogitude();
+        this.longitude = location.getLongitude();
     }
 
     public static LocationDTO of(Location location) {
@@ -27,14 +28,9 @@ public class LocationDTO {
     }
 
     //TODO. 인자가 너무많음 나중에 줄일 것, 빈 문자열일 경우에 대한 예외처리도 하기
-    private String concatAddress(String city, String district, String neighborhood, String town) {
-        if(town != null){
-            return (city+","+district+","+neighborhood+","+town);
-        }else{
-            return (city+","+district+","+neighborhood);
-        }
+    private String concatAddress(String city, String district) {
+        return (city + "," + district);
     }
-
 
 
     public Long getId() {
@@ -49,8 +45,8 @@ public class LocationDTO {
         return latitude;
     }
 
-    public Double getLogitude() {
-        return logitude;
+    public Double getLongitude() {
+        return longitude;
     }
 
     public void setId(Long id) {
@@ -65,7 +61,7 @@ public class LocationDTO {
         this.latitude = latitude;
     }
 
-    public void setLogitude(Double logitude) {
-        this.logitude = logitude;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }

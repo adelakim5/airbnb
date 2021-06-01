@@ -4,41 +4,46 @@ import java.util.List;
 
 public class Room {
 
-    private final Long id;
+    private  Long id;
 
-    private final Double latitude;
+    private  Long locationId;
 
-    private final Double logitude;
+    private  Long hostId;
 
-    private final Long locationId;
+    private  Long themeId;
 
-    private final Long themeId;
+    private  Double latitude;
 
-    private final String name;
+    private  Double longitude;
 
-    private final int rentalFeePerNight;
+    private  String name;
 
-    private final Double weeklyPriceFactor;
+    private  String roomAndPropertyType;
 
-    private final Double monthlyPriceFactor;
+    private  Double avgRating;
 
-    private final String description;
+    private  int rentalFeePerNight;
 
-    private final int personCapacity;
+    private  Double weeklyPriceFactor;
 
-    private final int bedrooms;
+    private  Double monthlyPriceFactor;
 
-    private final int beds;
+    private  String description;
 
-    private final int bathrooms;
+    private  int personCapacity;
 
-    private final Double avgRating;
+    private  int bedrooms;
 
-    private final String roomAndPropertyType;
+    private  int beds;
 
-    private final List<Image> images;
+    private  int bathrooms;
 
-    private final List<Amenity> amenities;
+    private  List<Image> images;
+
+    private  List<Amenity> amenities;
+
+    public Room() {
+    }
 
     public static class Builder {
 
@@ -46,9 +51,11 @@ public class Room {
 
         private Double latitude;
 
-        private Double logitude;
+        private Double longitude;
 
         private Long locationId;
+
+        private Long hostId;
 
         private Long themeId;
 
@@ -84,13 +91,18 @@ public class Room {
             return this;
         }
 
+        public Builder hostId(Long hostId){
+            this.hostId = hostId;
+            return this;
+        }
+
         public Builder latitude(Double latitude){
             this.latitude = latitude;
             return this;
         }
 
-        public Builder logitude(Double logitude){
-            this.logitude = logitude;
+        public Builder longitude(Double longitude){
+            this.longitude = longitude;
             return this;
         }
 
@@ -169,6 +181,7 @@ public class Room {
             return this;
         }
 
+
         public Room build(){
             return new Room(this);
         }
@@ -177,8 +190,9 @@ public class Room {
 
     private Room(Builder builder){
         this.id = builder.id;
+        this.hostId = builder.hostId;
         this.latitude = builder.latitude;
-        this.logitude = builder.logitude;
+        this.longitude = builder.longitude;
         this.locationId = builder.locationId;
         this.themeId = builder.themeId;
         this.name = builder.name;
@@ -200,8 +214,8 @@ public class Room {
         return latitude;
     }
 
-    public Double getLogitude() {
-        return logitude;
+    public Double getLongitude() {
+        return longitude;
     }
 
     public Long getLocationId() {
@@ -267,4 +281,9 @@ public class Room {
     public Long getId() {
         return id;
     }
+
+    public Long getHostId() {
+        return hostId;
+    }
+
 }
