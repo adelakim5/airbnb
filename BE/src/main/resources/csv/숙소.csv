@@ -1,2 +1,4 @@
 id,location_id,host_id,theme_id, latitude, longitude, name,room_and_property_type,avg_rating, rental_fee_per_night, weekly_price_factor, monthly_price_factor, description, person_capacity, bedrooms, beds, bathrooms
-1,20,1,3,37.55755,126.93471, #ONLY 자가격리 & 장기숙박 특별할인 #도시힐링감성 #숙소설명 꼭 확인해주세요, 아파트 전체,4.75,95000,0.97,0.95, 상세설명입니다,2,2,1,1
+1,20,1,3,37.55755,126.93471,숙소1,아파트 전체,4.75,95000,0.97,0.95,상세설명입니다,2,2,1,1
+2,20,2,3,37.55755,126.93471,숙소2,아파트 전체,4.75,195000,0.97,0.95,상세설명입니다,2,2,1,1
+3,20,2,3,37.55755,126.93471,숙소3,아파트 전체,4.75,295000,0.97,0.95,상세설명입니다,2,2,1,1

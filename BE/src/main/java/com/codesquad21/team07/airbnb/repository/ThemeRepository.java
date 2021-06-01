@@ -2,7 +2,6 @@ package com.codesquad21.team07.airbnb.repository;
 
 import com.codesquad21.team07.airbnb.domain.Theme;
 import com.codesquad21.team07.airbnb.dto.response.ThemeDTO;
-import com.codesquad21.team07.airbnb.utils.sql.ThemeSQLKt;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -13,6 +12,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.codesquad21.team07.airbnb.repository.sql.ThemeQueriesKt.FIND_ALL_THEME;
+
 
 @Repository
 public class ThemeRepository implements MyRepository<Theme> {
@@ -26,7 +28,7 @@ public class ThemeRepository implements MyRepository<Theme> {
 
     @Override
     public List<Theme> findAll() {
-        List<ThemeDTO> themeDTOS = jdbc.query(ThemeSQLKt.FIND_ALL_THEME, Collections.emptyMap(), rowMapper);
+        List<ThemeDTO> themeDTOS = jdbc.query(FIND_ALL_THEME, Collections.emptyMap(), rowMapper);
         return themeDTOS.stream().map(Theme::update).collect(Collectors.toList());
     }
 
@@ -36,7 +38,7 @@ public class ThemeRepository implements MyRepository<Theme> {
     }
 
     @Override
-    public Optional<Theme> findById(Long id) {
+    public Optional<Theme> findRoomById(Long id) {
         return Optional.empty();
     }
 

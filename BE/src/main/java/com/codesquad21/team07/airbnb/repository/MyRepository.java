@@ -9,7 +9,7 @@ public interface MyRepository<T> {
 
     void save();
 
-    Optional<T> findById(Long id);
+    Optional<T> findRoomById(Long id);
 
     void update(T t, Long id);
 

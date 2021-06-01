@@ -111,3 +111,12 @@ LOAD DATA LOCAL INFILE 'C:/Users/psh/Documents/Web/codesquad/airbnb/BE/src/main/
     LINES TERMINATED BY '\n'
     IGNORE 1 LINES
     (id, room_id, name);
+
+LOAD DATA LOCAL INFILE 'C:/Users/psh/Documents/Web/codesquad/airbnb/BE/src/main/resources/csv/숙소이미지.csv'
+    REPLACE
+    INTO TABLE Image
+    FIELDS TERMINATED BY ','
+    OPTIONALLY ENCLOSED BY ''
+    LINES TERMINATED BY '\n'
+    IGNORE 1 LINES
+    (id, room_id, type, url);

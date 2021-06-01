@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.codesquad21.team07.airbnb.utils.sql.CitySQLKt.*;
+import static com.codesquad21.team07.airbnb.repository.sql.CityQueriesKt.FIND_ALL_CITY;
+
 
 @Repository
 public class CityRepository implements MyRepository<City> {
@@ -32,7 +33,7 @@ public class CityRepository implements MyRepository<City> {
     }
 
     @Override
-    public Optional<City> findById(Long id) {
+    public Optional<City> findRoomById(Long id) {
         return Optional.empty();
     }
 

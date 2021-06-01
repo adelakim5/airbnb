@@ -2,9 +2,9 @@ package com.codesquad21.team07.airbnb.dto.response;
 
 import com.codesquad21.team07.airbnb.domain.Amenity;
 import com.codesquad21.team07.airbnb.domain.Image;
+import com.codesquad21.team07.airbnb.domain.Room;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class RoomDTO {
 
@@ -42,191 +42,61 @@ public class RoomDTO {
 
     private final int bathrooms;
 
-    private final ImageFe imagesFe;
+    private final Map<String, String> imagesFe;
 
     private final List<String> images;
 
     private final List<String> amenities;
 
-    public static class Builder {
 
-        private Long id;
+    public RoomDTO(Room room, List<String> imageList, Map<String, String> imagesFe, List<String> amenities) {
+        this.id = room.getId();
+        this.latitude = room.getLatitude();
+        this.longitude = room.getLongitude();
+        this.locationId = room.getLocationId();
+        this.themeId = room.getThemeId();
+        this.hostId = room.getHostId();
+        this.name = room.getName();
+        this.rentalFeePerNight = room.getRentalFeePerNight();
+        this.weeklyPriceFactor = room.getWeeklyPriceFactor();
+        this.monthlyPriceFactor = room.getMonthlyPriceFactor();
+        this.description = room.getDescription();
+        this.personCapacity = room.getPersonCapacity();
+        this.bedrooms = room.getBedrooms();
+        this.beds = room.getBeds();
+        this.bathrooms = room.getBathrooms();
+        this.avgRating = room.getAvgRating();
+        this.roomAndPropertyType = room.getRoomAndPropertyType();
 
-        private Double latitude;
-
-        private Double logitude;
-
-        private Long locationId;
-
-        private Long hostId;
-
-        private Long themeId;
-
-        private String name;
-
-        private int rentalFeePerNight;
-
-        private Double weeklyPriceFactor;
-
-        private Double monthlyPriceFactor;
-
-        private String description;
-
-        private int personCapacity;
-
-        private int bedrooms;
-
-        private int beds;
-
-        private int bathrooms;
-
-        private Double avgRating;
-
-        private String roomAndPropertyType;
-
-        private List<String> images = new ArrayList<>();
-
-        private ImageFe imagesFe = new ImageFe();
-
-        private List<String> amenities = new ArrayList<>();
-
-
-        public Builder id(Long id){
-            this.id = id;
-            return this;
-        }
-
-        public Builder latitude(Double latitude){
-            this.latitude = latitude;
-            return this;
-        }
-
-        public Builder logitude(Double logitude){
-            this.logitude = logitude;
-            return this;
-        }
-
-        public Builder locationId(Long locationId){
-            this.locationId = locationId;
-            return this;
-        }
-
-        public Builder themeId(Long themeId){
-            this.themeId = themeId;
-            return this;
-        }
-
-        public Builder hostId(Long hostId){
-            this.hostId = hostId;
-            return this;
-        }
-
-        public Builder name(String name){
-            this.name = name;
-            return this;
-        }
-
-        public Builder rentalFeePerNight(int rentalFeePerNight){
-            this.rentalFeePerNight = rentalFeePerNight;
-            return this;
-        }
-
-        public Builder weeklyPriceFactor(Double weeklyPriceFactor){
-            this.weeklyPriceFactor = weeklyPriceFactor;
-            return this;
-        }
-
-        public Builder monthlyPriceFactor(Double monthlyPriceFactor){
-            this.monthlyPriceFactor = monthlyPriceFactor;
-            return this;
-        }
-
-        public Builder description(String description){
-            this.description = description;
-            return this;
-        }
-
-        public Builder personCapacity(int personCapacity){
-            this.personCapacity = personCapacity;
-            return this;
-        }
-
-        public Builder bedrooms(int bedrooms){
-            this.bedrooms = bedrooms;
-            return this;
-        }
-
-        public Builder beds(int beds){
-            this.beds = beds;
-            return this;
-        }
-
-        public Builder bathrooms(int bathrooms){
-            this.bathrooms = bathrooms;
-            return this;
-        }
-
-        public Builder avgRating(Double avgRating){
-            this.avgRating = avgRating;
-            return this;
-        }
-
-        public Builder roomAndPropertyType(String roomAndPropertyType){
-            this.roomAndPropertyType = roomAndPropertyType;
-            return this;
-        }
-
-        public Builder images(List<Image> images){
-
-            for(Image image : images){
-                this.images.add(image.getType()+": "+image.getUrl());
-            }
-
-            return this;
-        }
-
-        public Builder imagesFe(List<Image> images){
-            for (Image image : images) {
-                this.imagesFe.add(image.getUrl());
-            }
-            return this;
-        }
-
-        public Builder amenities(List<Amenity> amenities){
-            for(Amenity amenity : amenities){
-                this.amenities.add(amenity.getName()+" ");
-            }
-            return this;
-        }
-
-        public RoomDTO build(){
-            return new RoomDTO(this);
-        }
-
+        //TODO. N+1 문제 해결
+        this.images = imageList;
+        this.imagesFe = imagesFe;
+        this.amenities = amenities;
     }
 
-    public RoomDTO(Builder builder) {
-        this.id = builder.id;
-        this.latitude = builder.latitude;
-        this.longitude = builder.logitude;
-        this.locationId = builder.locationId;
-        this.themeId = builder.themeId;
-        this.hostId = builder.hostId;
-        this.name = builder.name;
-        this.rentalFeePerNight = builder.rentalFeePerNight;
-        this.weeklyPriceFactor = builder.weeklyPriceFactor;
-        this.monthlyPriceFactor = builder.monthlyPriceFactor;
-        this.description = builder.description;
-        this.personCapacity = builder.personCapacity;
-        this.bedrooms = builder.bedrooms;
-        this.beds = builder.beds;
-        this.bathrooms = builder.bathrooms;
-        this.avgRating = builder.avgRating;
-        this.roomAndPropertyType = builder.roomAndPropertyType;
-        this.images = builder.images;
-        this.imagesFe = builder.imagesFe;
-        this.amenities = builder.amenities;
+    public static RoomDTO of(Room room, List<Image> images, List<Amenity> amenities){
+        List<String> imageList = new LinkedList<>();
+        List<String> amenityList = new LinkedList<>();
+        Map<String, String> imagesFe = new LinkedHashMap<>();
+
+        int count = 0;
+        for(Image image : images){
+            imageList.add(image.getType()+": "+image.getUrl().trim());
+
+            if(!imagesFe.containsKey("thumbnail")){
+                imagesFe.put("thumbnail",image.getUrl().trim());
+            }else {
+                imagesFe.put(("detail_"+count),image.getUrl().trim());
+            }
+            count++;
+        }
+        for(Amenity amenity : amenities){
+            amenityList.add(amenity.getName().trim());
+        }
+
+        return new RoomDTO(room, imageList, imagesFe, amenityList);
     }
+
 
     public Double getLatitude() {
         return latitude;
@@ -296,7 +166,7 @@ public class RoomDTO {
         return amenities;
     }
 
-    public ImageFe getImagesFe() {
+    public Map<String, String> getImagesFe() {
         return imagesFe;
     }
 
@@ -307,4 +177,5 @@ public class RoomDTO {
     public Long getHostId() {
         return hostId;
     }
+
 }

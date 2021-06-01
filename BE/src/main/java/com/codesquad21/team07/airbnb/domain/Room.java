@@ -4,43 +4,46 @@ import java.util.List;
 
 public class Room {
 
-    private final Long id;
+    private  Long id;
 
-    private final Long locationId;
+    private  Long locationId;
 
-    private final Long hostId;
+    private  Long hostId;
 
-    private final Long themeId;
+    private  Long themeId;
 
-    private final Double latitude;
+    private  Double latitude;
 
-    private final Double longitude;
+    private  Double longitude;
 
-    private final String name;
+    private  String name;
 
-    private final String roomAndPropertyType;
+    private  String roomAndPropertyType;
 
-    private final Double avgRating;
+    private  Double avgRating;
 
-    private final int rentalFeePerNight;
+    private  int rentalFeePerNight;
 
-    private final Double weeklyPriceFactor;
+    private  Double weeklyPriceFactor;
 
-    private final Double monthlyPriceFactor;
+    private  Double monthlyPriceFactor;
 
-    private final String description;
+    private  String description;
 
-    private final int personCapacity;
+    private  int personCapacity;
 
-    private final int bedrooms;
+    private  int bedrooms;
 
-    private final int beds;
+    private  int beds;
 
-    private final int bathrooms;
+    private  int bathrooms;
 
-    private final List<Image> images;
+    private  List<Image> images;
 
-    private final List<Amenity> amenities;
+    private  List<Amenity> amenities;
+
+    public Room() {
+    }
 
     public static class Builder {
 
@@ -48,7 +51,7 @@ public class Room {
 
         private Double latitude;
 
-        private Double logitude;
+        private Double longitude;
 
         private Long locationId;
 
@@ -98,8 +101,8 @@ public class Room {
             return this;
         }
 
-        public Builder logitude(Double logitude){
-            this.logitude = logitude;
+        public Builder longitude(Double longitude){
+            this.longitude = longitude;
             return this;
         }
 
@@ -189,7 +192,7 @@ public class Room {
         this.id = builder.id;
         this.hostId = builder.hostId;
         this.latitude = builder.latitude;
-        this.longitude = builder.logitude;
+        this.longitude = builder.longitude;
         this.locationId = builder.locationId;
         this.themeId = builder.themeId;
         this.name = builder.name;
@@ -282,4 +285,5 @@ public class Room {
     public Long getHostId() {
         return hostId;
     }
+
 }

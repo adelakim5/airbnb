@@ -1,4 +1,4 @@
-package com.codesquad21.team07.airbnb.utils.sql;
+package com.codesquad21.team07.airbnb.repository.sql
 
 
 const val FIND_ALL_THEME : String = """

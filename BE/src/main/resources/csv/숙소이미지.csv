@@ -1,0 +1,7 @@
+id, room_id, type, url
+1,1,thumbnail,http://thumbnail.img/
+2,1,detail_1,http://detail.img/
+3,1,detail_2,http://detail.img/
+4,1,detail_3,http://detail.img/
+5,1,detail_4,http://detail.img/
+6,1,detail_5,http://detail.img/
