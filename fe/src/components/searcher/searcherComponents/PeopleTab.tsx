@@ -114,9 +114,6 @@ const PeopleTab = (): React.ReactElement => {
                     </PeopleText>
                     <Link to="/accomodation">
                         <SearchButton searchHandler={handleSearchWithAllReservationInfo} />
-                        {/* <SearchButton onClick={handleSearchWithAllReservationInfo}>
-                            <SearchIcon />
-                        </SearchButton> */}
                     </Link>
                 </PeopleTabBox>
             </Tab>
@@ -154,7 +151,9 @@ const PeopleTabBox = styled.div`
     width: 200px;
 `;
 
-const PeopleText = styled.div``;
+const PeopleText = styled.div`
+    height: 100%;
+`;
 
 const PeopleCountContent = styled.ul`
     margin: 32px 64px;

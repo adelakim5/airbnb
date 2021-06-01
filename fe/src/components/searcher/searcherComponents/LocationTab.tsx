@@ -35,7 +35,15 @@ const LocationTab = (): React.ReactElement => {
                 searcherDispatch({ type: 'SHOW_LOCATION_LIST', list: [] });
                 return;
             }
-            const currLocationList: LocationList = mockupLocationData.city_info_list.filter((el) =>
+
+            // fetch(`http://airbnb.clone.r-e.kr/api/search/${event.target.value}`)
+            //     .then((res) => res.json())
+            //     .then((res) => {
+            //         console.log(res);
+            //         const currLocationList = res.location_list;
+            //         searcherDispatch({ type: 'SHOW_LOCATION_LIST', list: currLocationList });
+            //     });
+            const currLocationList: LocationList = mockupLocationData.location_list.filter((el) =>
                 el.address.includes(event.target.value),
             );
             searcherDispatch({ type: 'SHOW_LOCATION_LIST', list: currLocationList });
@@ -43,8 +51,8 @@ const LocationTab = (): React.ReactElement => {
     };
 
     const setUpLocation = (place: Location) => {
-        const { province_id, town_id, address_id, address } = place;
-        reservationDispatch({ type: 'LOCATION', province_id, town_id, address_id, address });
+        const { id, logitude, latitude, address } = place;
+        reservationDispatch({ type: 'LOCATION', id, logitude, latitude, address });
         searcherDispatch({ type: 'SHOW_INPUTOFLOCATION', value: place.address });
         if (inputRef?.current) {
             inputRef.current.value = place.address;
@@ -77,7 +85,7 @@ const LocationTab = (): React.ReactElement => {
                 >
                     <LocationResultListAll>
                         {locationList?.map((place: Location) => (
-                            <ResultList key={place.address_id} onClick={() => setUpLocation(place)}>
+                            <ResultList key={place.id} onClick={() => setUpLocation(place)}>
                                 {place.address}
                             </ResultList>
                         ))}

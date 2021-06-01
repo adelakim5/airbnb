@@ -1,6 +1,7 @@
-import React, { lazy, useCallback, useEffect, useState } from 'react';
+import React, { lazy, useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { GoogleMap, useJsApiLoader, InfoBox, Marker, OverlayView } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, OverlayView } from '@react-google-maps/api';
+import { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { apiKey } from '../private.js';
 
 interface LatLng {
@@ -8,15 +9,23 @@ interface LatLng {
     lng: number;
 }
 
-const initialCenter: LatLng = {
-    lat: 37.516528999662576,
-    lng: 126.9934844774833,
-};
-
 const mapContainerStyle = {
-    // width: `100%`,
+    width: `100vw`,
     height: `100vh`,
 };
+
+const createSampleData = () => {
+    const result = [];
+    for (let i = 0; i < 20; i++) {
+        const lat = Math.random() + 37;
+        const lng = Math.random() + 127;
+        const price = Math.floor((Math.random() + 1) * 100);
+        result.push({ lat, lng, price });
+    }
+    return result;
+};
+
+const center: LatLng = { lat: 37.566536, lng: 126.977966 };
 
 const Map = (): React.ReactElement => {
     const { isLoaded } = useJsApiLoader({
@@ -24,52 +33,54 @@ const Map = (): React.ReactElement => {
         googleMapsApiKey: apiKey,
     });
 
-    const [map, setMap] = useState<any>(null);
+    const [map, setMap] = useState<unknown | null>(null);
+    const sampleData = createSampleData();
 
-    const onLoad = useCallback((map) => {
-        const bounds = new window.google.maps.LatLngBounds();
-        map.fitBounds(bounds);
-        console.log(map.getCenter());
-        setMap(map);
+    const mapRef = useRef<any>(null);
+
+    const onMapLoad = useCallback((map) => {
+        mapRef.current = map;
+    }, []);
+
+    const panTo = useCallback(({ lat, lng }) => {
+        mapRef.current.panTo({ lat, lng });
+        mapRef.current.setZoom(14);
     }, []);
 
     const onUnMount = useCallback((map) => setMap(null), []);
 
-    const handleCenter = useCallback((map: any) => {
-        const newCenter = { lat: map.getCenter().lat(), lng: map.getCenter().lng() };
-        console.log(newCenter);
-    }, []);
-
-    return (
-        <MapContainer>
-            {isLoaded && (
-                <GoogleMap
-                    mapContainerStyle={mapContainerStyle}
-                    center={initialCenter}
-                    zoom={10}
-                    onLoad={onLoad}
-                    onUnmount={onUnMount}
-                    onDrag={() => handleCenter(map)}
-                >
-                    <PriceMarkerButton onClick={() => alert('hello')}>
-                        <OverlayView position={initialCenter} mapPaneName={OverlayView.FLOAT_PANE}>
-                            <PriceLabel>
-                                <PriceText>₩110,000</PriceText>
-                            </PriceLabel>
-                        </OverlayView>
-                    </PriceMarkerButton>
-                </GoogleMap>
-            )}
-        </MapContainer>
+    return isLoaded ? (
+        <GoogleMap
+            mapContainerStyle={mapContainerStyle}
+            zoom={9}
+            center={center}
+            onUnmount={onUnMount}
+            onLoad={onMapLoad}
+            onDragEnd={() => {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    panTo({
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    });
+                });
+            }}
+        >
+            {sampleData.map(({ lat, lng, price }) => (
+                <PriceMarkerButton onClick={() => alert(`${price},000원 숙소`)}>
+                    <OverlayView position={{ lat, lng }} mapPaneName={OverlayView.FLOAT_PANE}>
+                        <PriceLabel>
+                            <PriceText>₩{price},000</PriceText>
+                        </PriceLabel>
+                    </OverlayView>
+                </PriceMarkerButton>
+            ))}
+        </GoogleMap>
+    ) : (
+        <div>Loading...</div>
     );
 };
 
 export default Map;
-
-const MapContainer = styled.div`
-    width: 100%;
-    height: 100%;
-`;
 
 const PriceMarkerButton = styled.button``;
 

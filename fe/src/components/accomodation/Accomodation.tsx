@@ -13,10 +13,10 @@ import Map from './accomodationComponents/Map';
 
 const initialState = {
     location: {
-        province_id: 0,
-        town_id: 0,
-        address_id: 0,
+        id: 0,
         address: '',
+        latitude: null,
+        logitude: null,
     },
     checkIn: {
         year: 0,

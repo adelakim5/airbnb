@@ -37,7 +37,6 @@ export const LayerContentContainer = styled.div`
 
 export const CarouselBox = styled.div`
     width: 750px;
-    // background: green;
     position: relative;
     overflow: hidden;
 `;

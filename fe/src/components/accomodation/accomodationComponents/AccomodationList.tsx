@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useReservationState } from '../../../hooks/ReservationHook';
 
 interface RoomType {
     latitude: number;
@@ -30,23 +31,42 @@ interface AccomodationDataType {
 }
 
 const AccomodationList = (props: AccomodationDataType): React.ReactElement => {
+    const reservationState = useReservationState();
+    const { checkIn, checkOut, fee, people } = reservationState;
     const { rooms } = props;
     return (
         <Accomodations>
-            <h2>숙소 결과</h2>
+            <SearchInfo>
+                <p>{rooms.length}개 이상의 숙소</p>
+                <Divider></Divider>
+                <p>
+                    {checkIn.month}월 {checkIn.day}일 - {checkOut.month}월 {checkOut.day}일
+                </p>
+                <Divider></Divider>
+                <p>
+                    ₩{fee[0]}-₩{fee[1]}
+                </p>
+                <Divider></Divider>
+                <p>
+                    게스트 {people.adult + people.children}명 {people.kids > 0 && `유아 ${people.kids}명`}
+                </p>
+            </SearchInfo>
+            <AccomodationListTitle>지도에서 선택한 지역의 숙소</AccomodationListTitle>
             {rooms.map((roomInfo: RoomType) => (
                 <CardList>
                     <CardItem>
                         <img src={roomInfo.images_fe.small} />
-                        <CardContent>제목: {roomInfo.name}</CardContent>
-                        <CardContent>가격: {roomInfo.rental_fee_per_night}</CardContent>
-                        <CardContent>상세설명: {roomInfo.description}</CardContent>
-                        <CardContent>수용 가능 인원: {roomInfo.person_capacity}</CardContent>
-                        <CardContent>침실 개수: {roomInfo.bedrooms}</CardContent>
-                        <CardContent>침대 개수: {roomInfo.beds}</CardContent>
-                        <CardContent>욕실 개수: {roomInfo.bedrooms}</CardContent>
-                        <CardContent>평점: {roomInfo.avg_rating}</CardContent>
-                        <CardContent>숙소 타입: {roomInfo.room_and_property_type}</CardContent>
+                        <CardContent>
+                            <Detail>제목: {roomInfo.name}</Detail>
+                            <Detail>가격: {roomInfo.rental_fee_per_night}</Detail>
+                            <Detail>상세설명: {roomInfo.description}</Detail>
+                            <Detail>수용 가능 인원: {roomInfo.person_capacity}</Detail>
+                            <Detail>침실 개수: {roomInfo.bedrooms}</Detail>
+                            <Detail>침대 개수: {roomInfo.beds}</Detail>
+                            <Detail>욕실 개수: {roomInfo.bedrooms}</Detail>
+                            <Detail>평점: {roomInfo.avg_rating}</Detail>
+                            <Detail>숙소 타입: {roomInfo.room_and_property_type}</Detail>
+                        </CardContent>
                     </CardItem>
                 </CardList>
             ))}
@@ -59,11 +79,38 @@ export default AccomodationList;
 const Accomodations = styled.div`
     width: 100%;
     height: 100vh;
+    margin: 24px 0 24px 24px;
     overflow: scroll;
+`;
+
+const AccomodationListTitle = styled.h2`
+    margin-bottom: 32px;
+`;
+
+const Divider = styled.span`
+    width: 3px;
+    height: 3px;
+    background: #000;
+    margin: 0 10px;
+    border-radius: 50%;
+`;
+
+const SearchInfo = styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
 `;
 
 const CardList = styled.div``;
 
-const CardItem = styled.ul``;
+const CardItem = styled.ul`
+    border: 1px solid teal;
+    display: flex;
+    height: 248px;
+    margin-right: 24px;
+    padding-bottom: 24px;
+`;
 
 const CardContent = styled.li``;
+
+const Detail = styled.div``;

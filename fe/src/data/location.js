@@ -1,28 +1,34 @@
 const mockupLocationData = {
-    city_info_list: [
+    location_list: [
         {
-            province_id: 1,
-            town_id: 1,
-            address_id: 1,
-            address: '서울특별시 강남구 ',
+            id: 176,
+            address: '서울특별시,종로구,청운동',
+            latitude: null,
+            logitude: null,
         },
         {
-            province_id: 1,
-            town_id: 2,
-            address_id: 1,
-            address: '서울특별시 종로구 ',
+            id: 177,
+            address: '서울특별시,종로구,부암동',
+            latitude: null,
+            logitude: null,
         },
         {
-            province_id: 1,
-            town_id: 3,
-            address_id: 1,
-            address: '서울특별시 마포구 ',
+            id: 178,
+            address: '서울특별시,종로구,신교동',
+            latitude: null,
+            logitude: null,
         },
         {
-            province_id: 1,
-            town_id: 4,
-            address_id: 1,
-            address: '서울특별시 서초구 양재동',
+            id: 179,
+            address: '서울특별시,종로구,옥인동',
+            latitude: null,
+            logitude: null,
+        },
+        {
+            id: 180,
+            address: '서울특별시,종로구,궁정동',
+            latitude: null,
+            logitude: null,
         },
     ],
 };

@@ -5,9 +5,9 @@ export interface UsefulObject {
 }
 
 export interface Location {
-    province_id: number;
-    town_id: number;
-    address_id: number;
+    id: number;
+    latitude: number | null;
+    logitude: number | null;
     address: string;
 }
 
@@ -37,7 +37,7 @@ export interface ReservationContext {
 }
 
 export type ReservationAction =
-    | { type: 'LOCATION'; province_id: number; town_id: number; address_id: number; address: string }
+    | { type: 'LOCATION'; id: number; latitude: number | null; logitude: number | null; address: string }
     | { type: 'CHECKIN'; year: number; month: number; day: number }
     | { type: 'CHECKOUT'; year: number; month: number; day: number }
     | { type: 'PEOPLE'; adult: number; children: number; kids: number }

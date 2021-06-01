@@ -4,7 +4,7 @@ import { useReservationDispatch, useReservationState } from '../../../hooks/Rese
 import { useSearcherDispatch, useSearcherState } from '../../../hooks/SearcherHook';
 import Calendar from './calendar/Calendar';
 import { isNotCheckedDate } from './calendar/calendarChecker';
-import { Container, NavigatingText, ResultText, Tab } from './common/shared.style';
+import { CloseButton, Container, DateText, NavigatingText, ResultText, Tab } from './common/shared.style';
 import CloseIcon from '@material-ui/icons/Close';
 
 const CheckOutTab = (): React.ReactElement => {
@@ -27,10 +27,14 @@ const CheckOutTab = (): React.ReactElement => {
         <Container>
             <Tab onClick={handleCalendarLayer}>
                 <NavigatingText>체크아웃</NavigatingText>
-                <CheckOutDateText>
+                <DateText>
                     <ResultText>{!isNotCheckedDate(checkOut) ? `${year} - ${month} - ${day}` : '날짜입력'}</ResultText>
-                    {!isNotCheckedDate(checkOut) && <CloseIcon onClick={handleCancel}></CloseIcon>}
-                </CheckOutDateText>
+                    {!isNotCheckedDate(checkOut) && (
+                        <CloseButton>
+                            <CloseIcon fontSize="small" onClick={handleCancel} />
+                        </CloseButton>
+                    )}
+                </DateText>
                 {checkOutCalendarLayer && <Calendar isCheckIn={false} />}
             </Tab>
         </Container>
@@ -38,8 +42,3 @@ const CheckOutTab = (): React.ReactElement => {
 };
 
 export default CheckOutTab;
-
-const CheckOutDateText = styled.div`
-    line-height: 23px;
-    display: flex;
-`;
