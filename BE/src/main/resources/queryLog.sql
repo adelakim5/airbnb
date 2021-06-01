@@ -128,11 +128,42 @@ WHERE location_id = :locationId
                  )) = 0;
 
 
-
 # 방법이 없다...조인할..ㅜㅠㅠ
-SELECT DISTINCT * FROM Room
-INNER JOIN Reservation R on Room.id = R.room_id
-INNER JOIN Image I on Room.id = I.room_id
-INNER JOIN Amenity A on Room.id = A.room_id
-INNER JOIN User U on R.user_id = U.id
-INNER JOIN Review R2 on Room.id = R2.room_id;
+SELECT DISTINCT *
+FROM Room
+         INNER JOIN Reservation R on Room.id = R.room_id
+         INNER JOIN Image I on Room.id = I.room_id
+         INNER JOIN Amenity A on Room.id = A.room_id
+         INNER JOIN User U on R.user_id = U.id
+         INNER JOIN Review R2 on Room.id = R2.room_id;
+
+
+# FIND_ALL_BY_STAY_PERIOD
+# 날짜로만 숙소검색
+
+SELECT id,
+       location_id,
+       host_id,
+       theme_id,
+       latitude,
+       longitude,
+       name,
+       room_and_property_type,
+       avg_rating,
+       rental_fee_per_night,
+       weekly_price_factor,
+       monthly_price_factor,
+       description,
+       person_capacity,
+       bedrooms,
+       beds,
+       bathrooms
+FROM Room
+WHERE (SELECT COUNT(*)
+       FROM Reservation AS R
+       WHERE R.room_id
+                 IN (
+                     (:checkIn BETWEEN R.check_in AND R.check_out)
+                     OR (:checkOut BETWEEN R.check_in AND R.check_out)
+                     OR ((:checkIn <= R.check_out) AND (:checkOut >= R.check_in))
+                 )) = 0;

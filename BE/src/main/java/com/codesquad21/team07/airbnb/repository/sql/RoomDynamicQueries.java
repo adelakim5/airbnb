@@ -22,7 +22,7 @@ public class RoomDynamicQueries {
         }
 
         if (searchRoom.getCheckIn() != null || searchRoom.getCheckOut() != null) {
-            query += "AND (SELECT COUNT(*) AS 'reservation_double_check'\n" +
+            query += "AND (SELECT COUNT(*) AS 'reservation_check'\n" +
                     "FROM Reservation AS R\n" +
                     "WHERE R.room_id\n" +
                     "IN (";

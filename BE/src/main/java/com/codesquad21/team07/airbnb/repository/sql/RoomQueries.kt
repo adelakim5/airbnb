@@ -23,3 +23,18 @@ FROM Room
 """
 
 const val FIND_ROOM_BY_ID: String = FIND_ALL_ROOM + "WHERE id = :id"
+
+
+const val RESERVATION_CHECK: String = """
+    
+WHERE (SELECT COUNT(*)
+       FROM Reservation AS R
+       WHERE R.room_id
+                 IN (
+                     (:checkIn BETWEEN R.check_in AND R.check_out)
+                     OR (:checkOut BETWEEN R.check_in AND R.check_out)
+                     OR ((:checkIn <= R.check_out) AND (:checkOut >= R.check_in))
+                 )) = 0;
+"""
+
+const val FIND_ALL_BY_STAY_PERIOD = FIND_ALL_ROOM + RESERVATION_CHECK;

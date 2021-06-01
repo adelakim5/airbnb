@@ -1,5 +1,6 @@
 package com.codesquad21.team07.airbnb.controller;
 
+import com.codesquad21.team07.airbnb.dto.request.SearchDate;
 import com.codesquad21.team07.airbnb.dto.request.SearchRoom;
 import com.codesquad21.team07.airbnb.dto.response.RoomDTO;
 import com.codesquad21.team07.airbnb.dto.response.RoomList;
@@ -21,14 +22,19 @@ public class RoomApi {
         this.roomService = roomService;
     }
 
-    @GetMapping("/rooms/{id}")
+    @GetMapping("rooms/{id}")
     public RoomDTO test(@PathVariable Long id) {
         return roomService.findRoomByRoomId(id);
     }
 
-    @GetMapping("/rooms")
+    @GetMapping("rooms")
     public RoomList viewAccommodationsByConditions(@Valid SearchRoom searchRoom) {
         return roomService.findByConditions(searchRoom);
+    }
+
+    @GetMapping("period")
+    public RoomList viewAccommodationsByPeriod(@Valid SearchDate searchDate) {
+        return roomService.findRoomListByPeriod(searchDate.getCheckIn(), searchDate.getCheckOut());
     }
 
 }

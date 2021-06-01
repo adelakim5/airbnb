@@ -1,7 +1,19 @@
 id, room_id, type, url
-1,1,thumbnail,http://thumbnail.img/
-2,1,detail_1,http://detail.img/
-3,1,detail_2,http://detail.img/
-4,1,detail_3,http://detail.img/
-5,1,detail_4,http://detail.img/
-6,1,detail_5,http://detail.img/
+1,1,thumb,https://a0.muscache.com/im/pictures/miso/Hosting-44159716/original/04dc2ade-cd11-4599-a7fb-a6f4b6176f4e.jpeg?im_w=720
+2,1,detail_1,https://a0.muscache.com/im/pictures/miso/Hosting-44159716/original/c6c1a442-b449-495a-8ee9-f1779f36b5b4.jpeg?im_w=720
+3,1,detail_2,https://a0.muscache.com/im/pictures/miso/Hosting-44159716/original/66bd535a-ba05-43e7-adbe-6953bbc13da5.jpeg?im_w=720
+4,1,detail_3,https://a0.muscache.com/im/pictures/miso/Hosting-44159716/original/d1857908-90c8-48fd-9e68-a743187664ed.jpeg?im_w=720
+5,1,detail_4,https://a0.muscache.com/im/pictures/miso/Hosting-44159716/original/d1857908-90c8-48fd-9e68-a743187664ed.jpeg?im_w=720
+6,1,detail_5,https://a0.muscache.com/im/pictures/39b76268-042e-4a89-aa3b-89abe9865c58.jpg?im_w=720
+7,2,thumb,https://a0.muscache.com/im/pictures/miso/Hosting-44159716/original/04dc2ade-cd11-4599-a7fb-a6f4b6176f4e.jpeg?im_w=720
+8,2,detail_1,https://a0.muscache.com/im/pictures/miso/Hosting-44159716/original/c6c1a442-b449-495a-8ee9-f1779f36b5b4.jpeg?im_w=720
+9,2,detail_2,https://a0.muscache.com/im/pictures/miso/Hosting-44159716/original/66bd535a-ba05-43e7-adbe-6953bbc13da5.jpeg?im_w=720
+10,2,detail_3,https://a0.muscache.com/im/pictures/miso/Hosting-44159716/original/d1857908-90c8-48fd-9e68-a743187664ed.jpeg?im_w=720
+11,2,detail_4,https://a0.muscache.com/im/pictures/miso/Hosting-44159716/original/d1857908-90c8-48fd-9e68-a743187664ed.jpeg?im_w=720
+12,2,detail_5,https://a0.muscache.com/im/pictures/39b76268-042e-4a89-aa3b-89abe9865c58.jpg?im_w=720
+13,3,thumb,https://a0.muscache.com/im/pictures/miso/Hosting-44159716/original/04dc2ade-cd11-4599-a7fb-a6f4b6176f4e.jpeg?im_w=720
+14,3,detail_1,https://a0.muscache.com/im/pictures/miso/Hosting-44159716/original/c6c1a442-b449-495a-8ee9-f1779f36b5b4.jpeg?im_w=720
+15,3,detail_2,https://a0.muscache.com/im/pictures/miso/Hosting-44159716/original/66bd535a-ba05-43e7-adbe-6953bbc13da5.jpeg?im_w=720
+16,3,detail_3,https://a0.muscache.com/im/pictures/miso/Hosting-44159716/original/d1857908-90c8-48fd-9e68-a743187664ed.jpeg?im_w=720
+17,3,detail_4,https://a0.muscache.com/im/pictures/miso/Hosting-44159716/original/d1857908-90c8-48fd-9e68-a743187664ed.jpeg?im_w=720
+18,3,detail_5,https://a0.muscache.com/im/pictures/39b76268-042e-4a89-aa3b-89abe9865c58.jpg?im_w=720
