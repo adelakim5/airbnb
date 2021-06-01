@@ -75,6 +75,6 @@ const AccomodationSection = styled.section`
     display: flex;
     & div {
         width: 100%;
-        border: 1px solid blue;
+        // border: 1px solid blue;
     }
 `;

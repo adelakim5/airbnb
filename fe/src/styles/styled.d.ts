@@ -21,6 +21,7 @@ export interface DefaultTheme {
         smHeight: number;
         smWidth: number;
         lgHeight: number;
+        xlgHeight: number;
         lgWidth: number;
         mdHeight: number;
         mdWidth: number;

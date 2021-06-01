@@ -3,15 +3,27 @@ import styled from 'styled-components';
 const Container = styled.div`
     display: flex;
     flex: 1;
-    border: 1px solid green;
+    width: 100%;
+    // border: 1px solid green;
 `;
 
 const Tab = styled.div`
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 4px;
 `;
 
 const NavigatingText = styled.p`
-    margin: 0;
+    font-size: 12px;
+    line-height: 17px;
+    margin-top: 16px;
+    margin-left: 24px;
+    font-weight: bold;
 `;
 
-export { Container, Tab, NavigatingText };
+const ResultText = styled.p`
+    margin-left: 24px;
+`;
+
+export { Container, Tab, NavigatingText, ResultText };

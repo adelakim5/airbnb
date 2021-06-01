@@ -1,16 +1,29 @@
 import styled from 'styled-components';
 import { DateType, UsefulObject } from '../../../../shared/interface';
 
-const dateTypeColor: UsefulObject = {
-    checkIn: 'tomato',
-    checkOut: 'tomato',
-    between: '#d5c5b4',
+const dateTypeBackgroundColor: UsefulObject = {
+    checkIn: '#000',
+    checkOut: '#000',
+    between: '#f7f7f7',
     default: '#fff',
+};
+
+const dateTypeColor: UsefulObject = {
+    checkIn: '#fff',
+    checkOut: '#fff',
+    between: '#000',
+    default: '#000',
+};
+
+const dateBorderRadius: UsefulObject = {
+    checkIn: '50%',
+    checkOut: '50%',
+    between: '0',
+    default: '0',
 };
 
 export const CalendarContainer = styled.div`
     display: flex;
-    width: 100%;
     width: 100%;
     height: 100%;
     padding: 60px;
@@ -24,7 +37,7 @@ export const LayerContentContainer = styled.div`
 
 export const CarouselBox = styled.div`
     width: 750px;
-    background: green;
+    // background: green;
     position: relative;
     overflow: hidden;
 `;
@@ -47,7 +60,7 @@ export const CalendarBox = styled.li`
 `;
 
 export const CalendarTitle = styled.div`
-    background: violet;
+    // background: violet;
     margin-bottom: 24px;
     font-size: 16px;
     font-weight: 700;
@@ -73,10 +86,16 @@ export const DayName = styled.div`
 export const Day = styled.div`
     height: 48px;
     margin: 4px 0;
-    color: ${({ possible }: DateType) => (!possible ? '#ddd' : '#000')};
-    background: ${({ typeOfDate }: DateType) => dateTypeColor[typeOfDate]};
+    color: ${(props: DateType) => (!props.possible ? '#ddd' : dateTypeColor[props.typeOfDate])};
+    background: ${({ typeOfDate }: DateType) => dateTypeBackgroundColor[typeOfDate]};
+    border-radius: ${({ typeOfDate }: DateType) => dateBorderRadius[typeOfDate]};
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 12px;
+    &+.true: hover {
+        border-radius: 50%;
+        background: #000;
+        color: #fff;
+    }
 `;

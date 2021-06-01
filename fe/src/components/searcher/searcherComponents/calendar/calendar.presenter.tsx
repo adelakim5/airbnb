@@ -1,7 +1,7 @@
 import { CalendarBox, CalendarList, CalendarTitle, Dates, Day, DayName, Week } from './calendar.style';
 import { loadYYMM } from './calendarDate';
 import { Td, Date as IDate } from '../../../../shared/interface';
-import { isPossibleToCheckDate, getTypeOfDate } from './calendarChecker';
+import { isPossibleToCheckDate, getTypeOfDate, isBefore } from './calendarChecker';
 
 interface CalendarPresenterProps {
     checkIn: IDate;
@@ -21,6 +21,7 @@ interface MonthProps extends CalendarPresenterProps {
 
 export function MonthsPresenter(props: MonthProps) {
     const { checkIn, checkOut, handleCheckDate, calendarQueue, x, transitionValue } = props;
+
     return (
         <CalendarList x={x} transitionValue={transitionValue}>
             {calendarQueue.map((date) => {
@@ -53,11 +54,11 @@ function WeekPresenter(props: WeekProps) {
         <Week>
             {days.map((day) => {
                 const { classNames, countDay, dataSets } = day;
-                const className = classNames?.reduce((acc, val) => acc + ` ${val}`, ``);
                 const possibleDate = isPossibleToCheckDate(dataSets);
+                const className = classNames?.reduce((acc, val) => acc + ` ${val}`, ``);
                 return (
                     <Day
-                        className={className}
+                        className={`${className} ${countDay !== 0 && possibleDate}`}
                         possible={possibleDate}
                         typeOfDate={getTypeOfDate(dataSets, checkIn, checkOut)}
                         onClick={(e) => handleCheckDate(e, dataSets, possibleDate)}

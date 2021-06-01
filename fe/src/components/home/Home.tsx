@@ -16,6 +16,6 @@ export default Home;
 
 const HomePage = styled.div`
     & div {
-        border: 1px solid black;
+        // border: 1px solid black;
     }
 `;
