@@ -34,7 +34,9 @@ const FeeTab = (): React.ReactElement => {
         <Container>
             <Tab onClick={handleFeeLayer}>
                 <NavigatingText>요금</NavigatingText>
-                <ResultText>{typeof fee === 'number' ? `${fee}원` : `${fee[0]}만원 ${fee[1]}만원`}</ResultText>
+                <ResultText>
+                    {fee[0]}만원 {fee[1]}만원
+                </ResultText>
             </Tab>
             {feeLayer && (
                 <ModalLayer

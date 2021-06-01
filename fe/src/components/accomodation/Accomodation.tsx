@@ -7,6 +7,7 @@ import reservationReducer from '../../shared/reservationReducer';
 import Header from '../header/Header';
 import Searcher from '../searcher/Searcher';
 import AccomodationList from './accomodationComponents/AccomodationList';
+import Map from './accomodationComponents/Map';
 // import { loadMapApi } from './accomodationComponents/GoogleMapUtils';
 // import Map from './accomodationComponents/Map';
 
@@ -27,7 +28,7 @@ const initialState = {
         month: 0,
         day: 0,
     },
-    fee: 0,
+    fee: [0, 100],
     people: {
         adult: 0,
         children: 0,
@@ -36,29 +37,22 @@ const initialState = {
 } as ReservationContext;
 
 const Accomodation = (): React.ReactElement => {
-    const tmpReservationState = localStorage.getItem('reservationState');
+    const tmpReservationState = sessionStorage.getItem('reservationState');
     const initialReservationState = tmpReservationState !== null ? JSON.parse(tmpReservationState) : initialState;
 
     const [reservationState, reservationDispatch] = useReducer(reservationReducer, initialReservationState);
-    // const [scriptLoaded, setScriptLoaded] = useState(false);
-
-    // useEffect(() => {
-    //     const googleMapScript = loadMapApi();
-    //     googleMapScript.addEventListener('load', () => {
-    //         setScriptLoaded(true);
-    //     });
-    // }, []);
+    const [fullState, setFullState] = useState(false);
 
     return (
         <ReservationDispatchContext.Provider value={reservationDispatch}>
             <ReservationStateContext.Provider value={reservationState}>
                 <HeaderSection>
-                    <Header />
-                    <Searcher />
+                    <Header isFull={fullState} setFullState={setFullState} />
+                    {fullState && <Searcher />}
                 </HeaderSection>
-                <AccomodationSection>
+                <AccomodationSection onClick={() => setFullState(false)}>
                     <AccomodationList rooms={mockupAccomodationData.rooms} />
-                    {/* {scriptLoaded && <Map mapType={google.maps.MapTypeId.ROADMAP} mapTypeControl={true} />} */}
+                    <Map />
                 </AccomodationSection>
             </ReservationStateContext.Provider>
         </ReservationDispatchContext.Provider>
@@ -73,8 +67,6 @@ const HeaderSection = styled.section`
 
 const AccomodationSection = styled.section`
     display: flex;
-    & div {
-        width: 100%;
-        // border: 1px solid blue;
-    }
+    width: 100%;
+    height: 100%;
 `;

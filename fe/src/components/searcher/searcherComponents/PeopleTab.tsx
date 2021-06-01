@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import SearchIcon from '@material-ui/icons/Search';
+// import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { Container, NavigatingText, ResultText, Tab } from './common/shared.style';
@@ -10,6 +10,7 @@ import { PeopleCount } from '../../../shared/interface';
 import { useReservationDispatch, useReservationState } from '../../../hooks/ReservationHook';
 import ModalLayer from './common/ModalLayer';
 import { theme } from '../../../styles/theme';
+import SearchButton from './common/SearchButton';
 
 const peopleType = {
     adult: '성인',
@@ -25,7 +26,7 @@ const peopleDescription = {
 
 const PeopleTab = (): React.ReactElement => {
     const reservationState = useReservationState();
-    // const reservationDispatch = useReservationDispatch();
+    const reservationDispatch = useReservationDispatch();
     const { adult, children, kids } = reservationState.people;
     const { peopleLayer } = useSearcherState();
     const searcherDispatch = useSearcherDispatch();
@@ -47,9 +48,29 @@ const PeopleTab = (): React.ReactElement => {
 
         const currAdult = peopleCount.adult;
         const others = peopleCount.children + peopleCount.kids;
-        if (currAdult <= 0 && newCount > 0) setPeopleCount({ ...peopleCount, adult: 1, [key]: newCount });
-        else if (key === 'adult' && newCount <= 0 && others > 0) setPeopleCount({ ...peopleCount, adult: 1 });
-        else setPeopleCount({ ...peopleCount, [key]: newCount });
+        let newPeopleCount = { ...peopleCount };
+        if (currAdult <= 0 && newCount > 0) newPeopleCount = { ...peopleCount, adult: 1, [key]: newCount };
+        else if (key === 'adult' && newCount <= 0 && others > 0) newPeopleCount = { ...peopleCount, adult: 1 };
+        else newPeopleCount = { ...peopleCount, [key]: newCount };
+
+        setPeopleCount(newPeopleCount);
+
+        reservationDispatch({
+            type: 'PEOPLE',
+            adult: newPeopleCount.adult,
+            children: newPeopleCount.children,
+            kids: newPeopleCount.kids,
+        });
+    };
+
+    const handleSearchWithAllReservationInfo = (e: React.MouseEvent<HTMLElement>) => {
+        e.stopPropagation();
+        sessionStorage.setItem('reservationState', JSON.stringify(reservationState));
+    };
+
+    const isGuestExisted = () => {
+        const { adult, children, kids } = peopleCount;
+        return adult + children + kids > 0;
     };
 
     const renderPeopleCountList = () => {
@@ -79,17 +100,6 @@ const PeopleTab = (): React.ReactElement => {
         );
     };
 
-    const handleSearchWithAllReservationInfo = (e: React.MouseEvent<HTMLElement>) => {
-        e.stopPropagation();
-        localStorage.clear();
-        localStorage.setItem('reservationState', JSON.stringify(reservationState));
-    };
-
-    const isGuestExisted = () => {
-        const { adult, children, kids } = peopleCount;
-        return adult + children + kids > 0;
-    };
-
     return (
         <Container>
             <Tab onClick={handlePeopleLayer}>
@@ -103,9 +113,10 @@ const PeopleTab = (): React.ReactElement => {
                         </ResultText>
                     </PeopleText>
                     <Link to="/accomodation">
-                        <SearchButton onClick={handleSearchWithAllReservationInfo}>
+                        <SearchButton searchHandler={handleSearchWithAllReservationInfo} />
+                        {/* <SearchButton onClick={handleSearchWithAllReservationInfo}>
                             <SearchIcon />
-                        </SearchButton>
+                        </SearchButton> */}
                     </Link>
                 </PeopleTabBox>
             </Tab>
@@ -127,15 +138,15 @@ const PeopleTab = (): React.ReactElement => {
 
 export default PeopleTab;
 
-const SearchButton = styled.button`
-    width: 40px;
-    height: 40px;
-    background: #e84c60;
-    border-radius: 30px;
-    color: #fff;
-    margin-top: 18px;
-    margin-right: 18px;
-`;
+// const SearchButton = styled.button`
+//     width: 40px;
+//     height: 40px;
+//     background: #e84c60;
+//     border-radius: 30px;
+//     color: #fff;
+//     margin-top: 18px;
+//     margin-right: 18px;
+// `;
 
 const PeopleTabBox = styled.div`
     display: flex;

@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LanguageIcon from '@material-ui/icons/Language';
 import Account from './headerComponents/Account';
 import styled from 'styled-components';
+import AbbreviatedSearcher from '../searcher/AbbreviatedSearcher';
 
-const Header = (): React.ReactElement => {
+export interface HeaderType {
+    isFull: boolean;
+    setFullState: (param: boolean) => void;
+}
+
+const Header = ({ isFull, setFullState }: HeaderType): React.ReactElement => {
     return (
         <HeaderPage>
             <LeftHeader>
                 <Logo href="/">LOGO</Logo>
             </LeftHeader>
-            <MidHeader>
-                <span>숙소</span>
-                <span>체험</span>
-                <span>온라인체험</span>
-            </MidHeader>
+            {isFull ? (
+                <MidHeader>
+                    <span>숙소</span>
+                    <span>체험</span>
+                    <span>온라인체험</span>
+                </MidHeader>
+            ) : (
+                <MidHeader>
+                    <AbbreviatedSearcher setFullState={setFullState}></AbbreviatedSearcher>
+                </MidHeader>
+            )}
             <RightHeader>
                 {/* <ToBeHost href="/">호스트되기</ToBeHost> */}
                 {/* <Globe>
@@ -31,22 +43,21 @@ const HeaderPage = styled.section`
     display: flex;
     padding: 0 100px;
     justify-content: space-between;
-    margin-bottom: 51px;
 `;
 
 const LeftHeader = styled.div`
-    margin-top: 44px;
+    margin: 24px 0;
 `;
 
 const MidHeader = styled.div`
-    margin-top: 56px;
+    margin: 23px 0;
     & span {
         margin: 0 12px;
     }
 `;
 
 const RightHeader = styled.div`
-    margin-top: 47px;
+    margin-top: 27px;
 `;
 
 const Logo = styled.a`

@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import styled from 'styled-components';
 import { ReservationDispatchContext, ReservationStateContext } from '../../../Contexts';
 import { ReservationContext } from '../../../shared/interface';
@@ -23,7 +23,7 @@ const initialState = {
         month: 0,
         day: 0,
     },
-    fee: 0,
+    fee: [0, 100],
     people: {
         adult: 0,
         children: 0,
@@ -33,12 +33,13 @@ const initialState = {
 
 const Hero = (): React.ReactElement => {
     const [reservationState, reservationDispatch] = useReducer(reservationReducer, initialState);
+    const [fullState, setFullState] = useState(true);
 
     return (
         <ReservationDispatchContext.Provider value={reservationDispatch}>
             <ReservationStateContext.Provider value={reservationState}>
                 <HeroSection>
-                    <Header />
+                    <Header isFull={fullState} setFullState={setFullState} />
                     <Searcher />
                 </HeroSection>
             </ReservationStateContext.Provider>

@@ -32,7 +32,7 @@ export interface ReservationContext {
     location: Location;
     checkIn: Date;
     checkOut: Date;
-    fee: number[] | number;
+    fee: number[];
     people: PeopleCount;
 }
 
@@ -41,7 +41,7 @@ export type ReservationAction =
     | { type: 'CHECKIN'; year: number; month: number; day: number }
     | { type: 'CHECKOUT'; year: number; month: number; day: number }
     | { type: 'PEOPLE'; adult: number; children: number; kids: number }
-    | { type: 'FEE'; fee: number[] | number }
+    | { type: 'FEE'; fee: number[] }
     | { type: 'RESET_DATE' };
 
 export interface SearchContext {
