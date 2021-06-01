@@ -1,12 +1,14 @@
-import { Dispatch, MutableRefObject } from 'react';
+import { Dispatch } from 'react';
 
 export interface UsefulObject {
     [key: string]: string;
 }
 
 export interface Location {
-    id: number;
-    city: string;
+    province_id: number;
+    town_id: number;
+    address_id: number;
+    address: string;
 }
 
 export interface Date {
@@ -20,29 +22,39 @@ export interface People {
     kids: number;
 }
 
+export interface PeopleCount {
+    adult: number;
+    children: number;
+    kids: number;
+}
+
 export interface ReservationContext {
     location: Location;
     checkIn: Date;
     checkOut: Date;
     fee: number[] | number;
-    people: People;
+    people: PeopleCount;
 }
 
-export type ResercationAction =
-    | { type: 'LOCATION'; id: number; city: string }
+export type ReservationAction =
+    | { type: 'LOCATION'; province_id: number; town_id: number; address_id: number; address: string }
     | { type: 'CHECKIN'; year: number; month: number; day: number }
     | { type: 'CHECKOUT'; year: number; month: number; day: number }
-    | { type: 'PEOPLE'; guest: number; kids: number }
-    | { type: 'FEE'; fee: number[] | number };
+    | { type: 'PEOPLE'; adult: number; children: number; kids: number }
+    | { type: 'FEE'; fee: number[] | number }
+    | { type: 'RESET_DATE' };
 
-export interface SearcherContext {
-    locationList: Location[] | null;
-    inputOfLocation: string | null;
+export interface SearchContext {
     locationLayer: boolean;
     checkInCalendarLayer: boolean;
     checkOutCalendarLayer: boolean;
     feeLayer: boolean;
     peopleLayer: boolean;
+}
+
+export interface SearcherContext extends SearchContext {
+    locationList: Location[] | null;
+    inputOfLocation: string | null;
 }
 
 export type SearchAction =
@@ -62,9 +74,11 @@ export type SearcherLayerStateAction =
     | { type: 'SELECT_FEE_TAB' }
     | { type: 'SELECT_PEOPLE_TAB' };
 
-export type ReservationDispatch = Dispatch<ResercationAction>;
+export type ReservationDispatch = Dispatch<ReservationAction>;
 
 export type SearchDispatch = Dispatch<SearchAction>;
+
+export type SearchLayerDispatch = Dispatch<SearcherLayerStateAction>;
 
 export type LocationList = Location[];
 
@@ -81,4 +95,16 @@ export type CalendarType = {
 export type DateType = {
     possible: boolean;
     typeOfDate: string;
+};
+
+export type LayerSpecType = {
+    width: number;
+    top: number;
+    left: number;
+    height: number;
+};
+
+export type ModalLayerType = {
+    children: React.ReactNode;
+    options: LayerSpecType;
 };

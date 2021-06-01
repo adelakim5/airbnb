@@ -160,7 +160,7 @@ const CountList = styled.li`
 const PeopleCountController = styled.div`
     display: flex;
     width: 110px;
-    border: 1px solid red;
+    // border: 1px solid red;
     justify-content: space-between;
 
     button {

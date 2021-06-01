@@ -7,8 +7,8 @@ import reservationReducer from '../../shared/reservationReducer';
 import Header from '../header/Header';
 import Searcher from '../searcher/Searcher';
 import AccomodationList from './accomodationComponents/AccomodationList';
-import { loadMapApi } from './accomodationComponents/GoogleMapUtils';
-import Map from './accomodationComponents/Map';
+// import { loadMapApi } from './accomodationComponents/GoogleMapUtils';
+// import Map from './accomodationComponents/Map';
 
 const initialState = {
     location: {
@@ -40,14 +40,14 @@ const Accomodation = (): React.ReactElement => {
     const initialReservationState = tmpReservationState !== null ? JSON.parse(tmpReservationState) : initialState;
 
     const [reservationState, reservationDispatch] = useReducer(reservationReducer, initialReservationState);
-    const [scriptLoaded, setScriptLoaded] = useState(false);
+    // const [scriptLoaded, setScriptLoaded] = useState(false);
 
-    useEffect(() => {
-        const googleMapScript = loadMapApi();
-        googleMapScript.addEventListener('load', () => {
-            setScriptLoaded(true);
-        });
-    }, []);
+    // useEffect(() => {
+    //     const googleMapScript = loadMapApi();
+    //     googleMapScript.addEventListener('load', () => {
+    //         setScriptLoaded(true);
+    //     });
+    // }, []);
 
     return (
         <ReservationDispatchContext.Provider value={reservationDispatch}>
@@ -58,7 +58,7 @@ const Accomodation = (): React.ReactElement => {
                 </HeaderSection>
                 <AccomodationSection>
                     <AccomodationList rooms={mockupAccomodationData.rooms} />
-                    {scriptLoaded && <Map mapType={google.maps.MapTypeId.ROADMAP} mapTypeControl={true} />}
+                    {/* {scriptLoaded && <Map mapType={google.maps.MapTypeId.ROADMAP} mapTypeControl={true} />} */}
                 </AccomodationSection>
             </ReservationStateContext.Provider>
         </ReservationDispatchContext.Provider>
