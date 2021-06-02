@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import styled from 'styled-components';
 import { ReservationDispatchContext, ReservationStateContext } from '../../Contexts';
-import { mockupAccomodationData } from '../../data/searchAccomodation.js';
+import { sampleAccomodationData } from '../../data/accomodation.js';
 import { ReservationContext } from '../../shared/interface';
 import reservationReducer from '../../shared/reservationReducer';
 import Header from '../header/Header';
@@ -43,17 +43,21 @@ const Accomodation = (): React.ReactElement => {
     const [reservationState, reservationDispatch] = useReducer(reservationReducer, initialReservationState);
     const [fullState, setFullState] = useState(false);
 
+    const [sampleData, setSampleData] = useState(sampleAccomodationData.rooms);
+
     return (
         <ReservationDispatchContext.Provider value={reservationDispatch}>
             <ReservationStateContext.Provider value={reservationState}>
-                <HeaderSection>
-                    <Header isFull={fullState} setFullState={setFullState} />
-                    {fullState && <Searcher />}
-                </HeaderSection>
-                <AccomodationSection onClick={() => setFullState(false)}>
-                    <AccomodationList rooms={mockupAccomodationData.rooms} />
-                    <Map />
-                </AccomodationSection>
+                <AccomodationPage>
+                    <HeaderSection>
+                        <Header isFull={fullState} setFullState={setFullState} />
+                        {fullState && <Searcher />}
+                    </HeaderSection>
+                    <AccomodationSection onClick={() => setFullState(false)}>
+                        <AccomodationList rooms={sampleAccomodationData.rooms} />
+                        <Map />
+                    </AccomodationSection>
+                </AccomodationPage>
             </ReservationStateContext.Provider>
         </ReservationDispatchContext.Provider>
     );
@@ -65,8 +69,13 @@ const HeaderSection = styled.section`
     background: #ddd;
 `;
 
+const AccomodationPage = styled.div`
+    border: 1px solid red;
+`;
+
 const AccomodationSection = styled.section`
     display: flex;
+    height: 100vh;
     width: 100%;
-    height: 100%;
+    overflow: scroll;
 `;

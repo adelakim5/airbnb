@@ -1,8 +1,9 @@
-import React, { lazy, useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { GoogleMap, useJsApiLoader, OverlayView } from '@react-google-maps/api';
-import { getGeocode, getLatLng } from 'use-places-autocomplete';
+// import { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { apiKey } from '../private.js';
+import { sampleAccomodationData } from '../../../data/accomodation.js';
 
 interface LatLng {
     lat: number;
@@ -14,16 +15,24 @@ const mapContainerStyle = {
     height: `100vh`,
 };
 
+/*
+
 const createSampleData = () => {
     const result = [];
-    for (let i = 0; i < 20; i++) {
-        const lat = Math.random() + 37;
+    const lats = [35, 36, 37];
+    for (let i = 0; i < 200; i++) {
+        const lat = Math.random() + lats[Math.floor(Math.random() * 3)];
         const lng = Math.random() + 127;
         const price = Math.floor((Math.random() + 1) * 100);
         result.push({ lat, lng, price });
     }
     return result;
 };
+
+const initSampleData = createSampleData();
+console.log(initSampleData);
+
+*/
 
 const center: LatLng = { lat: 37.566536, lng: 126.977966 };
 
@@ -34,7 +43,10 @@ const Map = (): React.ReactElement => {
     });
 
     const [map, setMap] = useState<unknown | null>(null);
-    const sampleData = createSampleData();
+    // const [currentCenter, setCurrentCenter] = useState(center);
+    const [sampleData, setSampleData] = useState(sampleAccomodationData.rooms);
+
+    console.log(sampleData);
 
     const mapRef = useRef<any>(null);
 
@@ -42,38 +54,52 @@ const Map = (): React.ReactElement => {
         mapRef.current = map;
     }, []);
 
-    const panTo = useCallback(({ lat, lng }) => {
-        mapRef.current.panTo({ lat, lng });
-        mapRef.current.setZoom(14);
-    }, []);
+    // const panTo = useCallback(({ lat, lng }) => {
+    //     mapRef.current.panTo({ lat, lng });
+    //     mapRef.current.setZoom(14);
+    // }, []);
 
     const onUnMount = useCallback((map) => setMap(null), []);
+
+    const filterSampleData = ([maxLat, maxLng, minLat, minLng]: number[]) => {
+        const result = sampleAccomodationData.rooms.filter((item: any) => {
+            // item 용 타입 만들어야 함
+            const { latitude, longitude } = item;
+            return maxLat >= latitude && maxLng >= longitude && minLat <= latitude && minLng <= longitude;
+        });
+        setSampleData(result);
+    };
 
     return isLoaded ? (
         <GoogleMap
             mapContainerStyle={mapContainerStyle}
-            zoom={9}
+            zoom={12}
             center={center}
             onUnmount={onUnMount}
             onLoad={onMapLoad}
             onDragEnd={() => {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    panTo({
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                    });
-                });
+                const maxLat = mapRef.current.getBounds().getNorthEast().lat();
+                const maxLng = mapRef.current.getBounds().getNorthEast().lng();
+                const minLat = mapRef.current.getBounds().getSouthWest().lat();
+                const minLng = mapRef.current.getBounds().getSouthWest().lng();
+                // console.log(maxLat, maxLng, minLat, minLng);
+                filterSampleData([maxLat, maxLng, minLat, minLng]);
+                // const newCenter = { lat: mapRef.current.center.lat(), lng: mapRef.current.center.lng() };
+                // setCurrentCenter(newCenter);
             }}
         >
-            {sampleData.map(({ lat, lng, price }) => (
-                <PriceMarkerButton onClick={() => alert(`${price},000원 숙소`)}>
-                    <OverlayView position={{ lat, lng }} mapPaneName={OverlayView.FLOAT_PANE}>
-                        <PriceLabel>
-                            <PriceText>₩{price},000</PriceText>
-                        </PriceLabel>
-                    </OverlayView>
-                </PriceMarkerButton>
-            ))}
+            {sampleData.map((accomodation: any) => {
+                const { latitude, longitude, rental_fee_per_night } = accomodation;
+                return (
+                    <PriceMarkerButton onClick={() => alert(`${rental_fee_per_night},000원 숙소`)}>
+                        <OverlayView position={{ lat: latitude, lng: longitude }} mapPaneName={OverlayView.FLOAT_PANE}>
+                            <PriceLabel>
+                                <PriceText>₩{rental_fee_per_night},000</PriceText>
+                            </PriceLabel>
+                        </OverlayView>
+                    </PriceMarkerButton>
+                );
+            })}
         </GoogleMap>
     ) : (
         <div>Loading...</div>

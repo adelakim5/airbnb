@@ -52,24 +52,26 @@ const AccomodationList = (props: AccomodationDataType): React.ReactElement => {
                 </p>
             </SearchInfo>
             <AccomodationListTitle>지도에서 선택한 지역의 숙소</AccomodationListTitle>
-            {rooms.map((roomInfo: RoomType) => (
-                <CardList>
-                    <CardItem>
-                        <img src={roomInfo.images_fe.small} />
-                        <CardContent>
-                            <Detail>제목: {roomInfo.name}</Detail>
-                            <Detail>가격: {roomInfo.rental_fee_per_night}</Detail>
-                            <Detail>상세설명: {roomInfo.description}</Detail>
-                            <Detail>수용 가능 인원: {roomInfo.person_capacity}</Detail>
-                            <Detail>침실 개수: {roomInfo.bedrooms}</Detail>
-                            <Detail>침대 개수: {roomInfo.beds}</Detail>
-                            <Detail>욕실 개수: {roomInfo.bedrooms}</Detail>
-                            <Detail>평점: {roomInfo.avg_rating}</Detail>
-                            <Detail>숙소 타입: {roomInfo.room_and_property_type}</Detail>
-                        </CardContent>
-                    </CardItem>
-                </CardList>
-            ))}
+            <AccomodationListBody>
+                {rooms.map((roomInfo: RoomType) => (
+                    <CardList>
+                        <CardItem>
+                            <img src={roomInfo.images_fe.small} />
+                            <CardContent>
+                                <Detail>제목: {roomInfo.name}</Detail>
+                                <Detail>가격: {roomInfo.rental_fee_per_night}</Detail>
+                                <Detail>상세설명: {roomInfo.description}</Detail>
+                                <Detail>수용 가능 인원: {roomInfo.person_capacity}</Detail>
+                                <Detail>침실 개수: {roomInfo.bedrooms}</Detail>
+                                <Detail>침대 개수: {roomInfo.beds}</Detail>
+                                <Detail>욕실 개수: {roomInfo.bedrooms}</Detail>
+                                <Detail>평점: {roomInfo.avg_rating}</Detail>
+                                <Detail>숙소 타입: {roomInfo.room_and_property_type}</Detail>
+                            </CardContent>
+                        </CardItem>
+                    </CardList>
+                ))}
+            </AccomodationListBody>
         </Accomodations>
     );
 };
@@ -77,14 +79,19 @@ const AccomodationList = (props: AccomodationDataType): React.ReactElement => {
 export default AccomodationList;
 
 const Accomodations = styled.div`
-    width: 100%;
+    width: 840px;
     height: 100vh;
     margin: 24px 0 24px 24px;
-    overflow: scroll;
+    border: 1px solid blue;
 `;
 
 const AccomodationListTitle = styled.h2`
     margin-bottom: 32px;
+`;
+
+const AccomodationListBody = styled.div`
+    border: 1px solid green;
+    min-height: 400px;
 `;
 
 const Divider = styled.span`
