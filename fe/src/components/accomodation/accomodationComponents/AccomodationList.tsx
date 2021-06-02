@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useReservationState } from '../../../hooks/ReservationHook';
-import { AccomodationType } from '../../../shared/interface';
+import { useReservationState } from 'hooks/ReservationHook';
+import { AccomodationType } from 'shared/interface';
 
 interface AccomodationListPropsType {
     currAccomodations: AccomodationType[];

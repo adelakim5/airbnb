@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useSearcherDispatch } from '../../../../hooks/SearcherHook';
-import { ModalLayerType, LayerSpecType } from '../../../../shared/interface';
+import { useSearcherDispatch } from 'hooks/SearcherHook';
+import { ModalLayerType, LayerSpecType } from 'shared/interface';
 
 const ModalLayer = ({ children, options }: ModalLayerType): React.ReactElement => {
     const { top, left, width, height } = options;

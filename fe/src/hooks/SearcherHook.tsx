@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { SearcherStateContext, SearcherDispatchContext } from '../Contexts';
-import { SearchDispatch, SearcherContext } from '../shared/interface';
+import { SearcherStateContext, SearcherDispatchContext } from 'Contexts';
+import { SearchDispatch, SearcherContext } from 'shared/interface';
 
 export function useSearcherState(): SearcherContext {
     const state = useContext(SearcherStateContext);

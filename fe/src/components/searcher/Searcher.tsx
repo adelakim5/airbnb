@@ -1,14 +1,13 @@
 import React, { useReducer } from 'react';
 import styled from 'styled-components';
-import { SearcherContext } from '../../shared/interface';
+import { SearcherContext } from 'shared/interface';
 import LocationTab from './searcherComponents/LocationTab';
 import CheckInTab from './searcherComponents/CheckInTab';
-import { SearcherStateContext, SearcherDispatchContext } from '../../Contexts';
-import { searchReducer } from '../../shared/searchBarReducer';
+import { SearcherStateContext, SearcherDispatchContext } from 'Contexts';
+import { searchReducer } from 'shared/searchBarReducer';
 import CheckOutTab from './searcherComponents/CheckOutTab';
 import FeeTab from './searcherComponents/FeeTab';
 import PeopleTab from './searcherComponents/PeopleTab';
-import { useReservationDispatch, useReservationState } from '../../hooks/ReservationHook';
 
 const initialSearcherState: SearcherContext = {
     locationList: [],
@@ -57,9 +56,3 @@ const FullBarSection = styled.section`
     border-radius: 60px;
     box-shadow: 0px 4px 10px rgba(51, 51, 51, 0.1), 0px 0px 4px rgba(51, 51, 51, 0.05);
 `;
-
-// const AbbreviatedBarSection = styled.section``;
-
-// const AbbreviatedPeriodTab = styled.div``;
-// const AbbreviatedFeeTab = styled.div``;
-// const AbbreviatedPeopleTab = styled.div``;

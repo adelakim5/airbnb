@@ -1,9 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { GoogleMap, useJsApiLoader, OverlayView } from '@react-google-maps/api';
-// import { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { apiKey } from '../private.js';
-// import { sampleAccomodationData } from '../../../data/accomodation.js';
 
 interface LatLng {
     lat: number;
@@ -46,7 +44,7 @@ const Map = ({ currAccomodations, filterAccomodations }: MapProps): React.ReactE
         id: 'google-map-script',
         googleMapsApiKey: apiKey,
     });
-    const [map, setMap] = useState<unknown | null>(null);
+    const [, setMap] = useState<unknown | null>(null);
     const mapRef = useRef<any>(null);
 
     const onMapLoad = useCallback((map) => {

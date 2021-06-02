@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import LanguageIcon from '@material-ui/icons/Language';
 import Account from './headerComponents/Account';
 import styled from 'styled-components';
 import AbbreviatedSearcher from '../searcher/AbbreviatedSearcher';

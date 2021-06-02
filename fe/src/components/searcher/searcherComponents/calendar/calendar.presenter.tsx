@@ -1,7 +1,7 @@
 import { CalendarBox, CalendarList, CalendarTitle, Dates, Day, DayName, Week } from './calendar.style';
 import { loadYYMM } from './calendarDate';
-import { Td, Date as IDate } from '../../../../shared/interface';
-import { isPossibleToCheckDate, getTypeOfDate, isBefore } from './calendarChecker';
+import { Td, Date as IDate } from 'shared/interface';
+import { isPossibleToCheckDate, getTypeOfDate } from './calendarChecker';
 
 interface CalendarPresenterProps {
     checkIn: IDate;

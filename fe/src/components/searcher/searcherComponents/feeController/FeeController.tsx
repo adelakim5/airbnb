@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useReservationDispatch } from '../../../../hooks/ReservationHook';
+import { useReservationDispatch } from 'hooks/ReservationHook';
 import Slider from './Slider';
 
 const FeeController = (): React.ReactElement => {

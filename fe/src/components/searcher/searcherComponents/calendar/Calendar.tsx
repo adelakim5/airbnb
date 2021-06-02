@@ -1,15 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { MonthsPresenter } from './calendar.presenter';
 import { getInitialDate } from './calendarDate';
-import { CalendarType } from '../../../../shared/interface';
-import { useReservationDispatch, useReservationState } from '../../../../hooks/ReservationHook';
-import { useSearcherDispatch } from '../../../../hooks/SearcherHook';
+import { CalendarType } from 'shared/interface';
+import { useReservationDispatch, useReservationState } from 'hooks/ReservationHook';
+import { useSearcherDispatch } from 'hooks/SearcherHook';
 import { getDateSum, isBefore, isNotCheckedDate } from './calendarChecker';
 import ModalLayer from '../common/ModalLayer';
 import { CalendarContainer, CarouselBox, LayerContentContainer } from './calendar.style';
-import { theme } from '../../../../styles/theme';
+import { theme } from 'styles/theme';
 
 const Calendar = ({ isCheckIn }: CalendarType): React.ReactElement => {
     const { checkIn, checkOut } = useReservationState();

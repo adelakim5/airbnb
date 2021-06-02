@@ -1,9 +1,9 @@
 import React, { useReducer, useState } from 'react';
 import styled from 'styled-components';
-import { ReservationDispatchContext, ReservationStateContext } from '../../Contexts';
-import { sampleAccomodationData } from '../../data/accomodation.js';
-import { AccomodationType, ReservationContext } from '../../shared/interface';
-import reservationReducer from '../../shared/reservationReducer';
+import { ReservationDispatchContext, ReservationStateContext } from 'Contexts';
+import { sampleAccomodationData } from 'data/accomodation.js';
+import { AccomodationType, ReservationContext } from 'shared/interface';
+import reservationReducer from 'shared/reservationReducer';
 import Header from '../header/Header';
 import Searcher from '../searcher/Searcher';
 import AccomodationList from './accomodationComponents/AccomodationList';

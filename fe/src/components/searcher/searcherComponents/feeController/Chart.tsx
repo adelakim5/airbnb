@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FeeProps } from './Slider';
-import { mockupPriceListData } from '../../../../data/priceList.js';
+import { mockupPriceListData } from 'data/priceList.js';
 
 const getPriceListData = (priceList: number[]) => {
     const result = [];

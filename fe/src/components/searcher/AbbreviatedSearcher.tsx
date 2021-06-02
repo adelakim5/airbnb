@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
-import { useReservationState } from '../../hooks/ReservationHook';
+import { useReservationState } from 'hooks/ReservationHook';
 
 interface AbbreviatedSearcherProps {
     setFullState: (param: boolean) => void;

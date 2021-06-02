@@ -1,10 +1,10 @@
 import React, { useReducer, useState } from 'react';
 import styled from 'styled-components';
-import { ReservationDispatchContext, ReservationStateContext } from '../../../Contexts';
-import { ReservationContext } from '../../../shared/interface';
-import reservationReducer from '../../../shared/reservationReducer';
-import Header from '../../header/Header';
-import Searcher from '../../searcher/Searcher';
+import { ReservationDispatchContext, ReservationStateContext } from 'Contexts';
+import { ReservationContext } from 'shared/interface';
+import reservationReducer from 'shared/reservationReducer';
+import Header from 'components/header/Header';
+import Searcher from 'components/searcher/Searcher';
 
 const initialState = {
     location: {

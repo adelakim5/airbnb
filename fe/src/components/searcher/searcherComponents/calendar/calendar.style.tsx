@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { DateType, UsefulObject } from '../../../../shared/interface';
+import { DateType, UsefulObject } from 'shared/interface';
 
 const dateTypeBackgroundColor: UsefulObject = {
     checkIn: '#000',

@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { Container, NavigatingText, ResultText, Tab } from './common/shared.style';
 import { Link } from 'react-router-dom';
-import { useSearcherDispatch, useSearcherState } from '../../../hooks/SearcherHook';
-import { PeopleCount } from '../../../shared/interface';
-import { useReservationDispatch, useReservationState } from '../../../hooks/ReservationHook';
+import { useSearcherDispatch, useSearcherState } from 'hooks/SearcherHook';
+import { PeopleCount } from 'shared/interface';
+import { useReservationDispatch, useReservationState } from 'hooks/ReservationHook';
 import ModalLayer from './common/ModalLayer';
-import { theme } from '../../../styles/theme';
+import { theme } from 'styles/theme';
 import SearchButton from './common/SearchButton';
 
 const peopleType = {
@@ -135,16 +134,6 @@ const PeopleTab = (): React.ReactElement => {
 
 export default PeopleTab;
 
-// const SearchButton = styled.button`
-//     width: 40px;
-//     height: 40px;
-//     background: #e84c60;
-//     border-radius: 30px;
-//     color: #fff;
-//     margin-top: 18px;
-//     margin-right: 18px;
-// `;
-
 const PeopleTabBox = styled.div`
     display: flex;
     justify-content: space-between;
@@ -170,7 +159,6 @@ const CountList = styled.li`
 const PeopleCountController = styled.div`
     display: flex;
     width: 110px;
-    // border: 1px solid red;
     justify-content: space-between;
 
     button {
