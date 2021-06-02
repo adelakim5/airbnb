@@ -27,10 +27,6 @@ const Header = ({ isFull, setFullState }: HeaderType): React.ReactElement => {
                 </MidHeader>
             )}
             <RightHeader>
-                {/* <ToBeHost href="/">호스트되기</ToBeHost> */}
-                {/* <Globe>
-                    <LanguageIcon />
-                </Globe> */}
                 <Account />
             </RightHeader>
         </HeaderPage>
@@ -66,7 +62,3 @@ const Logo = styled.a`
     font-size: 32px;
     text-decoration: none;
 `;
-
-// const ToBeHost = styled.a``;
-
-// const Globe = styled.div``;

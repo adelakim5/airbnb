@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { GoogleMap, useJsApiLoader, OverlayView } from '@react-google-maps/api';
 // import { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { apiKey } from '../private.js';
-import { sampleAccomodationData } from '../../../data/accomodation.js';
+// import { sampleAccomodationData } from '../../../data/accomodation.js';
 
 interface LatLng {
     lat: number;
@@ -36,39 +36,45 @@ console.log(initSampleData);
 
 const center: LatLng = { lat: 37.566536, lng: 126.977966 };
 
-const Map = (): React.ReactElement => {
+interface MapProps {
+    currAccomodations: any[];
+    filterAccomodations: (params: number[]) => void;
+}
+
+const Map = ({ currAccomodations, filterAccomodations }: MapProps): React.ReactElement => {
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: apiKey,
     });
-
     const [map, setMap] = useState<unknown | null>(null);
-    // const [currentCenter, setCurrentCenter] = useState(center);
-    const [sampleData, setSampleData] = useState(sampleAccomodationData.rooms);
-
-    console.log(sampleData);
-
     const mapRef = useRef<any>(null);
 
     const onMapLoad = useCallback((map) => {
         mapRef.current = map;
     }, []);
 
-    // const panTo = useCallback(({ lat, lng }) => {
-    //     mapRef.current.panTo({ lat, lng });
-    //     mapRef.current.setZoom(14);
-    // }, []);
-
     const onUnMount = useCallback((map) => setMap(null), []);
+    let debounceTimer: ReturnType<typeof setTimeout>;
 
-    const filterSampleData = ([maxLat, maxLng, minLat, minLng]: number[]) => {
-        const result = sampleAccomodationData.rooms.filter((item: any) => {
-            // item 용 타입 만들어야 함
-            const { latitude, longitude } = item;
-            return maxLat >= latitude && maxLng >= longitude && minLat <= latitude && minLng <= longitude;
-        });
-        setSampleData(result);
+    const relocatePriceMarker = () => {
+        const maxLat = mapRef.current.getBounds().getNorthEast().lat();
+        const maxLng = mapRef.current.getBounds().getNorthEast().lng();
+        const minLat = mapRef.current.getBounds().getSouthWest().lat();
+        const minLng = mapRef.current.getBounds().getSouthWest().lng();
+        filterAccomodations([maxLat, maxLng, minLat, minLng]);
     };
+
+    const setDebouncedTimer = () => {
+        if (debounceTimer !== null) clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            relocatePriceMarker();
+        }, 500);
+    };
+
+    useEffect(() => {
+        if (!mapRef.current) return;
+        setDebouncedTimer();
+    }, []);
 
     return isLoaded ? (
         <GoogleMap
@@ -77,18 +83,9 @@ const Map = (): React.ReactElement => {
             center={center}
             onUnmount={onUnMount}
             onLoad={onMapLoad}
-            onDragEnd={() => {
-                const maxLat = mapRef.current.getBounds().getNorthEast().lat();
-                const maxLng = mapRef.current.getBounds().getNorthEast().lng();
-                const minLat = mapRef.current.getBounds().getSouthWest().lat();
-                const minLng = mapRef.current.getBounds().getSouthWest().lng();
-                // console.log(maxLat, maxLng, minLat, minLng);
-                filterSampleData([maxLat, maxLng, minLat, minLng]);
-                // const newCenter = { lat: mapRef.current.center.lat(), lng: mapRef.current.center.lng() };
-                // setCurrentCenter(newCenter);
-            }}
+            onCenterChanged={setDebouncedTimer}
         >
-            {sampleData.map((accomodation: any) => {
+            {currAccomodations.map((accomodation: any) => {
                 const { latitude, longitude, rental_fee_per_night } = accomodation;
                 return (
                     <PriceMarkerButton onClick={() => alert(`${rental_fee_per_night},000원 숙소`)}>

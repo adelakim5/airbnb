@@ -209,8 +209,12 @@ function insertKeys(mockupAccomodationData) {
         item.theme_id = i;
         item.name = 'Spacious and Comfortable cozy house #4';
         item.bedrooms = 1;
+        item.beds = 1;
         item.bathrooms = 1;
-        item.amenities = ['최대 인원 3명', '원룸', '주방', '무선 인터넷', '에어컨', '헤어드라이어'];
+        item.person_capacity = 3;
+        item.room_and_property_type = '원룸';
+        item.avg_rating = 3.5;
+        item.amenities = ['주방', '무선 인터넷', '에어컨', '헤어드라이어'];
         item.images_fe = {
             thumbnail:
                 'https://user-images.githubusercontent.com/49264795/120419706-e7225200-c39d-11eb-8ab8-e245dda14b8e.png',

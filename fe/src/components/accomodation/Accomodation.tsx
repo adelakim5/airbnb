@@ -1,15 +1,13 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import styled from 'styled-components';
 import { ReservationDispatchContext, ReservationStateContext } from '../../Contexts';
 import { sampleAccomodationData } from '../../data/accomodation.js';
-import { ReservationContext } from '../../shared/interface';
+import { AccomodationType, ReservationContext } from '../../shared/interface';
 import reservationReducer from '../../shared/reservationReducer';
 import Header from '../header/Header';
 import Searcher from '../searcher/Searcher';
 import AccomodationList from './accomodationComponents/AccomodationList';
 import Map from './accomodationComponents/Map';
-// import { loadMapApi } from './accomodationComponents/GoogleMapUtils';
-// import Map from './accomodationComponents/Map';
 
 const initialState = {
     location: {
@@ -43,7 +41,15 @@ const Accomodation = (): React.ReactElement => {
     const [reservationState, reservationDispatch] = useReducer(reservationReducer, initialReservationState);
     const [fullState, setFullState] = useState(false);
 
-    const [sampleData, setSampleData] = useState(sampleAccomodationData.rooms);
+    const [currAccomodations, setCurrAccomodations] = useState(sampleAccomodationData.rooms);
+
+    const filterAccomodations = ([maxLat, maxLng, minLat, minLng]: number[]) => {
+        const result = sampleAccomodationData.rooms.filter((room: AccomodationType) => {
+            const { latitude, longitude } = room;
+            return maxLat > latitude && maxLng > longitude && minLat < latitude && minLng < longitude;
+        });
+        setCurrAccomodations(result);
+    };
 
     return (
         <ReservationDispatchContext.Provider value={reservationDispatch}>
@@ -54,8 +60,8 @@ const Accomodation = (): React.ReactElement => {
                         {fullState && <Searcher />}
                     </HeaderSection>
                     <AccomodationSection onClick={() => setFullState(false)}>
-                        <AccomodationList rooms={sampleAccomodationData.rooms} />
-                        <Map />
+                        <AccomodationList currAccomodations={currAccomodations} />
+                        <Map {...{ currAccomodations, filterAccomodations }} />
                     </AccomodationSection>
                 </AccomodationPage>
             </ReservationStateContext.Provider>
@@ -67,6 +73,11 @@ export default Accomodation;
 
 const HeaderSection = styled.section`
     background: #ddd;
+    width: 100vw;
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
 `;
 
 const AccomodationPage = styled.div`
@@ -74,8 +85,6 @@ const AccomodationPage = styled.div`
 `;
 
 const AccomodationSection = styled.section`
+    margin-top: 94px;
     display: flex;
-    height: 100vh;
-    width: 100%;
-    overflow: scroll;
 `;

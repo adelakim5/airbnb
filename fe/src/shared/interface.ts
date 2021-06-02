@@ -108,3 +108,22 @@ export type ModalLayerType = {
     children: React.ReactNode;
     options: LayerSpecType;
 };
+
+export interface AccomodationType {
+    latitude: number;
+    longitude: number;
+    address_id: number;
+    theme_id: number;
+    name: string;
+    rental_fee_per_night: number;
+    person_capacity: number;
+    bedrooms: number;
+    beds: number;
+    bathrooms: number;
+    avg_rating: number;
+    room_and_property_type: string;
+    images_fe: {
+        thumbnail: string;
+    };
+    amenities: string[];
+}
