@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS Reservation
     num_of_children    int comment '어린이 인원',
     num_of_infants     int comment '유아 인원',
     total_price int comment '예약 비용',
-    status int comment '예약 상태(소프트 딜리트를 위함)',
+    status INT comment '예약 상태(소프트 딜리트를 위함)',
     FOREIGN KEY (room_id) REFERENCES Room (id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES User (id) ON UPDATE CASCADE ON DELETE CASCADE
 );

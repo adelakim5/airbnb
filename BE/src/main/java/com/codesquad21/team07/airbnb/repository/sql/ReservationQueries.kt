@@ -10,7 +10,7 @@ AND R.room_id
               OR (:checkOut BETWEEN R.check_in AND R.check_out)
               OR ((:checkIn <= R.check_out) AND (:checkOut >= R.check_in))
           ) = 1
-AND R.room_id = :roomdId
+AND R.room_id = :roomId
 """
 
 const val INSERT_RESERVATION: String ="""
@@ -38,4 +38,15 @@ AND room_id = :roomId
 AND user_id = :userId
 AND id = :reservationId
  
+"""
+
+const val FIND_VALID_RESERVATION: String = """
+    
+SELECT COUNT(*) FROM Reservation AS R
+WHERE 1=1
+AND R.user_id=:userId
+AND R.room_id=:roomId
+AND R.id = :reservationId
+AND R.status = :status;
+    
 """

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.time.LocalDate;
 
-import static com.codesquad21.team07.airbnb.repository.sql.ReservationQueriesKt.RESERVATION_CHECK;
+import static com.codesquad21.team07.airbnb.repository.sql.ReservationQueriesKt.*;
 
 @Repository
 public class ReservationRepository {
@@ -24,17 +24,17 @@ public class ReservationRepository {
         this.insertAction = new SimpleJdbcInsert(dataSource).withTableName("Reservation").usingGeneratedKeyColumns("id");
     }
 
-    public Integer findDuplicateCountByRoomIdAndDate(Long roomdId, LocalDate checkIn, LocalDate checkOut) {
+    public Integer findDuplicateCountByRoomIdAndDate(Long roomId, LocalDate checkIn, LocalDate checkOut) {
         SqlParameterSource namedParameter = new MapSqlParameterSource()
-                                               .addValue("roomdId", roomdId)
-                                               .addValue("checkIn", checkIn)
-                                               .addValue("checkOut", checkOut);
+                .addValue("roomId", roomId)
+                .addValue("checkIn", checkIn)
+                .addValue("checkOut", checkOut);
 
         return jdbc.queryForObject(RESERVATION_CHECK, namedParameter, (rs, rowNum) -> rs.getInt("COUNT(*)"));
     }
 
     public Integer reservation(Long roomId, Long userId, ReservationDto reservationDto, ReservationStatus status) {
-        SqlParameterSource namedParameter = setNamedParametersByReservationInfo(roomId,userId,reservationDto,status);
+        SqlParameterSource namedParameter = setNamedParametersByReservationInfo(roomId, userId, reservationDto, status);
         return insertAction.executeAndReturnKey(namedParameter).intValue();
     }
 
@@ -52,5 +52,21 @@ public class ReservationRepository {
     }
 
 
+    public void cancelReservation(Long roomId, Long reservationId, Long userId, ReservationStatus status) {
+        SqlParameterSource namedParameter = new MapSqlParameterSource()
+                .addValue("roomId", roomId)
+                .addValue("reservationId", reservationId)
+                .addValue("userId", userId)
+                .addValue("status", status.ordinal());
+        jdbc.update(DELETE_RESERVATION, namedParameter);
+    }
 
+    public Integer findReservasionById(Long userId, Long roomId, Long reservationId, ReservationStatus status){
+        SqlParameterSource namedParameter = new MapSqlParameterSource()
+                .addValue("roomId", roomId)
+                .addValue("reservationId", reservationId)
+                .addValue("userId", userId)
+                .addValue("status", status.ordinal());
+        return jdbc.queryForObject(FIND_VALID_RESERVATION, namedParameter, (rs, rowNum) -> rs.getInt("COUNT(*)"));
+    }
 }

@@ -212,3 +212,12 @@ WHERE 1=1
 AND room_id = :roomId
 AND user_id = :userI
 AND id = :reservationId
+
+
+
+SELECT COUNT(*) FROM Reservation AS R
+WHERE 1=1
+AND R.user_id=:userId
+AND R.room_id=:roomId
+AND R.id = :reservationId
+AND R.status = :status;

@@ -73,7 +73,5 @@ public class Reservation {
         return status;
     }
 
-    public Integer getTotalPrice() {
-        return totalPrice;
-    }
+
 }

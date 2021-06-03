@@ -2,6 +2,7 @@ package com.codesquad21.team07.airbnb.service;
 
 import com.codesquad21.team07.airbnb.domain.ReservationStatus;
 import com.codesquad21.team07.airbnb.dtoGroup.request.ReservationDto;
+import com.codesquad21.team07.airbnb.exception.NonDeleteException;
 import com.codesquad21.team07.airbnb.exception.NonReservationException;
 import com.codesquad21.team07.airbnb.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
@@ -22,12 +23,25 @@ public class UserService {
 
     public Integer reservation(Long roomId, Long userId, ReservationDto reservationDto) {
 
-        // TODO. userId 추가시 검증 로직 필요
+        // TODO. userId 추가시 유저 검증 로직 필요
 
-        if (!reservationAvailability(roomId, reservationDto.getCheckIn(), reservationDto.getCheckOut())){
+        if (!reservationAvailability(roomId, reservationDto.getCheckIn(), reservationDto.getCheckOut())) {
             throw new NonReservationException();
         }
 
         return reservationRepository.reservation(roomId, userId, reservationDto, ReservationStatus.RESERVED);
     }
+
+    public void cancelReservation(Long roomId, Long userId, Long reservationId) {
+        if (!findReservasionById(roomId, userId, reservationId)) {
+            throw new NonDeleteException();
+        }
+        // TODO. userId 추가시 유저 검증 로직 필요
+        reservationRepository.cancelReservation(roomId, reservationId, userId, ReservationStatus.CANCEL);
+    }
+
+    public boolean findReservasionById(Long roomId, Long userId, Long reservationId) {
+        return (reservationRepository.findReservasionById(userId, roomId, reservationId, ReservationStatus.RESERVED)) != 0;
+    }
 }
+
