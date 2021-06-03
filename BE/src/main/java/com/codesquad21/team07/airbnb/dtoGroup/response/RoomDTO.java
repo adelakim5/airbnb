@@ -87,7 +87,7 @@ public class RoomDTO {
 
         int count = 0;
         for(Image image : images){
-            imageList.add(image.getType()+": "+image.getUrl().trim());
+            imageList.add(image.getUrl().trim());
 
             if(!imagesFe.containsKey("thumbnail")){
                 imagesFe.put("thumbnail",image.getUrl().trim());
