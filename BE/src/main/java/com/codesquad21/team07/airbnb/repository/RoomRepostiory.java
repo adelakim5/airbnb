@@ -78,6 +78,11 @@ public class RoomRepostiory implements MyRepository {
                 .addValue("infants", searchRoom.getInfants());
     }
 
+    public String findHostNameById(Long hostId) {
+        SqlParameterSource namedParameter = new MapSqlParameterSource().addValue("hostId", hostId);
+        return jdbc.queryForObject(FIND_HOST_NAME_BY_ID, namedParameter, (rs, rowNum) -> rs.getString("name"));
+    }
+
     @Override
     public void save() {
 

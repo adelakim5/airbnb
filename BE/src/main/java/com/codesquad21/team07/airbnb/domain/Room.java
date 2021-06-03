@@ -4,46 +4,46 @@ import java.util.List;
 
 public class Room {
 
-    private  Long id;
+    private final Long id;
 
-    private  Long locationId;
+    private final Long locationId;
 
-    private  Long hostId;
+    private final Long hostId;
 
-    private  Long themeId;
+    private final Long themeId;
 
-    private  Double latitude;
+    private final Double latitude;
 
-    private  Double longitude;
+    private final Double longitude;
 
-    private  String name;
+    private final String name;
 
-    private  String roomAndPropertyType;
+    private final String roomAndPropertyType;
 
-    private  Double avgRating;
+    private final Double avgRating;
 
-    private  int rentalFeePerNight;
+    private final int rentalFeePerNight;
 
-    private  Double weeklyPriceFactor;
+    private final Double weeklyPriceFactor;
 
-    private  Double monthlyPriceFactor;
+    private final Double monthlyPriceFactor;
 
-    private  String description;
+    private final String description;
 
-    private  int personCapacity;
+    private final int personCapacity;
 
-    private  int bedrooms;
+    private final int bedrooms;
 
-    private  int beds;
+    private final int beds;
 
-    private  int bathrooms;
+    private final int bathrooms;
 
-    private  List<Image> images;
+    private int numOfReview;
 
-    private  List<Amenity> amenities;
+    private final List<Image> images;
 
-    public Room() {
-    }
+    private final List<Amenity> amenities;
+
 
     public static class Builder {
 
@@ -81,114 +81,122 @@ public class Room {
 
         private String roomAndPropertyType;
 
+        private int numOfReview;
+
         private List<Image> images;
 
         private List<Amenity> amenities;
 
 
-        public Builder id(Long id){
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }
 
-        public Builder hostId(Long hostId){
+        public Builder hostId(Long hostId) {
             this.hostId = hostId;
             return this;
         }
 
-        public Builder latitude(Double latitude){
+        public Builder latitude(Double latitude) {
             this.latitude = latitude;
             return this;
         }
 
-        public Builder longitude(Double longitude){
+        public Builder longitude(Double longitude) {
             this.longitude = longitude;
             return this;
         }
 
-        public Builder locationId(Long locationId){
+        public Builder locationId(Long locationId) {
             this.locationId = locationId;
             return this;
         }
 
-        public Builder themeId(Long themeId){
+        public Builder themeId(Long themeId) {
             this.themeId = themeId;
             return this;
         }
 
-        public Builder name(String name){
+        public Builder name(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder rentalFeePerNight(int rentalFeePerNight){
+        public Builder rentalFeePerNight(int rentalFeePerNight) {
             this.rentalFeePerNight = rentalFeePerNight;
             return this;
         }
 
-        public Builder weeklyPriceFactor(Double weeklyPriceFactor){
+        public Builder weeklyPriceFactor(Double weeklyPriceFactor) {
             this.weeklyPriceFactor = weeklyPriceFactor;
             return this;
         }
 
-        public Builder monthlyPriceFactor(Double monthlyPriceFactor){
+        public Builder monthlyPriceFactor(Double monthlyPriceFactor) {
             this.monthlyPriceFactor = monthlyPriceFactor;
             return this;
         }
 
-        public Builder description(String description){
+        public Builder description(String description) {
             this.description = description;
             return this;
         }
 
-        public Builder personCapacity(int personCapacity){
+        public Builder personCapacity(int personCapacity) {
             this.personCapacity = personCapacity;
             return this;
         }
 
-        public Builder bedrooms(int bedrooms){
+        public Builder bedrooms(int bedrooms) {
             this.bedrooms = bedrooms;
             return this;
         }
 
-        public Builder beds(int beds){
+        public Builder beds(int beds) {
             this.beds = beds;
             return this;
         }
 
-        public Builder bathrooms(int bathrooms){
+        public Builder bathrooms(int bathrooms) {
             this.bathrooms = bathrooms;
             return this;
         }
 
-        public Builder avgRating(Double avgRating){
+        public Builder avgRating(Double avgRating) {
             this.avgRating = avgRating;
             return this;
         }
 
-        public Builder roomAndPropertyType(String roomAndPropertyType){
+        public Builder roomAndPropertyType(String roomAndPropertyType) {
             this.roomAndPropertyType = roomAndPropertyType;
             return this;
         }
 
-       public Builder images(List<Image> images){
+        public Builder images(List<Image> images) {
             this.images = images;
             return this;
         }
 
-        public Builder amenities(List<Amenity> amenities){
+        public Builder amenities(List<Amenity> amenities) {
             this.amenities = amenities;
             return this;
         }
 
 
-        public Room build(){
+        public Builder numOfReview(int numOfReview) {
+            this.numOfReview = numOfReview;
+            return this;
+        }
+
+
+        public Room build() {
             return new Room(this);
         }
 
     }
 
-    private Room(Builder builder){
+    private Room(Builder builder) {
         this.id = builder.id;
         this.hostId = builder.hostId;
         this.latitude = builder.latitude;
@@ -208,6 +216,7 @@ public class Room {
         this.roomAndPropertyType = builder.roomAndPropertyType;
         this.images = builder.images;
         this.amenities = builder.amenities;
+        this.numOfReview = builder.numOfReview;
     }
 
     public Double getLatitude() {
@@ -284,6 +293,10 @@ public class Room {
 
     public Long getHostId() {
         return hostId;
+    }
+
+    public int getNumOfReview() {
+        return numOfReview;
     }
 
 }

@@ -27,6 +27,7 @@ public class RoomMapper implements RowMapper<Room> {
                 .bedrooms(rs.getInt("bedrooms"))
                 .beds(rs.getInt("beds"))
                 .bathrooms(rs.getInt("bathrooms"))
+                .numOfReview(rs.getInt("num_of_review"))
                 .build();
     }
 }

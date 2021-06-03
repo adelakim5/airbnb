@@ -2,7 +2,6 @@ package com.codesquad21.team07.airbnb.dtoGroup.request;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Min;
 import java.time.LocalDate;
 
 public class SearchRoom { // POJO
@@ -15,13 +14,10 @@ public class SearchRoom { // POJO
 
     private Long locationId;
 
-    @Min(10000)
     private Integer priceMin;
 
-    @Min(10001)
     private Integer priceMax;
 
-    @Min(1)
     private Integer adults;
 
     private Integer children;

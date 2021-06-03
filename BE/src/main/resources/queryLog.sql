@@ -224,3 +224,12 @@ AND R.id = :reservationId
 AND R.status = :status;
 
 
+SELECT H.name
+FROM Room INNER JOIN Host H on Room.host_id = H.id
+WHERE host_id = :hostId;
+
+SELECT H.name
+FROM Room INNER JOIN Host H on Room.host_id = H.id
+WHERE host_id = 1
+
+SELECT name FROM Host WHERE id = :hostId;
