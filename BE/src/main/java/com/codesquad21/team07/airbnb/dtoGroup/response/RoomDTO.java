@@ -50,8 +50,10 @@ public class RoomDTO {
 
     private final int numOfReview;
 
+    private final String hostName;
 
-    public RoomDTO(Room room, List<String> imageList, Map<String, String> imagesFe, List<String> amenities) {
+
+    public RoomDTO(Room room, String hostName, List<String> imageList, Map<String, String> imagesFe, List<String> amenities) {
         this.id = room.getId();
         this.latitude = room.getLatitude();
         this.longitude = room.getLongitude();
@@ -75,9 +77,10 @@ public class RoomDTO {
         this.images = imageList;
         this.imagesFe = imagesFe;
         this.amenities = amenities;
+        this.hostName = hostName;
     }
 
-    public static RoomDTO of(Room room, List<Image> images, List<Amenity> amenities){
+    public static RoomDTO of(Room room, String hostName, List<Image> images, List<Amenity> amenities){
         List<String> imageList = new LinkedList<>();
         List<String> amenityList = new LinkedList<>();
         Map<String, String> imagesFe = new LinkedHashMap<>();
@@ -97,7 +100,7 @@ public class RoomDTO {
             amenityList.add(amenity.getName().trim());
         }
 
-        return new RoomDTO(room, imageList, imagesFe, amenityList);
+        return new RoomDTO(room, hostName, imageList, imagesFe, amenityList);
     }
 
 
@@ -183,5 +186,9 @@ public class RoomDTO {
 
     public int getNumOfReview() {
         return numOfReview;
+    }
+
+    public String getHostName() {
+        return hostName;
     }
 }

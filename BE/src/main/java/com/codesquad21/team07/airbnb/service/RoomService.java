@@ -26,8 +26,9 @@ public class RoomService {
         //m N+1 문제 추후 해결하기
         List<Image> images = findImageByRoomId(room.getId());
         List<Amenity> amenity = findAmenityByRoomId(room.getId());
+        String hostName = findHostNameById(room.getHostId());
 
-        return RoomDTO.of(room, images, amenity);
+        return RoomDTO.of(room, hostName, images, amenity);
     }
 
     public List<Image> findImageByRoomId(Long id) {
@@ -46,13 +47,18 @@ public class RoomService {
         return getRoomList(roomList, rooms);
     }
 
+    public String findHostNameById(Long hostId) {
+        return roomRepostiory.findHostNameById(hostId);
+    }
+
     private RoomList getRoomList(RoomList roomList, List<Room> rooms) {
 
         for(Room room : rooms){
             //m N+1 문제 추후 해결하기
             List<Image> images = findImageByRoomId(room.getId());
             List<Amenity> amenity = findAmenityByRoomId(room.getId());
-            roomList.add(RoomDTO.of(room, images, amenity));
+            String hostName = findHostNameById(room.getHostId());
+            roomList.add(RoomDTO.of(room, hostName, images, amenity));
         }
 
         return roomList;

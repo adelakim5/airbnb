@@ -23,3 +23,9 @@ FROM Room
 """
 
 const val FIND_ROOM_BY_ID: String = FIND_ALL_ROOM + "WHERE 1=1 AND id = :id"
+
+const val FIND_HOST_NAME_BY_ID: String = """
+
+SELECT name FROM Host WHERE id = :hostId;
+    
+"""
