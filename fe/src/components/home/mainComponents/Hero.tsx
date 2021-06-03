@@ -24,7 +24,7 @@ const initialState = {
         month: 0,
         day: 0,
     },
-    fee: [0, 100],
+    fee: [1, 100],
     people: {
         adult: 0,
         children: 0,

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { GoogleMap, useJsApiLoader, OverlayView } from '@react-google-maps/api';
 import { apiKey } from '../private.js';
+import { AccomodationType } from 'shared/interface.js';
 
 interface LatLng {
     lat: number;
@@ -35,7 +36,7 @@ console.log(initSampleData);
 const center: LatLng = { lat: 37.566536, lng: 126.977966 };
 
 interface MapProps {
-    currAccomodations: any[];
+    currAccomodations: AccomodationType[];
     filterAccomodations: (params: number[]) => void;
 }
 
@@ -83,8 +84,8 @@ const Map = ({ currAccomodations, filterAccomodations }: MapProps): React.ReactE
             onLoad={onMapLoad}
             onCenterChanged={setDebouncedTimer}
         >
-            {currAccomodations.map((accomodation: any) => {
-                const { latitude, longitude, rental_fee_per_night } = accomodation;
+            {currAccomodations.map((accomodation) => {
+                const { latitude, longitude, rental_fee_per_night, id } = accomodation;
                 return (
                     <PriceMarkerButton onClick={() => alert(`${rental_fee_per_night},000원 숙소`)}>
                         <OverlayView position={{ lat: latitude, lng: longitude }} mapPaneName={OverlayView.FLOAT_PANE}>
@@ -97,7 +98,7 @@ const Map = ({ currAccomodations, filterAccomodations }: MapProps): React.ReactE
             })}
         </GoogleMap>
     ) : (
-        <div>Loading...</div>
+        <LoadingMap />
     );
 };
 
@@ -124,4 +125,8 @@ const PriceLabel = styled.div`
 const PriceText = styled.p`
     font-weight: 600;
     font-size: 15px;
+`;
+
+const LoadingMap = styled.div`
+    background: #ddd;
 `;

@@ -26,19 +26,14 @@ const AbbreviatedSearcher = ({ setFullState }: AbbreviatedSearcherProps) => {
                 {checkInMonth}월 {checkInDay}일 - {checkOutMonth}월 {checkOutDay}일
             </AbbreviatedPeriodTab>
             <AbbreviatedFeeTab>
-                {fee[0]} - {fee[1]}
+                {fee[0]}만원 - {fee[1]}만원
             </AbbreviatedFeeTab>
             <AbbreviatedPeopleTab>
-                게스트: {adult + children}명, 유아: {kids}명
+                게스트: {adult + children}명 {kids > 0 ? `유아: ${kids}명` : ``}
             </AbbreviatedPeopleTab>
             <ButtonTab>
                 <SearchButton isFullVersion={false} searchHandler={handleSearchWithAllReservationInfo} />
             </ButtonTab>
-            {/* <div>
-                <button className="tempButton">
-                    <SearchIcon />
-                </button>
-            </div> */}
         </AbbreviatedBarSection>
     );
 };

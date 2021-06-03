@@ -110,20 +110,38 @@ export type ModalLayerType = {
 };
 
 export interface AccomodationType {
+    id: number;
+    location_id: number;
+    host_id: number;
+    theme_id: number;
     latitude: number;
     longitude: number;
-    address_id: number;
-    theme_id: number;
     name: string;
+    room_and_property_type: string;
+    avg_rating: number;
     rental_fee_per_night: number;
+    weekly_price_factor: number;
+    monthly_price_factor: number;
+    description: string;
     person_capacity: number;
     bedrooms: number;
     beds: number;
     bathrooms: number;
-    avg_rating: number;
-    room_and_property_type: string;
     images_fe: {
         thumbnail: string;
+        detail_1: string;
+        detail_2: string;
+        detail_3: string;
+        detail_4: string;
+        detail_5: string;
+    };
+    images: {
+        thumb: string;
+        detail_1: string;
+        detail_2: string;
+        detail_3: string;
+        detail_4: string;
+        detail_5: string;
     };
     amenities: string[];
 }

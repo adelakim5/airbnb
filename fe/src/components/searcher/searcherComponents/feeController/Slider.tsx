@@ -29,7 +29,8 @@ const Slider = (props: SlideProps): React.ReactElement => {
             max = parseInt(_this.max);
 
         const newMinValue = Math.min(parseInt(_this.value), parseInt(inputRight.current.value) - 1);
-        const percent = ((newMinValue - min) / (max - min)) * 100;
+        let percent = ((newMinValue - min) / (max - min)) * 100;
+        if (Math.floor(percent) <= 0) percent = 1; // 최소 요금 1
         thumbLeft.current.style.left = `${percent}%`;
         range.current.style.left = `${percent}%`;
         handleSliderChange([Math.floor(percent), feeValue[1]]);

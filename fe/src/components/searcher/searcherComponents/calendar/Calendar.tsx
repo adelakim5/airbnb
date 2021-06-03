@@ -7,9 +7,9 @@ import { CalendarType } from 'shared/interface';
 import { useReservationDispatch, useReservationState } from 'hooks/ReservationHook';
 import { useSearcherDispatch } from 'hooks/SearcherHook';
 import { getDateSum, isBefore, isNotCheckedDate } from './calendarChecker';
-import ModalLayer from '../common/ModalLayer';
 import { CalendarContainer, CarouselBox, LayerContentContainer } from './calendar.style';
 import { theme } from 'styles/theme';
+import BottomLayer from '../common/BottomLayer';
 
 const Calendar = ({ isCheckIn }: CalendarType): React.ReactElement => {
     const { checkIn, checkOut } = useReservationState();
@@ -97,7 +97,7 @@ const Calendar = ({ isCheckIn }: CalendarType): React.ReactElement => {
     };
 
     return (
-        <ModalLayer
+        <BottomLayer
             options={{
                 width: theme.LayerSize.lgWidth,
                 top: theme.LayerLocation.top,
@@ -127,7 +127,7 @@ const Calendar = ({ isCheckIn }: CalendarType): React.ReactElement => {
                     </div>
                 </CalendarContainer>
             </LayerContentContainer>
-        </ModalLayer>
+        </BottomLayer>
     );
 };
 

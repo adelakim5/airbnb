@@ -13,8 +13,8 @@ const AccomodationList = ({ currAccomodations }: AccomodationListPropsType): Rea
     const searchInfoArray: string[] = [
         `${currAccomodations.length}개 이상의 숙소`,
         `${checkIn.month}월 ${checkIn.day}일 - ${checkOut.month}월 ${checkOut.day}일`,
-        `₩${fee[0]}-₩${fee[1]}`,
-        `게스트 ${people.adult + people.children}명 ${people.kids > 0 && '유아 ' + people.kids + '명'}`,
+        `₩${fee[0]}0,000-₩${fee[1] < 100 ? fee[1] : '1,00'}0,000`,
+        `게스트 ${people.adult + people.children}명 ${people.kids > 0 ? '유아 ' + people.kids + '명' : ''}`,
     ];
 
     const getCombinations = (array: string[]): string[] => {
@@ -106,17 +106,20 @@ const SearchInfo = styled.div`
     margin-bottom: 8px;
 `;
 
-const CardList = styled.div``;
+const CardList = styled.div`
+    margin-right: 24px;
+`;
 
 const CardItem = styled.ul`
     border-bottom: 1px solid #e0e0e0;
     display: flex;
+    width: 100%;
     height: 248px;
-    margin-right: 24px;
     padding: 24px 0;
 `;
 
 const CardContent = styled.li`
+    width: 100%;
     position: relative;
     margin-left: 24px;
 `;

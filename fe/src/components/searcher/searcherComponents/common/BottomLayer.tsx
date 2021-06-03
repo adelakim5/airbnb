@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSearcherDispatch } from 'hooks/SearcherHook';
 import { ModalLayerType, LayerSpecType } from 'shared/interface';
 
-const ModalLayer = ({ children, options }: ModalLayerType): React.ReactElement => {
+const BottomLayer = ({ children, options }: ModalLayerType): React.ReactElement => {
     const { top, left, width, height } = options;
     const searcherDispatch = useSearcherDispatch();
 
@@ -42,4 +42,4 @@ const Layer = styled.ul<LayerSpecType>`
     box-shadow: 0px 4px 10px rgba(51, 51, 51, 0.1), 0px 0px 4px rgba(51, 51, 51, 0.05);
 `;
 
-export default ModalLayer;
+export default BottomLayer;

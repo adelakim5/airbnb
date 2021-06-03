@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom';
 import { useSearcherDispatch, useSearcherState } from 'hooks/SearcherHook';
 import { PeopleCount } from 'shared/interface';
 import { useReservationDispatch, useReservationState } from 'hooks/ReservationHook';
-import ModalLayer from './common/ModalLayer';
 import { theme } from 'styles/theme';
 import SearchButton from './common/SearchButton';
+import BottomLayer from './common/BottomLayer';
 
 const peopleType = {
     adult: '성인',
@@ -78,21 +78,21 @@ const PeopleTab = (): React.ReactElement => {
             <PeopleCountContent>
                 {keys.map((key) => (
                     <CountList>
-                        <div>
+                        <PeopleTypeInfo>
                             <PeopleTypeTitle>{peopleType[key]}</PeopleTypeTitle>
-                            <p>{peopleDescription[key]}</p>
-                        </div>
-                        <div>
+                            <PeopleTypeDescription>{peopleDescription[key]}</PeopleTypeDescription>
+                        </PeopleTypeInfo>
+                        <PeopleCounter>
                             <PeopleCountController>
-                                <button className="addButton">
-                                    <AddIcon onClick={() => handleCount(key, 1)} />
-                                </button>
-                                <p>{peopleCount[key]}</p>
-                                <button className="removeButton">
+                                <ControlButton className="removeButton">
                                     <RemoveIcon onClick={() => handleCount(key, -1)} />
-                                </button>
+                                </ControlButton>
+                                <Count>{peopleCount[key]}</Count>
+                                <ControlButton className="addButton">
+                                    <AddIcon onClick={() => handleCount(key, 1)} />
+                                </ControlButton>
                             </PeopleCountController>
-                        </div>
+                        </PeopleCounter>
                     </CountList>
                 ))}
             </PeopleCountContent>
@@ -117,7 +117,7 @@ const PeopleTab = (): React.ReactElement => {
                 </PeopleTabBox>
             </Tab>
             {peopleLayer && (
-                <ModalLayer
+                <BottomLayer
                     options={{
                         width: theme.LayerSize.smWidth,
                         top: theme.LayerLocation.top,
@@ -126,7 +126,7 @@ const PeopleTab = (): React.ReactElement => {
                     }}
                 >
                     {renderPeopleCountList()}
-                </ModalLayer>
+                </BottomLayer>
             )}
         </Container>
     );
@@ -171,4 +171,16 @@ const PeopleCountController = styled.div`
     }
 `;
 
+const PeopleTypeInfo = styled.div``;
+
 const PeopleTypeTitle = styled.h3``;
+
+const PeopleTypeDescription = styled.p``;
+
+const Count = styled.p``;
+
+const PeopleCounter = styled.div``;
+
+const ControlButton = styled.button`
+    cursor: pointer;
+`;

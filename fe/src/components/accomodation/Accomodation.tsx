@@ -8,6 +8,8 @@ import Header from '../header/Header';
 import Searcher from '../searcher/Searcher';
 import AccomodationList from './accomodationComponents/AccomodationList';
 import Map from './accomodationComponents/Map';
+import useFetch from 'hooks/fetchHook';
+import { URL } from 'util/urls';
 
 const initialState = {
     location: {
@@ -37,6 +39,12 @@ const initialState = {
 const Accomodation = (): React.ReactElement => {
     const tmpReservationState = sessionStorage.getItem('reservationState');
     const initialReservationState = tmpReservationState !== null ? JSON.parse(tmpReservationState) : initialState;
+
+    const [accomodationData, loading] = useFetch(URL.endPoint + URL.searchRoomWithQuery(initialReservationState));
+
+    // console.log(reservationData);
+
+    // console.log(URL.endPoint + URL.searchRoomWithQuery(initialReservationState));
 
     const [reservationState, reservationDispatch] = useReducer(reservationReducer, initialReservationState);
     const [fullState, setFullState] = useState(false);

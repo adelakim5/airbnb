@@ -5,7 +5,7 @@ import { LocationList, Location } from 'shared/interface';
 import { mockupLocationData } from 'data/location';
 import { useReservationDispatch } from 'hooks/ReservationHook';
 import { Container, Tab, NavigatingText, ResultText } from './common/shared.style';
-import ModalLayer from './common/ModalLayer';
+import BottomLayer from './common/BottomLayer';
 import { theme } from 'styles/theme';
 import useFetch from 'hooks/fetchHook';
 import { URL } from 'util/urls';
@@ -16,8 +16,8 @@ const LocationTab = (): React.ReactElement => {
     const searcherDispatch = useSearcherDispatch();
 
     const inputRef = useRef<HTMLInputElement>(null);
-
     let debounceTimer: ReturnType<typeof setTimeout>;
+    const debounceTime = 400;
 
     const { locationLayer, locationList } = searcherState;
 
@@ -31,32 +31,25 @@ const LocationTab = (): React.ReactElement => {
 
     const handleInputLocationList = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (debounceTimer) clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-            if (!event.target.value) {
-                searcherDispatch({ type: 'SHOW_LOCATION_LIST', list: [] });
-                return;
-            }
-            async function getLocationData() {
-                const response = await fetch(URL.endPoint + URL.location(event.target.value));
-                const json = await response.json();
-                const currLocationList = json.location_list;
-                searcherDispatch({ type: 'SHOW_LOCATION_LIST', list: currLocationList });
-            }
-
-            getLocationData();
-
-            // const currLocationList = getLocationData();
-            // fetch(`http://airbnb.clone.r-e.kr/api/search/${event.target.value}`)
-            //     .then((res) => res.json())
-            //     .then((res) => {
-            //         console.log(res);
-            //         const currLocationList = res.location_list;
-            //         searcherDispatch({ type: 'SHOW_LOCATION_LIST', list: currLocationList });
-            //     });
-            // const currLocationList: LocationList = mockupLocationData.location_list.filter((el) =>
-            //     el.address.includes(event.target.value),
-            // );
-        }, 200);
+        if (!event.target.value) {
+            searcherDispatch({ type: 'SHOW_LOCATION_LIST', list: [] });
+            return;
+        }
+        const strCurrLocationList = sessionStorage.getItem(event.target.value);
+        if (strCurrLocationList !== null) {
+            const currLocationList = JSON.parse(strCurrLocationList);
+            searcherDispatch({ type: 'SHOW_LOCATION_LIST', list: currLocationList });
+        } else {
+            debounceTimer = setTimeout(() => {
+                (async function getLocationData() {
+                    const response = await fetch(URL.endPoint + URL.location(event.target.value));
+                    const json = await response.json();
+                    const currLocationList = json.location_list;
+                    sessionStorage.setItem(event.target.value, JSON.stringify(currLocationList));
+                    searcherDispatch({ type: 'SHOW_LOCATION_LIST', list: currLocationList });
+                })();
+            }, debounceTime);
+        }
     };
 
     const setUpLocation = (place: Location) => {
@@ -85,7 +78,7 @@ const LocationTab = (): React.ReactElement => {
                 </ResultText>
             </Tab>
             {locationLayer && (
-                <ModalLayer
+                <BottomLayer
                     options={{
                         width: theme.LayerSize.mdWidth,
                         top: theme.LayerLocation.top,
@@ -100,7 +93,7 @@ const LocationTab = (): React.ReactElement => {
                             </ResultList>
                         ))}
                     </LocationResultListAll>
-                </ModalLayer>
+                </BottomLayer>
             )}
         </Container>
     );

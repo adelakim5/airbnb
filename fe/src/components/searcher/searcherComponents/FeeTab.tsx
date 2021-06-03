@@ -2,9 +2,9 @@ import React from 'react';
 import { useReservationState } from 'hooks/ReservationHook';
 import { useSearcherDispatch, useSearcherState } from 'hooks/SearcherHook';
 import { theme } from 'styles/theme';
-import ModalLayer from './common/ModalLayer';
 import { Container, NavigatingText, ResultText, Tab } from './common/shared.style';
 import FeeController from './feeController/FeeController';
+import BottomLayer from './common/BottomLayer';
 
 const FeeTab = (): React.ReactElement => {
     const { fee } = useReservationState();
@@ -24,7 +24,7 @@ const FeeTab = (): React.ReactElement => {
                 </ResultText>
             </Tab>
             {feeLayer && (
-                <ModalLayer
+                <BottomLayer
                     options={{
                         width: theme.LayerSize.smWidth,
                         top: theme.LayerLocation.top,
@@ -33,7 +33,7 @@ const FeeTab = (): React.ReactElement => {
                     }}
                 >
                     <FeeController />
-                </ModalLayer>
+                </BottomLayer>
             )}
         </Container>
     );

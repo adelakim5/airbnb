@@ -205,18 +205,46 @@ const mockupAccomodationData = {
 
 function insertKeys(mockupAccomodationData) {
     mockupAccomodationData.rooms.forEach((item, i) => {
-        item.address_id = i;
+        item.id = i;
+        item.location_id = i;
+        item.host_id = i;
         item.theme_id = i;
         item.name = 'Spacious and Comfortable cozy house #4';
+        item.room_and_property_type = '원룸';
+        item.avg_rating = 3.5;
+        item.weekly_price_factor = 0.97;
+        item.monthly_price_factor = 0.94;
+        item.description = '상세설명입니다';
+        item.person_capacity = 10;
         item.bedrooms = 1;
         item.beds = 1;
         item.bathrooms = 1;
-        item.person_capacity = 3;
-        item.room_and_property_type = '원룸';
-        item.avg_rating = 3.5;
         item.amenities = ['주방', '무선 인터넷', '에어컨', '헤어드라이어'];
         item.images_fe = {
             thumbnail:
+                'https://user-images.githubusercontent.com/49264795/120419706-e7225200-c39d-11eb-8ab8-e245dda14b8e.png',
+            detail_1:
+                'https://user-images.githubusercontent.com/49264795/120419706-e7225200-c39d-11eb-8ab8-e245dda14b8e.png',
+            detail_2:
+                'https://user-images.githubusercontent.com/49264795/120419706-e7225200-c39d-11eb-8ab8-e245dda14b8e.png',
+            detail_3:
+                'https://user-images.githubusercontent.com/49264795/120419706-e7225200-c39d-11eb-8ab8-e245dda14b8e.png',
+            detail_4:
+                'https://user-images.githubusercontent.com/49264795/120419706-e7225200-c39d-11eb-8ab8-e245dda14b8e.png',
+            detail_5:
+                'https://user-images.githubusercontent.com/49264795/120419706-e7225200-c39d-11eb-8ab8-e245dda14b8e.png',
+        };
+        item.images = {
+            thumb: 'https://user-images.githubusercontent.com/49264795/120419706-e7225200-c39d-11eb-8ab8-e245dda14b8e.png',
+            detail_1:
+                'https://user-images.githubusercontent.com/49264795/120419706-e7225200-c39d-11eb-8ab8-e245dda14b8e.png',
+            detail_2:
+                'https://user-images.githubusercontent.com/49264795/120419706-e7225200-c39d-11eb-8ab8-e245dda14b8e.png',
+            detail_3:
+                'https://user-images.githubusercontent.com/49264795/120419706-e7225200-c39d-11eb-8ab8-e245dda14b8e.png',
+            detail_4:
+                'https://user-images.githubusercontent.com/49264795/120419706-e7225200-c39d-11eb-8ab8-e245dda14b8e.png',
+            detail_5:
                 'https://user-images.githubusercontent.com/49264795/120419706-e7225200-c39d-11eb-8ab8-e245dda14b8e.png',
         };
     });
