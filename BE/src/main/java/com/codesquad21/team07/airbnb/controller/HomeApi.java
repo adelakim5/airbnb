@@ -1,8 +1,8 @@
 package com.codesquad21.team07.airbnb.controller;
 
-import com.codesquad21.team07.airbnb.dto.response.HomeContents;
-import com.codesquad21.team07.airbnb.dto.response.LocationDTO;
-import com.codesquad21.team07.airbnb.dto.response.SearchCity;
+import com.codesquad21.team07.airbnb.dtoGroup.response.HomeContents;
+import com.codesquad21.team07.airbnb.dtoGroup.response.LocationDTO;
+import com.codesquad21.team07.airbnb.dtoGroup.response.SearchCity;
 import com.codesquad21.team07.airbnb.service.CityService;
 import com.codesquad21.team07.airbnb.service.LocationService;
 import com.codesquad21.team07.airbnb.service.ThemeService;

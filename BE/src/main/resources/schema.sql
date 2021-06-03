@@ -4,11 +4,11 @@ USE airbnb;
 
 CREATE TABLE IF NOT EXISTS Location
 (
-    id           BIGINT PRIMARY KEY AUTO_INCREMENT,
-    city         VARCHAR(45)    NOT NULL COMMENT '특별시/광역시/도',
-    district     VARCHAR(45)    NOT NULL COMMENT '군/구',
-    latitude     DECIMAL(10, 5) NOT NULL COMMENT '위도',
-    longitude    DECIMAL(10, 5) NOT NULL COMMENT '경도'
+    id        BIGINT PRIMARY KEY AUTO_INCREMENT,
+    city      VARCHAR(45)    NOT NULL COMMENT '특별시/광역시/도',
+    district  VARCHAR(45)    NOT NULL COMMENT '군/구',
+    latitude  DECIMAL(10, 5) NOT NULL COMMENT '위도',
+    longitude DECIMAL(10, 5) NOT NULL COMMENT '경도'
 );
 
 CREATE TABLE IF NOT EXISTS User
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS User
 CREATE TABLE IF NOT EXISTS Theme
 (
     id        BIGINT PRIMARY KEY AUTO_INCREMENT,
-    title      VARCHAR(30)  NOT NULL,
+    title     VARCHAR(30)  NOT NULL,
     thumbnail VARCHAR(300) NOT NULL COMMENT '미리보기 이미지 링크'
 );
 
@@ -44,9 +44,9 @@ CREATE TABLE IF NOT EXISTS Theme
 
 CREATE TABLE IF NOT EXISTS Host
 (
-    id                BIGINT PRIMARY KEY AUTO_INCREMENT,
-    name              VARCHAR(45) UNIQUE NOT NULL COMMENT '닉네임 중복금지',
-    picture_url VARCHAR(200)  NOT NULL COMMENT '호스트 프로필 사진'
+    id          BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name        VARCHAR(45) UNIQUE NOT NULL COMMENT '닉네임 중복금지',
+    picture_url VARCHAR(200)       NOT NULL COMMENT '호스트 프로필 사진'
 );
 
 CREATE TABLE IF NOT EXISTS Room
@@ -92,11 +92,15 @@ CREATE TABLE IF NOT EXISTS Amenity
 
 CREATE TABLE IF NOT EXISTS Reservation
 (
-    id        BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '예약번호',
-    room_id   BIGINT   NOT NULL COMMENT '방 번호',
-    user_id   BIGINT   NOT NULL COMMENT '예약한 유저가 누구인지?',
-    check_in  DATE NOT NULL,
-    check_out DATE NOT NULL,
+    id          BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '예약번호',
+    room_id     BIGINT NOT NULL COMMENT '방 번호',
+    user_id     BIGINT NOT NULL COMMENT '예약한 유저가 누구인지?',
+    check_in    DATE   NOT NULL,
+    check_out   DATE   NOT NULL,
+    num_of_adults       int comment '성인 인원',
+    num_of_children    int comment '어린이 인원',
+    num_of_infants     int comment '유아 인원',
+    total_price int comment '예약 비용',
     FOREIGN KEY (room_id) REFERENCES Room (id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES User (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -104,10 +108,10 @@ CREATE TABLE IF NOT EXISTS Reservation
 CREATE TABLE IF NOT EXISTS Review
 (
     id          BIGINT PRIMARY KEY AUTO_INCREMENT,
-    room_id     BIGINT NOT NULL,
+    room_id     BIGINT        NOT NULL,
     user_id     BIGINT UNIQUE NOT NULL COMMENT '리뷰한 유저가 누구인지?, 리뷰 한개만 작성되게 유니크',
     content     VARCHAR(300),
-    star_rating DECIMAL(3,2),
+    star_rating DECIMAL(3, 2),
     FOREIGN KEY (room_id) REFERENCES Room (id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES User (id) ON UPDATE CASCADE ON DELETE CASCADE
 );

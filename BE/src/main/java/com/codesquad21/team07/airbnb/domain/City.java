@@ -1,6 +1,6 @@
 package com.codesquad21.team07.airbnb.domain;
 
-import com.codesquad21.team07.airbnb.dto.response.CityDTO;
+import com.codesquad21.team07.airbnb.dtoGroup.response.CityDTO;
 
 public class City {
 

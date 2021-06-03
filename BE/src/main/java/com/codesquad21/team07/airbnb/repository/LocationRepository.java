@@ -1,7 +1,7 @@
 package com.codesquad21.team07.airbnb.repository;
 
 import com.codesquad21.team07.airbnb.domain.Location;
-import com.codesquad21.team07.airbnb.dto.response.LocationDTO;
+import com.codesquad21.team07.airbnb.dtoGroup.response.LocationDTO;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

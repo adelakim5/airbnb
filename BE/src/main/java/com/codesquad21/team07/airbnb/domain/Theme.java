@@ -1,6 +1,6 @@
 package com.codesquad21.team07.airbnb.domain;
 
-import com.codesquad21.team07.airbnb.dto.response.ThemeDTO;
+import com.codesquad21.team07.airbnb.dtoGroup.response.ThemeDTO;
 
 public class Theme {
 

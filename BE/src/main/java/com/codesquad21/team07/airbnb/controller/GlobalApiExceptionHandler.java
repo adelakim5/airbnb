@@ -1,6 +1,6 @@
 package com.codesquad21.team07.airbnb.controller;
 
-import com.codesquad21.team07.airbnb.dto.response.ErrorDto;
+import com.codesquad21.team07.airbnb.dtoGroup.response.ErrorDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;

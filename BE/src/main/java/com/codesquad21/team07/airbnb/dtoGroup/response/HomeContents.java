@@ -1,4 +1,4 @@
-package com.codesquad21.team07.airbnb.dto.response;
+package com.codesquad21.team07.airbnb.dtoGroup.response;
 
 import com.codesquad21.team07.airbnb.domain.City;
 import com.codesquad21.team07.airbnb.domain.Theme;

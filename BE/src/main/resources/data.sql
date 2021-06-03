@@ -1,6 +1,11 @@
 SELECT COUNT(*)
 FROM Theme;
 
+/*
+ EC2 경로: /home/ec2-user/airbnb
+ Local 경로: C:/Users/psh/Documents/Web/codesquad/airbnb
+*/
+
 LOAD DATA LOCAL INFILE 'C:/Users/psh/Documents/Web/codesquad/airbnb/BE/src/main/resources/csv/유저.csv'
     REPLACE
     INTO TABLE User
@@ -91,7 +96,7 @@ LOAD DATA LOCAL INFILE 'C:/Users/psh/Documents/Web/codesquad/airbnb/BE/src/main/
     OPTIONALLY ENCLOSED BY ''
     LINES TERMINATED BY '\n'
     IGNORE 1 LINES
-    (id, room_id, user_id, check_in, check_out);
+    (id, room_id, user_id, check_in, check_out, num_of_adults, num_of_children, num_of_infants, total_price);
 
 
 LOAD DATA LOCAL INFILE 'C:/Users/psh/Documents/Web/codesquad/airbnb/BE/src/main/resources/csv/리뷰.csv'

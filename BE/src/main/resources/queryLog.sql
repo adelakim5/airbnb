@@ -167,3 +167,60 @@ WHERE (SELECT COUNT(*)
                      OR (:checkOut BETWEEN R.check_in AND R.check_out)
                      OR ((:checkIn <= R.check_out) AND (:checkOut >= R.check_in))
                  )) = 0;
+
+
+# 숙소 ID와 예약 날짜를 통해 예약 가능한지 여부 확인
+
+SELECT COUNT(*)
+FROM Reservation AS R
+WHERE 1=1
+AND R.room_id
+          IN (
+              (:checkIn BETWEEN R.check_in AND R.check_out)
+              OR (:checkOut BETWEEN R.check_in AND R.check_out)
+              OR ((:checkIn <= R.check_out) AND (:checkOut >= R.check_in))
+          ) = 1
+AND R.status = :status
+AND R.room_id = :roomdId;
+
+
+SELECT COUNT(*)
+FROM Reservation AS R
+WHERE R.room_id
+          IN (
+              (:checkIn BETWEEN R.check_in AND R.check_out)
+              OR (:checkOut BETWEEN R.check_in AND R.check_out)
+              OR ((:checkIn <= R.check_out) AND (:checkOut >= R.check_in))
+          );
+
+
+
+INSERT INTO Reservation (room_id, user_id, check_in, check_out, num_of_adults, num_of_children, num_of_infants, total_price, status)
+VALUES (
+        :roomId,
+        :userId,
+        :checkIn,
+        :checkOut,
+        :numOfAdults,
+        :numOfChildren,
+        :numOfInfants,
+        :totalPrice,
+        :status
+);
+
+UPDATE Reservation SET status = :status
+WHERE 1=1
+AND room_id = :roomId
+AND user_id = :userI
+AND id = :reservationId
+
+
+
+SELECT COUNT(*) FROM Reservation AS R
+WHERE 1=1
+AND R.user_id=:userId
+AND R.room_id=:roomId
+AND R.id = :reservationId
+AND R.status = :status;
+
+

@@ -1,4 +1,4 @@
-package com.codesquad21.team07.airbnb.dto.response;
+package com.codesquad21.team07.airbnb.dtoGroup.response;
 
 import java.util.ArrayList;
 import java.util.List;

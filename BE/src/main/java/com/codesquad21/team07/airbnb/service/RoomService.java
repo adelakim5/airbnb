@@ -3,19 +3,18 @@ package com.codesquad21.team07.airbnb.service;
 import com.codesquad21.team07.airbnb.domain.Amenity;
 import com.codesquad21.team07.airbnb.domain.Image;
 import com.codesquad21.team07.airbnb.domain.Room;
-import com.codesquad21.team07.airbnb.dto.request.SearchRoom;
-import com.codesquad21.team07.airbnb.dto.response.RoomDTO;
-import com.codesquad21.team07.airbnb.dto.response.RoomList;
+import com.codesquad21.team07.airbnb.dtoGroup.request.SearchRoom;
+import com.codesquad21.team07.airbnb.dtoGroup.response.RoomDTO;
+import com.codesquad21.team07.airbnb.dtoGroup.response.RoomList;
 import com.codesquad21.team07.airbnb.exception.NotFoundException;
 import com.codesquad21.team07.airbnb.repository.RoomRepostiory;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class RoomService {
-    private RoomRepostiory roomRepostiory;
+    private final RoomRepostiory roomRepostiory;
 
     public RoomService(RoomRepostiory roomRepostiory) {
         this.roomRepostiory = roomRepostiory;
@@ -47,15 +46,8 @@ public class RoomService {
         return getRoomList(roomList, rooms);
     }
 
-    public RoomList findRoomListByPeriod(LocalDate checkIn, LocalDate checkOut){
-
-        RoomList roomList = new RoomList();
-        List<Room> rooms = roomRepostiory.findRoomListByPeriod(checkIn,checkOut);
-
-        return getRoomList(roomList, rooms);
-    }
-
     private RoomList getRoomList(RoomList roomList, List<Room> rooms) {
+
         for(Room room : rooms){
             //m N+1 문제 추후 해결하기
             List<Image> images = findImageByRoomId(room.getId());
