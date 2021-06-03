@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Hero from './mainComponents/Hero';
 import NearbyLocation from './mainComponents/NearbyLocation';
 import HouseType from './mainComponents/HouseType';
@@ -9,16 +9,9 @@ import { URL } from 'util/urls';
 import { MainContentsProps } from 'shared/interface';
 
 const MainContents = (): React.ReactElement => {
-    const mainContents = sessionStorage.getItem('mainContentsData');
+    const [mainContentsData, loading] = useFetch(URL.endPoint);
 
-    if (!mainContents) {
-        const [mainContentsData, loading] = useFetch(URL.endPoint);
-        sessionStorage.setItem('mainContentsData', JSON.stringify(mainContentsData));
-        return loading ? <div>loading</div> : <MainPage mainContentsData={mainContentsData} />;
-    }
-
-    const mainContentsData = JSON.parse(mainContents);
-    return <MainPage mainContentsData={mainContentsData} />;
+    return loading ? <div>Loading...</div> : <MainPage mainContentsData={mainContentsData} />;
 };
 
 export default MainContents;

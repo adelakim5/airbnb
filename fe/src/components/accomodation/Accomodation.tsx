@@ -1,8 +1,8 @@
-import React, { useReducer, useState } from 'react';
+// import { sampleAccomodationData } from 'data/accomodation.js';
+import React, { useEffect, useReducer, useState } from 'react';
 import styled from 'styled-components';
 import { ReservationDispatchContext, ReservationStateContext } from 'Contexts';
-import { sampleAccomodationData } from 'data/accomodation.js';
-import { AccomodationModalType, AccomodationType, ReservationContext } from 'shared/interface';
+import { AccomodationModalType, AccomodationType } from 'shared/interface';
 import reservationReducer from 'shared/reservationReducer';
 import Header from '../header/Header';
 import Searcher from '../searcher/Searcher';
@@ -10,27 +10,41 @@ import AccomodationList from './accomodationComponents/AccomodationList';
 import Map from './accomodationComponents/Map';
 import Modal from './accomodationComponents/common/Modal';
 import { initialState } from 'util/initialState.reservationContext';
-// import useFetch from 'hooks/FetchHook';
-// import { URL } from 'util/urls';
+import useFetch from 'hooks/FetchHook';
+import { URL } from 'util/urls';
 
 const Accomodation = (): React.ReactElement => {
     const tmpReservationState = sessionStorage.getItem('reservationState');
     const initialReservationState = tmpReservationState !== null ? JSON.parse(tmpReservationState) : initialState;
+    const requestUrl = URL.endPoint + URL.searchRoomWithQuery(initialReservationState);
+    // const [accomodation, loading] = useFetch(requestUrl);
+    const [totalAccomodations, setTotalAccomodations] = useState<any[]>([]);
+    const [currAccomodations, setCurrAccomodations] = useState<any[]>([]);
 
-    // const [accomodationData, loading] = useFetch(URL.endPoint + URL.searchRoomWithQuery(initialReservationState));
+    useEffect(() => {
+        // if (!accomodation) return;
+        // const newArr = accomodation.rooms;
+        // setCurrAccomodations([...newArr]);
+        async function request() {
+            const response = await fetch(requestUrl);
+            const json = await response.json();
+            const { rooms } = json;
+            setCurrAccomodations(rooms);
+            setTotalAccomodations(rooms);
+            sessionStorage.setItem(requestUrl, JSON.stringify(rooms));
+        }
+        request();
+    }, []);
 
     const [reservationState, reservationDispatch] = useReducer(reservationReducer, initialReservationState);
     const { people, fee } = reservationState;
     const { adult, children, kids } = people;
-
     const [modalLayer, setModalLayer] = useState(false);
     const [selectedAccomodation, setSelectedAccomodation] = useState<AccomodationModalType | null>(null);
     const [fullState, setFullState] = useState(false);
 
-    const [currAccomodations, setCurrAccomodations] = useState(sampleAccomodationData.rooms);
-
     const filterAccomodations = ([maxLat, maxLng, minLat, minLng]: number[]) => {
-        const result = sampleAccomodationData.rooms.filter((room: AccomodationType) => {
+        const result = totalAccomodations.filter((room: AccomodationType) => {
             const { latitude, longitude, rental_fee_per_night, person_capacity } = room;
             const peopleCount = adult + children + kids;
             return (
@@ -51,26 +65,29 @@ const Accomodation = (): React.ReactElement => {
         setSelectedAccomodation({ ...roomInfo, diff });
     };
 
-    console.log(modalLayer);
-
     return (
-        <>
-            <ReservationDispatchContext.Provider value={reservationDispatch}>
-                <ReservationStateContext.Provider value={reservationState}>
-                    <AccomodationPage>
-                        <HeaderSection>
-                            <Header isFull={fullState} setFullState={setFullState} />
-                            {fullState && <Searcher />}
-                        </HeaderSection>
-                        <AccomodationSection onClick={() => setFullState(false)}>
-                            <AccomodationList {...{ currAccomodations, showSelectedAccomodationModal }} />
-                            <Map {...{ currAccomodations, filterAccomodations, showSelectedAccomodationModal }} />
-                        </AccomodationSection>
-                    </AccomodationPage>
-                    {modalLayer && <Modal {...{ selectedAccomodation, setModalLayer }} />}
-                </ReservationStateContext.Provider>
-            </ReservationDispatchContext.Provider>
-        </>
+        <ReservationDispatchContext.Provider value={reservationDispatch}>
+            <ReservationStateContext.Provider value={reservationState}>
+                <AccomodationPage>
+                    <HeaderSection>
+                        <Header isFull={fullState} setFullState={setFullState} />
+                        {fullState && <Searcher />}
+                    </HeaderSection>
+                    <AccomodationSection onClick={() => setFullState(false)}>
+                        <AccomodationList {...{ currAccomodations, showSelectedAccomodationModal }} />
+                        <Map
+                            {...{
+                                initialReservationState,
+                                currAccomodations,
+                                filterAccomodations,
+                                showSelectedAccomodationModal,
+                            }}
+                        />
+                    </AccomodationSection>
+                </AccomodationPage>
+                {modalLayer && <Modal {...{ selectedAccomodation, setModalLayer }} />}
+            </ReservationStateContext.Provider>
+        </ReservationDispatchContext.Provider>
     );
 };
 

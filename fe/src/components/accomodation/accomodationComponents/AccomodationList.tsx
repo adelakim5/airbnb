@@ -34,18 +34,22 @@ const AccomodationList = (props: AccomodationListPropsType): React.ReactElement 
         <Accomodations>
             <SearchInfo>{getCombinations(searchInfoArray).map((el) => getTemplate(el))}</SearchInfo>
             <AccomodationListTitle>지도에서 선택한 지역의 숙소</AccomodationListTitle>
-            <AccomodationListBody>
-                {currAccomodations.map((roomInfo: AccomodationType) => {
-                    const { person_capacity, room_and_property_type, beds, bathrooms } = roomInfo;
-                    const accomodationInfoArray = [
-                        `최대 인원 ${person_capacity}명`,
-                        `${room_and_property_type}`,
-                        `침대 ${beds}개`,
-                        `욕실 ${bathrooms}개`,
-                    ];
-                    return <CardList {...{ roomInfo, showSelectedAccomodationModal, accomodationInfoArray }} />;
-                })}
-            </AccomodationListBody>
+            {currAccomodations.length <= 0 ? (
+                <div>해당 조건에 맞는 숙소를 찾지 못하였습니다.</div>
+            ) : (
+                <AccomodationListBody>
+                    {currAccomodations.map((roomInfo: AccomodationType) => {
+                        const { person_capacity, room_and_property_type, beds, bathrooms } = roomInfo;
+                        const accomodationInfoArray = [
+                            `최대 인원 ${person_capacity}명`,
+                            `${room_and_property_type}`,
+                            `침대 ${beds}개`,
+                            `욕실 ${bathrooms}개`,
+                        ];
+                        return <CardList {...{ roomInfo, showSelectedAccomodationModal, accomodationInfoArray }} />;
+                    })}
+                </AccomodationListBody>
+            )}
         </Accomodations>
     );
 };

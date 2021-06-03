@@ -9,7 +9,7 @@ interface FeeProps {
 
 const FeeController = ({ feeData }: FeeProps): React.ReactElement => {
     const reservationDispatch = useReservationDispatch();
-    const [feeValue, setFeeValue] = useState<number[]>([0, 100]);
+    const [feeValue, setFeeValue] = useState<number[]>([1, 100]);
 
     const handleSliderChange = (newValue: number[]) => {
         setFeeValue(newValue);

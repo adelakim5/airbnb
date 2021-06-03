@@ -26,12 +26,12 @@ const Modal = ({ selectedAccomodation, setModalLayer }: ModalProps): React.React
 
     if (!selectedAccomodation) return <></>;
 
-    const { rental_fee_per_night, num_of_review, diff } = selectedAccomodation;
+    const { rental_fee_per_night, num_of_review, diff, name } = selectedAccomodation;
 
     return (
         <ModalBackground className="modalBackground">
             <ModalBox className="modalBox">
-                <Header {...{ rental_fee_per_night, num_of_review }} />
+                <Header {...{ rental_fee_per_night, num_of_review, name }} />
                 <ReservationInfo />
                 <ReservationButton>예약하기</ReservationButton>
                 <Message>예약 확정 전에는 요금이 청구되지 않습니다.</Message>
@@ -70,6 +70,8 @@ const ModalBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    box-shadow: 0px 4px 10px rgba(51, 51, 51, 0.1), 0px 0px 4px rgba(51, 51, 51, 0.05);
+    border-radius: 10px;
 `;
 
 const ReservationButton = styled.button`

@@ -1,10 +1,9 @@
 import { useReservationState } from 'hooks/ReservationHook';
 import React from 'react';
-import { AccomodationType, AccomodationModalType } from 'shared/interface';
+import { AccomodationType } from 'shared/interface';
 import styled from 'styled-components';
 import { getCombinations, getTemplate } from './common/functions';
 import dateDiff from '../dateDiff.js';
-import { check } from 'prettier';
 
 interface CardListProps {
     roomInfo: AccomodationType;

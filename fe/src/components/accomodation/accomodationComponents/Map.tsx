@@ -4,7 +4,7 @@ import { GoogleMap, useJsApiLoader, OverlayView } from '@react-google-maps/api';
 import { apiKey } from '../private.js';
 import dateDiff from '../dateDiff.js';
 import { useReservationState } from 'hooks/ReservationHook';
-import { AccomodationModalType, AccomodationType } from 'shared/interface.js';
+import { AccomodationType, ReservationContext } from 'shared/interface.js';
 
 interface LatLng {
     lat: number;
@@ -16,33 +16,13 @@ const mapContainerStyle = {
     height: `100vh`,
 };
 
-/*
-
-const createSampleData = () => {
-    const result = [];
-    const lats = [35, 36, 37];
-    for (let i = 0; i < 200; i++) {
-        const lat = Math.random() + lats[Math.floor(Math.random() * 3)];
-        const lng = Math.random() + 127;
-        const price = Math.floor((Math.random() + 1) * 100);
-        result.push({ lat, lng, price });
-    }
-    return result;
-};
-
-const initSampleData = createSampleData();
-console.log(initSampleData);
-
-*/
-
-const center: LatLng = { lat: 37.566536, lng: 126.977966 };
+const initCenter: LatLng = { lat: 37.566536, lng: 126.977966 };
 
 interface MapProps {
     currAccomodations: AccomodationType[];
     filterAccomodations: (params: number[]) => void;
     showSelectedAccomodationModal: (arg1: AccomodationType, arg2: number) => void;
-    // setSelectedAccomodation: (param: AccomodationModalType) => void;
-    // setModalLayer: (param: boolean) => void;
+    initialReservationState: ReservationContext;
 }
 
 const Map = (props: MapProps): React.ReactElement => {
@@ -51,7 +31,14 @@ const Map = (props: MapProps): React.ReactElement => {
         googleMapsApiKey: apiKey,
     });
 
-    const { currAccomodations, filterAccomodations, showSelectedAccomodationModal } = props;
+    const { currAccomodations, filterAccomodations, showSelectedAccomodationModal, initialReservationState } = props;
+    const { latitude, longitude } = initialReservationState.location;
+    const [center, setCenter] = useState({ lat: initCenter.lat, lng: initCenter.lng });
+
+    useEffect(() => {
+        if (!latitude || !longitude) return;
+        setCenter({ lat: latitude, lng: longitude });
+    }, []);
 
     const [, setMap] = useState<unknown | null>(null);
     const mapRef = useRef<any>(null);
@@ -67,6 +54,7 @@ const Map = (props: MapProps): React.ReactElement => {
     }, []);
 
     const onUnMount = useCallback((map) => setMap(null), []);
+
     let debounceTimer: ReturnType<typeof setTimeout>;
 
     const relocatePriceMarker = () => {
@@ -92,7 +80,7 @@ const Map = (props: MapProps): React.ReactElement => {
     return isLoaded ? (
         <GoogleMap
             mapContainerStyle={mapContainerStyle}
-            zoom={12}
+            zoom={14}
             center={center}
             onUnmount={onUnMount}
             onLoad={onMapLoad}
