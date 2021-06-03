@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useReservationState } from 'hooks/ReservationHook';
-import { AccomodationModalType, AccomodationType } from 'shared/interface';
+import { AccomodationType } from 'shared/interface';
 import { getTemplate } from './common/functions';
 import CardList from './CardList';
 
