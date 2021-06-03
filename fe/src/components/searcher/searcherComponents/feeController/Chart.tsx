@@ -1,11 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FeeProps } from './Slider';
-import { mockupPriceListData } from 'data/priceList.js';
+// import { mockupPriceListData } from 'data/priceList.js';
+// import useFetch from 'hooks/fetchHook';
+// import { URL } from 'util/urls';
 
 const getPriceListData = (priceList: number[]) => {
+    const min = 10000;
+    const max = 1000000;
     const result = [];
-    for (let x = 10000; x <= 1000000; x += 10000) {
+    for (let x = min; x <= max; x += 10000) {
         const targets = priceList.filter((price) => {
             return x <= price && price < x + 10000;
         });
@@ -14,16 +18,15 @@ const getPriceListData = (priceList: number[]) => {
     return result;
 };
 
-const Chart = (props: FeeProps): React.ReactElement => {
-    const { feeValue } = props;
-    const priceListData = getPriceListData(mockupPriceListData['price-list']).sort((a, b) => a.x - b.x);
+const Chart = ({ feeValue, feeData }: FeeProps): React.ReactElement => {
+    const newFeeData = getPriceListData(feeData).sort((a, b) => a.x - b.x);
     return (
         <ChartBoxSlider>
-            {priceListData.map((price, i) => {
+            {newFeeData.map((price, i) => {
                 const { y } = price;
                 return (
                     <ChartElement
-                        height={y}
+                        height={y * 0.2}
                         background={i < feeValue[0] || i > feeValue[1] ? '#ddd' : '#000'}
                     ></ChartElement>
                 );

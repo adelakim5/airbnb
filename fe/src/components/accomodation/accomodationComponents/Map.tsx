@@ -87,10 +87,10 @@ const Map = ({ currAccomodations, filterAccomodations }: MapProps): React.ReactE
             {currAccomodations.map((accomodation) => {
                 const { latitude, longitude, rental_fee_per_night, id } = accomodation;
                 return (
-                    <PriceMarkerButton onClick={() => alert(`${rental_fee_per_night},000원 숙소`)}>
+                    <PriceMarkerButton onClick={() => alert(`${rental_fee_per_night}숙소`)}>
                         <OverlayView position={{ lat: latitude, lng: longitude }} mapPaneName={OverlayView.FLOAT_PANE}>
                             <PriceLabel>
-                                <PriceText>₩{rental_fee_per_night},000</PriceText>
+                                <PriceText>₩{rental_fee_per_night.toLocaleString()}</PriceText>
                             </PriceLabel>
                         </OverlayView>
                     </PriceMarkerButton>

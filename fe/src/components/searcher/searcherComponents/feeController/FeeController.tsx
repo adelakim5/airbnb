@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import { useReservationDispatch } from 'hooks/ReservationHook';
 import Slider from './Slider';
 
-const FeeController = (): React.ReactElement => {
+interface FeeProps {
+    feeData: number[];
+}
+
+const FeeController = ({ feeData }: FeeProps): React.ReactElement => {
     const reservationDispatch = useReservationDispatch();
     const [feeValue, setFeeValue] = useState<number[]>([0, 100]);
 
@@ -25,7 +29,7 @@ const FeeController = (): React.ReactElement => {
                     평균 1박 요금은 <span>₩165,556</span> 입니다.
                 </div>
             </FeeDescription>
-            <Slider feeValue={feeValue} handleSliderChange={handleSliderChange} />
+            <Slider feeData={feeData} feeValue={feeValue} handleSliderChange={handleSliderChange} />
         </Controller>
     );
 };

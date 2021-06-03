@@ -5,14 +5,15 @@ import Chart from './Chart';
 
 export interface FeeProps {
     feeValue: number[];
+    feeData: number[];
 }
 
 interface SlideProps extends FeeProps {
     handleSliderChange: (newValue: number[]) => void;
 }
 
-const Slider = (props: SlideProps): React.ReactElement => {
-    const { feeValue, handleSliderChange } = props;
+const Slider = ({ feeValue, feeData, handleSliderChange }: SlideProps): React.ReactElement => {
+    // const { feeValue, handleSliderChange } = props;
 
     const inputLeft = useRef<HTMLInputElement>(null);
     const inputRight = useRef<HTMLInputElement>(null);
@@ -52,7 +53,7 @@ const Slider = (props: SlideProps): React.ReactElement => {
 
     return (
         <Slide>
-            <Chart feeValue={feeValue} />
+            <Chart feeData={feeData} feeValue={feeValue} />
             <div className="multi-range-slider">
                 <RangeInputLeft
                     ref={inputLeft}
@@ -73,7 +74,7 @@ const Slider = (props: SlideProps): React.ReactElement => {
                 />
 
                 <BarSlider>
-                    <Track></Track>
+                    <Track />
                     <Range ref={range}></Range>
                     <ThumbLeft ref={thumbLeft}>
                         <PauseCircleOutlineIcon />

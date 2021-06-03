@@ -5,9 +5,15 @@ import { AccomodationType } from 'shared/interface';
 
 interface AccomodationListPropsType {
     currAccomodations: AccomodationType[];
+    setModalLayer: (param: boolean) => void;
+    setSelectedAccomodation: (param: AccomodationType) => void;
 }
 
-const AccomodationList = ({ currAccomodations }: AccomodationListPropsType): React.ReactElement => {
+const AccomodationList = ({
+    currAccomodations,
+    setModalLayer,
+    setSelectedAccomodation,
+}: AccomodationListPropsType): React.ReactElement => {
     const reservationState = useReservationState();
     const { checkIn, checkOut, fee, people } = reservationState;
     const searchInfoArray: string[] = [
@@ -28,6 +34,11 @@ const AccomodationList = ({ currAccomodations }: AccomodationListPropsType): Rea
     const getTemplate = (el: string) => {
         if (el === 'divider') return <Divider />;
         return <span>{el}</span>;
+    };
+
+    const showSelectedAccomodationModal = (roomInfo: AccomodationType) => {
+        setModalLayer(true);
+        setSelectedAccomodation(roomInfo);
     };
 
     return (
@@ -53,7 +64,11 @@ const AccomodationList = ({ currAccomodations }: AccomodationListPropsType): Rea
                     ];
                     return (
                         <CardList>
-                            <CardItem>
+                            <CardItem
+                                onClick={() => {
+                                    showSelectedAccomodationModal(roomInfo);
+                                }}
+                            >
                                 <Thumbnail src={roomInfo.images_fe.thumbnail} />
                                 <CardContent>
                                     <CardTitle>{roomInfo.name}</CardTitle>
@@ -68,8 +83,8 @@ const AccomodationList = ({ currAccomodations }: AccomodationListPropsType): Rea
                                             <span>{avg_rating}</span>
                                         </Rate>
                                         <Price>
-                                            <span>₩{rental_fee_per_night},000 / 박</span>
-                                            <span>총액 ₩{rental_fee_per_night},000</span>
+                                            <span>₩{rental_fee_per_night.toLocaleString()} / 박</span>
+                                            <span>총액 ₩{rental_fee_per_night.toLocaleString()}</span>
                                         </Price>
                                     </CardFooter>
                                 </CardContent>

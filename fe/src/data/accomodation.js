@@ -205,6 +205,7 @@ const mockupAccomodationData = {
 
 function insertKeys(mockupAccomodationData) {
     mockupAccomodationData.rooms.forEach((item, i) => {
+        item.rental_fee_per_night *= 1000;
         item.id = i;
         item.location_id = i;
         item.host_id = i;

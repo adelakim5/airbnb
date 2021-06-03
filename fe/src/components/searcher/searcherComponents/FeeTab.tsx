@@ -5,8 +5,14 @@ import { theme } from 'styles/theme';
 import { Container, NavigatingText, ResultText, Tab } from './common/shared.style';
 import FeeController from './feeController/FeeController';
 import BottomLayer from './common/BottomLayer';
+import useFetch from 'hooks/fetchHook';
+import { URL } from 'util/urls';
+import { mockupPriceListData } from 'data/priceList';
 
 const FeeTab = (): React.ReactElement => {
+    // const [feeData, loading] = useFetch(URL.feeChart);
+    console.log(mockupPriceListData);
+
     const { fee } = useReservationState();
     const { feeLayer } = useSearcherState();
     const searcherDispatch = useSearcherDispatch();
@@ -32,7 +38,7 @@ const FeeTab = (): React.ReactElement => {
                         height: theme.LayerSize.smHeight,
                     }}
                 >
-                    <FeeController />
+                    <FeeController feeData={mockupPriceListData} />
                 </BottomLayer>
             )}
         </Container>
