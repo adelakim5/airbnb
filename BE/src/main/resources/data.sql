@@ -86,7 +86,7 @@ LOAD DATA LOCAL INFILE 'C:/Users/psh/Documents/Web/codesquad/airbnb/BE/src/main/
      name, room_and_property_type, avg_rating,
      rental_fee_per_night, weekly_price_factor, monthly_price_factor,
      description,
-     person_capacity, bedrooms, beds, bathrooms);
+     person_capacity, bedrooms, beds, bathrooms, num_of_review);
 
 LOAD DATA LOCAL INFILE 'C:/Users/psh/Documents/Web/codesquad/airbnb/BE/src/main/resources/csv/예약.csv'
     REPLACE
@@ -97,16 +97,6 @@ LOAD DATA LOCAL INFILE 'C:/Users/psh/Documents/Web/codesquad/airbnb/BE/src/main/
     LINES TERMINATED BY '\n'
     IGNORE 1 LINES
     (id, room_id, user_id, check_in, check_out, num_of_adults, num_of_children, num_of_infants, total_price);
-
-
-LOAD DATA LOCAL INFILE 'C:/Users/psh/Documents/Web/codesquad/airbnb/BE/src/main/resources/csv/리뷰.csv'
-    REPLACE
-    INTO TABLE Review
-    FIELDS TERMINATED BY ','
-    OPTIONALLY ENCLOSED BY ''
-    LINES TERMINATED BY '\n'
-    IGNORE 1 LINES
-    (id, room_id, user_id, content, star_rating);
 
 LOAD DATA LOCAL INFILE 'C:/Users/psh/Documents/Web/codesquad/airbnb/BE/src/main/resources/csv/편의시설.csv'
     REPLACE

@@ -48,6 +48,8 @@ public class RoomDTO {
 
     private final List<String> amenities;
 
+    private final int numOfReview;
+
 
     public RoomDTO(Room room, List<String> imageList, Map<String, String> imagesFe, List<String> amenities) {
         this.id = room.getId();
@@ -67,6 +69,7 @@ public class RoomDTO {
         this.bathrooms = room.getBathrooms();
         this.avgRating = room.getAvgRating();
         this.roomAndPropertyType = room.getRoomAndPropertyType();
+        this.numOfReview = room.getNumOfReview();
 
         //TODO. N+1 문제 해결
         this.images = imageList;
@@ -178,4 +181,7 @@ public class RoomDTO {
         return hostId;
     }
 
+    public int getNumOfReview() {
+        return numOfReview;
+    }
 }

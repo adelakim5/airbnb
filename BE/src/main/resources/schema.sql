@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS Room
     bedrooms               INT COMMENT '침실수, 0개면 원룸',
     beds                   INT COMMENT '침대수',
     bathrooms              INT COMMENT '욕실수',
+    num_of_review            INT COMMENT '리뷰 갯수',
     CONSTRAINT room_theme_fk FOREIGN KEY (theme_id) REFERENCES Theme (id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT room_location_fk FOREIGN KEY (location_id) REFERENCES Location (id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT room_host_fk FOREIGN KEY (host_id) REFERENCES Host (id) ON UPDATE CASCADE ON DELETE CASCADE
@@ -101,17 +102,6 @@ CREATE TABLE IF NOT EXISTS Reservation
     num_of_children    int comment '어린이 인원',
     num_of_infants     int comment '유아 인원',
     total_price int comment '예약 비용',
-    FOREIGN KEY (room_id) REFERENCES Room (id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES User (id) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS Review
-(
-    id          BIGINT PRIMARY KEY AUTO_INCREMENT,
-    room_id     BIGINT        NOT NULL,
-    user_id     BIGINT UNIQUE NOT NULL COMMENT '리뷰한 유저가 누구인지?, 리뷰 한개만 작성되게 유니크',
-    content     VARCHAR(300),
-    star_rating DECIMAL(3, 2),
     FOREIGN KEY (room_id) REFERENCES Room (id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES User (id) ON UPDATE CASCADE ON DELETE CASCADE
 );

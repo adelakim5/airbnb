@@ -17,7 +17,7 @@ SELECT
     id, location_id, host_id, theme_id,
     latitude ,longitude,
     name, room_and_property_type, avg_rating, rental_fee_per_night,
-    weekly_price_factor, monthly_price_factor, description, person_capacity, bedrooms, beds, bathrooms
+    weekly_price_factor, monthly_price_factor, description, person_capacity, bedrooms, beds, bathrooms, num_of_review
 FROM Room
 
 """
