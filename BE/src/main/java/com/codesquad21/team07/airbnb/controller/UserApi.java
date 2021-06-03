@@ -34,16 +34,15 @@ public class UserApi {
 
         Integer reservationId = userService.reservation(roomId, user.getId(), reservationDto);
 
-        return "📣 예약번호 "+reservationId + "로 예약이 완료됐습니다.";
+        return "📣 예약번호 " + reservationId + "로 예약이 완료됐습니다.";
     }
 
     // TODO . OAuth2 구현시 URL 수정될 것임.
     @DeleteMapping("/rooms/{roomId}/reservations/{reservationId}/{userId}")
-    public String deleteReservation(@PathVariable Long roomId, @PathVariable Long reservationId, @PathVariable  Long userId){
+    public String deleteReservation(@PathVariable Long roomId, @PathVariable Long reservationId, @PathVariable Long userId) {
         userService.cancelReservation(roomId, userId, reservationId);
 
-        return "📣 예약번호 "+reservationId + "의 예약이 삭제됐습니다.";
+        return "📣 예약번호 " + reservationId + "의 예약이 삭제됐습니다.";
     }
-
 
 }

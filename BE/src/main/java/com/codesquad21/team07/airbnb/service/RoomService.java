@@ -20,7 +20,7 @@ public class RoomService {
         this.roomRepostiory = roomRepostiory;
     }
 
-    public RoomDTO findRoomByRoomId(Long id) {
+    public RoomDTO findRoomDtoByRoomId(Long id) {
         Room room = roomRepostiory.findRoomByRoomId(id).orElseThrow(NotFoundException::new);
 
         //m N+1 문제 추후 해결하기
@@ -29,6 +29,10 @@ public class RoomService {
         String hostName = findHostNameById(room.getHostId());
 
         return RoomDTO.of(room, hostName, images, amenity);
+    }
+
+    public Room findRoomByRoomId(Long id) {
+        return roomRepostiory.findRoomByRoomId(id).orElseThrow(NotFoundException::new);
     }
 
     public List<Image> findImageByRoomId(Long id) {
