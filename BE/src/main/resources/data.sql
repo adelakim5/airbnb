@@ -96,7 +96,7 @@ LOAD DATA LOCAL INFILE 'C:/Users/psh/Documents/Web/codesquad/airbnb/BE/src/main/
     OPTIONALLY ENCLOSED BY ''
     LINES TERMINATED BY '\n'
     IGNORE 1 LINES
-    (id, room_id, user_id, check_in, check_out, num_of_adults, num_of_children, num_of_infants, total_price, status);
+    (id, room_id, user_id, check_in, check_out, num_of_adults, num_of_children, num_of_infants, total_price);
 
 
 LOAD DATA LOCAL INFILE 'C:/Users/psh/Documents/Web/codesquad/airbnb/BE/src/main/resources/csv/리뷰.csv'

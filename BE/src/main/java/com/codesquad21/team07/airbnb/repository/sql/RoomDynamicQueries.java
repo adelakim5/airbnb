@@ -45,6 +45,8 @@ public class RoomDynamicQueries {
             query += ")) = 0";
         }
 
+
+
         return query;
 
     }

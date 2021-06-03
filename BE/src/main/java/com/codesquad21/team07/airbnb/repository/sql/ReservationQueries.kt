@@ -13,31 +13,16 @@ AND R.room_id
 AND R.room_id = :roomId
 """
 
-const val INSERT_RESERVATION: String ="""
-    
-INSERT INTO Reservation (room_id, user_id, check_in, check_out, num_of_adults, num_of_children, num_of_infants, total_price, status) 
-VALUES (
-        :roomId,
-        :userId,
-        :checkIn,
-        :checkOut,
-        :numOfAdults,
-        :numOfChildren,
-        :numOfInfants,
-        :totalPrice,
-        :status                                                                                                                                 
-)
- 
-"""
 
 const val DELETE_RESERVATION: String ="""
     
-UPDATE Reservation SET status = :status 
+DELETE FROM Reservation
+
 WHERE 1=1 
 AND room_id = :roomId
 AND user_id = :userId
 AND id = :reservationId
- 
+
 """
 
 const val FIND_VALID_RESERVATION: String = """
@@ -47,6 +32,5 @@ WHERE 1=1
 AND R.user_id=:userId
 AND R.room_id=:roomId
 AND R.id = :reservationId
-AND R.status = :status;
     
 """

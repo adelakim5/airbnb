@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 public class RoomService {
-    private RoomRepostiory roomRepostiory;
+    private final RoomRepostiory roomRepostiory;
 
     public RoomService(RoomRepostiory roomRepostiory) {
         this.roomRepostiory = roomRepostiory;
@@ -47,6 +47,7 @@ public class RoomService {
     }
 
     private RoomList getRoomList(RoomList roomList, List<Room> rooms) {
+
         for(Room room : rooms){
             //m N+1 문제 추후 해결하기
             List<Image> images = findImageByRoomId(room.getId());

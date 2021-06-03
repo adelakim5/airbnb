@@ -1,6 +1,5 @@
 package com.codesquad21.team07.airbnb.service;
 
-import com.codesquad21.team07.airbnb.domain.ReservationStatus;
 import com.codesquad21.team07.airbnb.dtoGroup.request.ReservationDto;
 import com.codesquad21.team07.airbnb.exception.NonDeleteException;
 import com.codesquad21.team07.airbnb.exception.NonReservationException;
@@ -29,7 +28,7 @@ public class UserService {
             throw new NonReservationException();
         }
 
-        return reservationRepository.reservation(roomId, userId, reservationDto, ReservationStatus.RESERVED);
+        return reservationRepository.reservation(roomId, userId, reservationDto);
     }
 
     public void cancelReservation(Long roomId, Long userId, Long reservationId) {
@@ -37,11 +36,11 @@ public class UserService {
             throw new NonDeleteException();
         }
         // TODO. userId 추가시 유저 검증 로직 필요
-        reservationRepository.cancelReservation(roomId, reservationId, userId, ReservationStatus.CANCEL);
+        reservationRepository.cancelReservation(roomId, reservationId, userId);
     }
 
     public boolean findReservasionById(Long roomId, Long userId, Long reservationId) {
-        return (reservationRepository.findReservasionById(userId, roomId, reservationId, ReservationStatus.RESERVED)) != 0;
+        return (reservationRepository.findReservasionById(userId, roomId, reservationId)) != 0;
     }
 }
 

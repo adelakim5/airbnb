@@ -22,9 +22,7 @@ public class Reservation {
 
     private final Integer totalPrice;
 
-    private final Integer status;
-
-    public Reservation(Long id, Long roomId, Long userId, LocalDate checkIn, LocalDate checkOut, Integer numOfAdults, Integer numOfChildren, Integer numOfInfants, Integer totalPrice, Integer status) {
+    public Reservation(Long id, Long roomId, Long userId, LocalDate checkIn, LocalDate checkOut, Integer numOfAdults, Integer numOfChildren, Integer numOfInfants, Integer totalPrice) {
         this.id = id;
         this.roomId = roomId;
         this.userId = userId;
@@ -34,7 +32,6 @@ public class Reservation {
         this.numOfChildren = numOfChildren;
         this.numOfInfants = numOfInfants;
         this.totalPrice = totalPrice;
-        this.status = status;
     }
 
     public Long getId() {
@@ -68,10 +65,5 @@ public class Reservation {
     public Integer getNumOfInfants() {
         return numOfInfants;
     }
-
-    public Integer getStatus() {
-        return status;
-    }
-
 
 }
