@@ -1,21 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useReservationState } from 'hooks/ReservationHook';
-import { AccomodationType } from 'shared/interface';
+import { AccomodationModalType, AccomodationType } from 'shared/interface';
+import { getTemplate } from './common/functions';
+import CardList from './CardList';
 
 interface AccomodationListPropsType {
     currAccomodations: AccomodationType[];
-    setModalLayer: (param: boolean) => void;
-    setSelectedAccomodation: (param: AccomodationType) => void;
+    showSelectedAccomodationModal: (arg1: AccomodationType, arg2: number) => void;
 }
 
-const AccomodationList = ({
-    currAccomodations,
-    setModalLayer,
-    setSelectedAccomodation,
-}: AccomodationListPropsType): React.ReactElement => {
+const AccomodationList = (props: AccomodationListPropsType): React.ReactElement => {
+    const { currAccomodations, showSelectedAccomodationModal } = props;
     const reservationState = useReservationState();
     const { checkIn, checkOut, fee, people } = reservationState;
+
     const searchInfoArray: string[] = [
         `${currAccomodations.length}개 이상의 숙소`,
         `${checkIn.month}월 ${checkIn.day}일 - ${checkOut.month}월 ${checkOut.day}일`,
@@ -31,66 +30,20 @@ const AccomodationList = ({
         }, []);
     };
 
-    const getTemplate = (el: string) => {
-        if (el === 'divider') return <Divider />;
-        return <span>{el}</span>;
-    };
-
-    const showSelectedAccomodationModal = (roomInfo: AccomodationType) => {
-        setModalLayer(true);
-        setSelectedAccomodation(roomInfo);
-    };
-
     return (
         <Accomodations>
             <SearchInfo>{getCombinations(searchInfoArray).map((el) => getTemplate(el))}</SearchInfo>
             <AccomodationListTitle>지도에서 선택한 지역의 숙소</AccomodationListTitle>
             <AccomodationListBody>
                 {currAccomodations.map((roomInfo: AccomodationType) => {
-                    const {
-                        person_capacity,
-                        room_and_property_type,
-                        beds,
-                        bathrooms,
-                        amenities,
-                        rental_fee_per_night,
-                        avg_rating,
-                    } = roomInfo;
+                    const { person_capacity, room_and_property_type, beds, bathrooms } = roomInfo;
                     const accomodationInfoArray = [
                         `최대 인원 ${person_capacity}명`,
                         `${room_and_property_type}`,
                         `침대 ${beds}개`,
                         `욕실 ${bathrooms}개`,
                     ];
-                    return (
-                        <CardList>
-                            <CardItem
-                                onClick={() => {
-                                    showSelectedAccomodationModal(roomInfo);
-                                }}
-                            >
-                                <Thumbnail src={roomInfo.images_fe.thumbnail} />
-                                <CardContent>
-                                    <CardTitle>{roomInfo.name}</CardTitle>
-                                    <CardBody>
-                                        <span>
-                                            {getCombinations(accomodationInfoArray).map((el) => getTemplate(el))}
-                                        </span>
-                                        <span>{getCombinations(amenities).map((el) => getTemplate(el))}</span>
-                                    </CardBody>
-                                    <CardFooter>
-                                        <Rate>
-                                            <span>{avg_rating}</span>
-                                        </Rate>
-                                        <Price>
-                                            <span>₩{rental_fee_per_night.toLocaleString()} / 박</span>
-                                            <span>총액 ₩{rental_fee_per_night.toLocaleString()}</span>
-                                        </Price>
-                                    </CardFooter>
-                                </CardContent>
-                            </CardItem>
-                        </CardList>
-                    );
+                    return <CardList {...{ roomInfo, showSelectedAccomodationModal, accomodationInfoArray }} />;
                 })}
             </AccomodationListBody>
         </Accomodations>
@@ -106,7 +59,7 @@ const Accomodations = styled.div`
     overflow: auto;
 `;
 
-const AccomodationListTitle = styled.h2`
+const AccomodationListTitle = styled.h3`
     font-size: 35px;
 `;
 
@@ -120,77 +73,3 @@ const SearchInfo = styled.div`
     align-items: center;
     margin-bottom: 8px;
 `;
-
-const CardList = styled.div`
-    margin-right: 24px;
-`;
-
-const CardItem = styled.ul`
-    border-bottom: 1px solid #e0e0e0;
-    display: flex;
-    width: 100%;
-    height: 248px;
-    padding: 24px 0;
-`;
-
-const CardContent = styled.li`
-    width: 100%;
-    position: relative;
-    margin-left: 24px;
-`;
-
-const CardBody = styled.div`
-    span {
-        display: flex;
-    }
-`;
-
-const CardFooter = styled.div`
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-
-    div {
-        display: flex;
-    }
-`;
-
-const Rate = styled.div`
-    align-items: flex-end;
-`;
-
-const Price = styled.div`
-    flex-direction: column;
-    text-align: end;
-`;
-
-const CardTitle = styled.h3`
-    margin-bottom: 8px;
-`;
-
-const DividerBox = styled.span`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 5px;
-`;
-
-const Spot = styled.span`
-    background: #000;
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-`;
-
-const Thumbnail = styled.img``;
-
-function Divider() {
-    return (
-        <DividerBox>
-            <Spot></Spot>
-        </DividerBox>
-    );
-}

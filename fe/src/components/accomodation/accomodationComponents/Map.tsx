@@ -2,7 +2,9 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { GoogleMap, useJsApiLoader, OverlayView } from '@react-google-maps/api';
 import { apiKey } from '../private.js';
-import { AccomodationType } from 'shared/interface.js';
+import dateDiff from '../dateDiff.js';
+import { useReservationState } from 'hooks/ReservationHook';
+import { AccomodationModalType, AccomodationType } from 'shared/interface.js';
 
 interface LatLng {
     lat: number;
@@ -38,15 +40,27 @@ const center: LatLng = { lat: 37.566536, lng: 126.977966 };
 interface MapProps {
     currAccomodations: AccomodationType[];
     filterAccomodations: (params: number[]) => void;
+    showSelectedAccomodationModal: (arg1: AccomodationType, arg2: number) => void;
+    // setSelectedAccomodation: (param: AccomodationModalType) => void;
+    // setModalLayer: (param: boolean) => void;
 }
 
-const Map = ({ currAccomodations, filterAccomodations }: MapProps): React.ReactElement => {
+const Map = (props: MapProps): React.ReactElement => {
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: apiKey,
     });
+
+    const { currAccomodations, filterAccomodations, showSelectedAccomodationModal } = props;
+
     const [, setMap] = useState<unknown | null>(null);
     const mapRef = useRef<any>(null);
+    const { checkIn, checkOut } = useReservationState();
+
+    const diff = dateDiff(
+        `${checkIn.year}-${checkIn.month}-${checkIn.day}`,
+        `${checkOut.year}-${checkOut.month}-${checkOut.day}`,
+    );
 
     const onMapLoad = useCallback((map) => {
         mapRef.current = map;
@@ -85,15 +99,15 @@ const Map = ({ currAccomodations, filterAccomodations }: MapProps): React.ReactE
             onCenterChanged={setDebouncedTimer}
         >
             {currAccomodations.map((accomodation) => {
-                const { latitude, longitude, rental_fee_per_night, id } = accomodation;
+                const { latitude, longitude, rental_fee_per_night } = accomodation;
                 return (
-                    <PriceMarkerButton onClick={() => alert(`${rental_fee_per_night}숙소`)}>
+                    <PriceMarker onClick={() => showSelectedAccomodationModal(accomodation, diff)}>
                         <OverlayView position={{ lat: latitude, lng: longitude }} mapPaneName={OverlayView.FLOAT_PANE}>
-                            <PriceLabel>
+                            <PriceLabel className="marker">
                                 <PriceText>₩{rental_fee_per_night.toLocaleString()}</PriceText>
                             </PriceLabel>
                         </OverlayView>
-                    </PriceMarkerButton>
+                    </PriceMarker>
                 );
             })}
         </GoogleMap>
@@ -104,7 +118,7 @@ const Map = ({ currAccomodations, filterAccomodations }: MapProps): React.ReactE
 
 export default Map;
 
-const PriceMarkerButton = styled.button``;
+const PriceMarker = styled.div``;
 
 const PriceLabel = styled.div`
     background: #fff;

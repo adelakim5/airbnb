@@ -144,4 +144,29 @@ export interface AccomodationType {
         detail_5: string;
     };
     amenities: string[];
+    num_of_review: number;
+    host_name: string;
+}
+
+export interface AccomodationModalType extends AccomodationType {
+    diff: number;
+}
+
+export interface CityType {
+    id: number;
+    name: string;
+    thumbnail: string;
+    latitude: number;
+    longitude: number;
+}
+
+export interface ThemeType {
+    id: number;
+    title: string;
+    thumbnail: string;
+}
+
+export interface MainContentsProps {
+    city: CityType[];
+    theme: ThemeType[];
 }

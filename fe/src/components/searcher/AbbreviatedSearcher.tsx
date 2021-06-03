@@ -30,10 +30,10 @@ const AbbreviatedSearcher = ({ setFullState }: AbbreviatedSearcherProps) => {
             </AbbreviatedFeeTab>
             <AbbreviatedPeopleTab>
                 게스트: {adult + children}명 {kids > 0 ? `유아: ${kids}명` : ``}
-            </AbbreviatedPeopleTab>
-            <ButtonTab>
+                {/* <ButtonTab> */}
                 <SearchButton isFullVersion={false} searchHandler={handleSearchWithAllReservationInfo} />
-            </ButtonTab>
+                {/* </ButtonTab> */}
+            </AbbreviatedPeopleTab>
         </AbbreviatedBarSection>
     );
 };
@@ -49,13 +49,19 @@ const AbbreviatedBarSection = styled.section`
     height: 48px;
     text-align: center;
     font-size: 12px;
-    padding: 0 15px;
+    // padding: 0 15px;
 `;
 
 const Tab = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    padding-left: 15px;
+    &:hover {
+        border-radius: 60px;
+        background: #f7f7f7;
+    }
 `;
 
 const AbbreviatedPeriodTab = styled(Tab)`
@@ -69,6 +75,7 @@ const AbbreviatedFeeTab = styled(Tab)`
 const AbbreviatedPeopleTab = styled(Tab)`
     width: 100%;
     height: 100%;
+    gap: 10px;
 `;
 
 const ButtonTab = styled(Tab)``;

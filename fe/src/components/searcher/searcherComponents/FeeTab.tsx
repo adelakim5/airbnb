@@ -5,14 +5,11 @@ import { theme } from 'styles/theme';
 import { Container, NavigatingText, ResultText, Tab } from './common/shared.style';
 import FeeController from './feeController/FeeController';
 import BottomLayer from './common/BottomLayer';
-import useFetch from 'hooks/fetchHook';
-import { URL } from 'util/urls';
 import { mockupPriceListData } from 'data/priceList';
+// import useFetch from 'hooks/FetchHook';
+// import { URL } from 'util/urls';
 
 const FeeTab = (): React.ReactElement => {
-    // const [feeData, loading] = useFetch(URL.feeChart);
-    console.log(mockupPriceListData);
-
     const { fee } = useReservationState();
     const { feeLayer } = useSearcherState();
     const searcherDispatch = useSearcherDispatch();

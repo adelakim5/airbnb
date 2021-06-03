@@ -3,8 +3,8 @@ import { useReservationDispatch, useReservationState } from 'hooks/ReservationHo
 import { useSearcherDispatch, useSearcherState } from 'hooks/SearcherHook';
 import Calendar from './calendar/Calendar';
 import { isNotCheckedDate } from './calendar/calendarChecker';
-import { CloseButton, Container, DateText, NavigatingText, ResultText, Tab } from './common/shared.style';
-import CloseIcon from '@material-ui/icons/Close';
+import { Container, DateText, NavigatingText, ResultText, Tab } from './common/shared.style';
+import CloseButton from './common/CloseButton';
 
 const CheckOutTab = (): React.ReactElement => {
     const { checkOut } = useReservationState();
@@ -28,11 +28,7 @@ const CheckOutTab = (): React.ReactElement => {
                 <NavigatingText>체크아웃</NavigatingText>
                 <DateText>
                     <ResultText>{!isNotCheckedDate(checkOut) ? `${year} - ${month} - ${day}` : '날짜입력'}</ResultText>
-                    {!isNotCheckedDate(checkOut) && (
-                        <CloseButton>
-                            <CloseIcon fontSize="small" onClick={handleCancel} />
-                        </CloseButton>
-                    )}
+                    {!isNotCheckedDate(checkOut) && <CloseButton handleCancel={handleCancel} />}
                 </DateText>
                 {checkOutCalendarLayer && <Calendar isCheckIn={false} />}
             </Tab>

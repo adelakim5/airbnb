@@ -6,31 +6,32 @@ import reservationReducer from 'shared/reservationReducer';
 import Header from 'components/header/Header';
 import Searcher from 'components/searcher/Searcher';
 import heroImage from 'assets/heroImage.png';
+import { initialState } from 'util/initialState.reservationContext';
 
-const initialState = {
-    location: {
-        id: 0,
-        address: '',
-        latitude: null,
-        longitude: null,
-    },
-    checkIn: {
-        year: 0,
-        month: 0,
-        day: 0,
-    },
-    checkOut: {
-        year: 0,
-        month: 0,
-        day: 0,
-    },
-    fee: [1, 100],
-    people: {
-        adult: 0,
-        children: 0,
-        kids: 0,
-    },
-} as ReservationContext;
+// const initialState = {
+//     location: {
+//         id: 0,
+//         address: '',
+//         latitude: null,
+//         longitude: null,
+//     },
+//     checkIn: {
+//         year: 0,
+//         month: 0,
+//         day: 0,
+//     },
+//     checkOut: {
+//         year: 0,
+//         month: 0,
+//         day: 0,
+//     },
+//     fee: [1, 100],
+//     people: {
+//         adult: 0,
+//         children: 0,
+//         kids: 0,
+//     },
+// } as ReservationContext;
 
 const Hero = (): React.ReactElement => {
     const [reservationState, reservationDispatch] = useReducer(reservationReducer, initialState);

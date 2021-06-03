@@ -1,11 +1,10 @@
 import React from 'react';
 import { useSearcherDispatch, useSearcherState } from 'hooks/SearcherHook';
-import styled from 'styled-components';
 import Calendar from './calendar/Calendar';
-import { Container, Tab, NavigatingText, ResultText, CloseButton, DateText } from './common/shared.style';
+import { Container, Tab, NavigatingText, ResultText, DateText } from './common/shared.style';
 import { useReservationDispatch, useReservationState } from 'hooks/ReservationHook';
 import { isNotCheckedDate } from './calendar/calendarChecker';
-import CloseIcon from '@material-ui/icons/Close';
+import CloseButton from './common/CloseButton';
 
 const CheckInTab = (): React.ReactElement => {
     const { checkIn } = useReservationState();
@@ -30,9 +29,25 @@ const CheckInTab = (): React.ReactElement => {
                 <DateText>
                     <ResultText>{!isNotCheckedDate(checkIn) ? `${year} - ${month} - ${day}` : '날짜입력'}</ResultText>
                     {!isNotCheckedDate(checkIn) && (
-                        <CloseButton>
-                            <CloseIcon fontSize="small" onClick={handleCancel} />
-                        </CloseButton>
+                        <CloseButton handleCancel={handleCancel} />
+                        // <CloseButton onClick={handleCancel}>
+                        //     <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        //         <path
+                        //             d="M1 1L7 7"
+                        //             stroke="#333333"
+                        //             stroke-width="2"
+                        //             stroke-linecap="round"
+                        //             stroke-linejoin="round"
+                        //         />
+                        //         <path
+                        //             d="M7 1L1 7"
+                        //             stroke="#333333"
+                        //             stroke-width="2"
+                        //             stroke-linecap="round"
+                        //             stroke-linejoin="round"
+                        //         />
+                        //     </svg>
+                        // </CloseButton>
                     )}
                 </DateText>
             </Tab>

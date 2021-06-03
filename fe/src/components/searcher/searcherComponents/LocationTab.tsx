@@ -1,14 +1,14 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useSearcherDispatch, useSearcherState } from 'hooks/SearcherHook';
-import { LocationList, Location } from 'shared/interface';
-import { mockupLocationData } from 'data/location';
+import { URL } from 'util/urls';
 import { useReservationDispatch } from 'hooks/ReservationHook';
 import { Container, Tab, NavigatingText, ResultText } from './common/shared.style';
 import BottomLayer from './common/BottomLayer';
 import { theme } from 'styles/theme';
-import useFetch from 'hooks/fetchHook';
-import { URL } from 'util/urls';
+// import useFetch from 'hooks/FetchHook';
+import { Location } from 'shared/interface';
+// import { mockupLocationData } from 'data/location';
 
 const LocationTab = (): React.ReactElement => {
     const reservationDispatch = useReservationDispatch();

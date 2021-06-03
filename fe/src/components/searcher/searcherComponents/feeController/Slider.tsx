@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import Chart from './Chart';
+import PauseCircleButton from '../common/PauseCircleButton';
 
 export interface FeeProps {
     feeValue: number[];
@@ -75,12 +76,14 @@ const Slider = ({ feeValue, feeData, handleSliderChange }: SlideProps): React.Re
 
                 <BarSlider>
                     <Track />
-                    <Range ref={range}></Range>
+                    <Range ref={range} />
                     <ThumbLeft ref={thumbLeft}>
-                        <PauseCircleOutlineIcon />
+                        {/* <PauseCircleOutlineIcon /> */}
+                        <PauseCircleButton />
                     </ThumbLeft>
                     <ThumbRight ref={thumbRight}>
-                        <PauseCircleOutlineIcon />
+                        {/* <PauseCircleOutlineIcon /> */}
+                        <PauseCircleButton />
                     </ThumbRight>
                 </BarSlider>
             </div>

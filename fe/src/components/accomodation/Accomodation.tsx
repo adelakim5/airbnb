@@ -2,40 +2,16 @@ import React, { useReducer, useState } from 'react';
 import styled from 'styled-components';
 import { ReservationDispatchContext, ReservationStateContext } from 'Contexts';
 import { sampleAccomodationData } from 'data/accomodation.js';
-import { AccomodationType, ReservationContext } from 'shared/interface';
+import { AccomodationModalType, AccomodationType, ReservationContext } from 'shared/interface';
 import reservationReducer from 'shared/reservationReducer';
 import Header from '../header/Header';
 import Searcher from '../searcher/Searcher';
 import AccomodationList from './accomodationComponents/AccomodationList';
 import Map from './accomodationComponents/Map';
-import useFetch from 'hooks/fetchHook';
-import { URL } from 'util/urls';
 import Modal from './accomodationComponents/common/Modal';
-
-const initialState = {
-    location: {
-        id: 0,
-        address: '',
-        latitude: null,
-        longitude: null,
-    },
-    checkIn: {
-        year: 0,
-        month: 0,
-        day: 0,
-    },
-    checkOut: {
-        year: 0,
-        month: 0,
-        day: 0,
-    },
-    fee: [0, 100],
-    people: {
-        adult: 0,
-        children: 0,
-        kids: 0,
-    },
-} as ReservationContext;
+import { initialState } from 'util/initialState.reservationContext';
+// import useFetch from 'hooks/FetchHook';
+// import { URL } from 'util/urls';
 
 const Accomodation = (): React.ReactElement => {
     const tmpReservationState = sessionStorage.getItem('reservationState');
@@ -48,7 +24,7 @@ const Accomodation = (): React.ReactElement => {
     const { adult, children, kids } = people;
 
     const [modalLayer, setModalLayer] = useState(false);
-    const [selectedAccomodation, setSelectedAccomodation] = useState<AccomodationType | null>(null);
+    const [selectedAccomodation, setSelectedAccomodation] = useState<AccomodationModalType | null>(null);
     const [fullState, setFullState] = useState(false);
 
     const [currAccomodations, setCurrAccomodations] = useState(sampleAccomodationData.rooms);
@@ -70,6 +46,13 @@ const Accomodation = (): React.ReactElement => {
         setCurrAccomodations(result);
     };
 
+    const showSelectedAccomodationModal = (roomInfo: AccomodationType, diff: number) => {
+        setModalLayer(true);
+        setSelectedAccomodation({ ...roomInfo, diff });
+    };
+
+    console.log(modalLayer);
+
     return (
         <>
             <ReservationDispatchContext.Provider value={reservationDispatch}>
@@ -80,13 +63,13 @@ const Accomodation = (): React.ReactElement => {
                             {fullState && <Searcher />}
                         </HeaderSection>
                         <AccomodationSection onClick={() => setFullState(false)}>
-                            <AccomodationList {...{ currAccomodations, setModalLayer, setSelectedAccomodation }} />
-                            <Map {...{ currAccomodations, filterAccomodations }} />
+                            <AccomodationList {...{ currAccomodations, showSelectedAccomodationModal }} />
+                            <Map {...{ currAccomodations, filterAccomodations, showSelectedAccomodationModal }} />
                         </AccomodationSection>
                     </AccomodationPage>
+                    {modalLayer && <Modal {...{ selectedAccomodation, setModalLayer }} />}
                 </ReservationStateContext.Provider>
             </ReservationDispatchContext.Provider>
-            {modalLayer && <Modal selectedAccomodation={selectedAccomodation} />}
         </>
     );
 };
