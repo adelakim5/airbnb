@@ -53,7 +53,7 @@ const Map = (props: MapProps): React.ReactElement => {
         mapRef.current = map;
     }, []);
 
-    const onUnMount = useCallback((map) => setMap(null), []);
+    const onUnMount = useCallback(() => setMap(null), []);
 
     let debounceTimer: ReturnType<typeof setTimeout>;
 

@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FeeProps } from './Slider';
-// import { mockupPriceListData } from 'data/priceList.js';
-// import useFetch from 'hooks/fetchHook';
-// import { URL } from 'util/urls';
 
 const getPriceListData = (priceList: number[]) => {
     const min = 10000;

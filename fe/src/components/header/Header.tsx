@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Account from './headerComponents/Account';
 import styled from 'styled-components';
 import AbbreviatedSearcher from '../searcher/AbbreviatedSearcher';

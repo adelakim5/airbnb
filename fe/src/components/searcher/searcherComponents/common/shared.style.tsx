@@ -35,17 +35,6 @@ const ResultText = styled.p`
     margin-left: 24px;
 `;
 
-// const CloseButton = styled.button`
-//     all: unset;
-//     width: 30px;
-//     height: 30px;
-//     background: #ddd;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     border-radius: 50%;
-// `;
-
 const DateText = styled.div`
     display: flex;
     align-items: center;

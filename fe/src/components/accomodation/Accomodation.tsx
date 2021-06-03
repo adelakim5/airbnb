@@ -1,4 +1,3 @@
-// import { sampleAccomodationData } from 'data/accomodation.js';
 import React, { useEffect, useReducer, useState } from 'react';
 import styled from 'styled-components';
 import { ReservationDispatchContext, ReservationStateContext } from 'Contexts';
@@ -10,21 +9,16 @@ import AccomodationList from './accomodationComponents/AccomodationList';
 import Map from './accomodationComponents/Map';
 import Modal from './accomodationComponents/common/Modal';
 import { initialState } from 'util/initialState.reservationContext';
-import useFetch from 'hooks/FetchHook';
 import { URL } from 'util/urls';
 
 const Accomodation = (): React.ReactElement => {
     const tmpReservationState = sessionStorage.getItem('reservationState');
     const initialReservationState = tmpReservationState !== null ? JSON.parse(tmpReservationState) : initialState;
     const requestUrl = URL.endPoint + URL.searchRoomWithQuery(initialReservationState);
-    // const [accomodation, loading] = useFetch(requestUrl);
     const [totalAccomodations, setTotalAccomodations] = useState<any[]>([]);
     const [currAccomodations, setCurrAccomodations] = useState<any[]>([]);
 
     useEffect(() => {
-        // if (!accomodation) return;
-        // const newArr = accomodation.rooms;
-        // setCurrAccomodations([...newArr]);
         async function request() {
             const response = await fetch(requestUrl);
             const json = await response.json();

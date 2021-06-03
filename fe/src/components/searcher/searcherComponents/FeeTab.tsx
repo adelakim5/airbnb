@@ -6,8 +6,6 @@ import { Container, NavigatingText, ResultText, Tab } from './common/shared.styl
 import FeeController from './feeController/FeeController';
 import BottomLayer from './common/BottomLayer';
 import { mockupPriceListData } from 'data/priceList';
-// import useFetch from 'hooks/FetchHook';
-// import { URL } from 'util/urls';
 
 const FeeTab = (): React.ReactElement => {
     const { fee } = useReservationState();

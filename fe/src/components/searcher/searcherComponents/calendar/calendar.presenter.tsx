@@ -19,7 +19,7 @@ interface MonthProps extends CalendarPresenterProps {
     transitionValue: string;
 }
 
-export function MonthsPresenter(props: MonthProps) {
+export function MonthsPresenter(props: MonthProps): React.ReactElement {
     const { checkIn, checkOut, handleCheckDate, calendarQueue, x, transitionValue } = props;
 
     return (

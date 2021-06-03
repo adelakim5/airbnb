@@ -13,8 +13,6 @@ interface SlideProps extends FeeProps {
 }
 
 const Slider = ({ feeValue, feeData, handleSliderChange }: SlideProps): React.ReactElement => {
-    // const { feeValue, handleSliderChange } = props;
-
     const inputLeft = useRef<HTMLInputElement>(null);
     const inputRight = useRef<HTMLInputElement>(null);
 
@@ -77,11 +75,9 @@ const Slider = ({ feeValue, feeData, handleSliderChange }: SlideProps): React.Re
                     <Track />
                     <Range ref={range} />
                     <ThumbLeft ref={thumbLeft}>
-                        {/* <PauseCircleOutlineIcon /> */}
                         <PauseCircleButton />
                     </ThumbLeft>
                     <ThumbRight ref={thumbRight}>
-                        {/* <PauseCircleOutlineIcon /> */}
                         <PauseCircleButton />
                     </ThumbRight>
                 </BarSlider>

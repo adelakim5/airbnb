@@ -28,7 +28,9 @@ const CardList = (props: CardListProps): React.ReactElement => {
     return (
         <List>
             <CardItem onClick={() => showSelectedAccomodationModal(roomInfo, diff)}>
-                <Thumbnail src={thumbnail} />
+                <CardIamge>
+                    <Thumbnail src={thumbnail} />
+                </CardIamge>
                 <CardContent>
                     <CardTitle>{name}</CardTitle>
                     <CardBody>
@@ -37,11 +39,23 @@ const CardList = (props: CardListProps): React.ReactElement => {
                     </CardBody>
                     <CardFooter>
                         <Rate>
+                            <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M7.00016 0.333344L9.06016 4.50668L13.6668 5.18001L10.3335 8.42668L11.1202 13.0133L7.00016 10.8467L2.88016 13.0133L3.66683 8.42668L0.333496 5.18001L4.94016 4.50668L7.00016 0.333344Z"
+                                    fill="#E84C60"
+                                />
+                            </svg>
                             <span>{avg_rating}</span>
                         </Rate>
                         <Price>
-                            <span>₩{rental_fee_per_night.toLocaleString()} / 박</span>
-                            <span>총액 ₩{priceSum.toLocaleString()}</span>
+                            <PerNight>₩{rental_fee_per_night.toLocaleString()} / 박</PerNight>
+                            <Sum>총액 ₩{priceSum.toLocaleString()}</Sum>
                         </Price>
                     </CardFooter>
                 </CardContent>
@@ -56,13 +70,20 @@ const List = styled.div`
     margin-right: 24px;
 `;
 
-const Thumbnail = styled.img``;
+const CardIamge = styled.div`
+    height: 248px;
+    overflow: hidden;
+    border-radius: 10px;
+`;
+
+const Thumbnail = styled.img`
+    transform: translate3d(-20%, -24%, 0);
+`;
 
 const CardItem = styled.ul`
     border-bottom: 1px solid #e0e0e0;
     display: flex;
-    width: 100%;
-    height: 248px;
+
     padding: 24px 0;
     cursor: pointer;
 `;
@@ -72,8 +93,12 @@ const CardContent = styled.li`
     position: relative;
     margin-left: 24px;
 `;
+const CardTitle = styled.h3`
+    margin-bottom: 8px;
+`;
 
 const CardBody = styled.div`
+    color: #828282;
     span {
         display: flex;
     }
@@ -93,6 +118,7 @@ const CardFooter = styled.div`
 `;
 
 const Rate = styled.div`
+    display: flex;
     align-items: flex-end;
 `;
 
@@ -101,6 +127,11 @@ const Price = styled.div`
     text-align: end;
 `;
 
-const CardTitle = styled.h3`
-    margin-bottom: 8px;
+const PerNight = styled.div`
+    font-weight: bold;
+`;
+
+const Sum = styled.div`
+    color: #828282;
+    text-decoration-line: underline;
 `;

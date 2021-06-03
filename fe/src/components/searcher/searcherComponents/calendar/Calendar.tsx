@@ -22,7 +22,7 @@ const Calendar = ({ isCheckIn }: CalendarType): React.ReactElement => {
     const panelWidth = 375;
 
     const [x, setX] = useState(-panelWidth);
-    const [moving, setMoving] = useState(false);
+    const [, setMoving] = useState(false);
     const [transitionValue, setTransitionValue] = useState(`${transitionDefault}ms`);
     const [addedDate, setAddedDate] = useState<Date | null>(null);
     const [lastDirection, setLastDirection] = useState(0);

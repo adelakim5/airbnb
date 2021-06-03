@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import SearchIcon from '@material-ui/icons/Search';
 import { useReservationState } from 'hooks/ReservationHook';
 import SearchButton from './searcherComponents/common/SearchButton';
 
@@ -8,7 +7,7 @@ interface AbbreviatedSearcherProps {
     setFullState: (param: boolean) => void;
 }
 
-const AbbreviatedSearcher = ({ setFullState }: AbbreviatedSearcherProps) => {
+const AbbreviatedSearcher = ({ setFullState }: AbbreviatedSearcherProps): React.ReactElement => {
     const reservationState = useReservationState();
     const { checkIn, checkOut, fee, people } = reservationState;
     const [checkInMonth, checkInDay] = [checkIn.month, checkIn.day];
@@ -30,9 +29,7 @@ const AbbreviatedSearcher = ({ setFullState }: AbbreviatedSearcherProps) => {
             </AbbreviatedFeeTab>
             <AbbreviatedPeopleTab>
                 게스트: {adult + children}명 {kids > 0 ? `유아: ${kids}명` : ``}
-                {/* <ButtonTab> */}
                 <SearchButton isFullVersion={false} searchHandler={handleSearchWithAllReservationInfo} />
-                {/* </ButtonTab> */}
             </AbbreviatedPeopleTab>
         </AbbreviatedBarSection>
     );
@@ -49,7 +46,6 @@ const AbbreviatedBarSection = styled.section`
     height: 48px;
     text-align: center;
     font-size: 12px;
-    // padding: 0 15px;
 `;
 
 const Tab = styled.div`
@@ -77,5 +73,3 @@ const AbbreviatedPeopleTab = styled(Tab)`
     height: 100%;
     gap: 10px;
 `;
-
-const ButtonTab = styled(Tab)``;

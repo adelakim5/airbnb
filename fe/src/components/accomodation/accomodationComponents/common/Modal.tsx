@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import Header from './modalComponents/Header';
 import ReservationInfo from './modalComponents/ReservationInfo';
 import PriceInfo from './modalComponents/PriceInfo';
+import { URL } from 'util/urls';
+import { useReservationState } from 'hooks/ReservationHook';
 
 interface ModalProps {
     selectedAccomodation: AccomodationModalType | null;
@@ -11,6 +13,8 @@ interface ModalProps {
 }
 
 const Modal = ({ selectedAccomodation, setModalLayer }: ModalProps): React.ReactElement => {
+    const { checkIn, checkOut, people } = useReservationState();
+
     const closeModal = (event: MouseEvent) => {
         const $target = event.target as HTMLElement;
         const $modal = $target.closest('.modalBox');
@@ -26,14 +30,37 @@ const Modal = ({ selectedAccomodation, setModalLayer }: ModalProps): React.React
 
     if (!selectedAccomodation) return <></>;
 
-    const { rental_fee_per_night, num_of_review, diff, name } = selectedAccomodation;
+    const { rental_fee_per_night, num_of_review, diff, name, id } = selectedAccomodation;
+
+    const requestPostReservation = () => {
+        const { adult, children, kids } = people;
+
+        const reservationData = {
+            check_in: `${checkIn.year}-${checkIn.month}-${checkIn.day}`,
+            check_out: `${checkOut.year}-${checkOut.month}-${checkOut.day}`,
+            num_of_adults: adult,
+            num_of_children: children,
+            num_of_infants: kids,
+            total_price: rental_fee_per_night * diff,
+        };
+
+        fetch(URL.endPoint + URL.postReservation(id), {
+            method: 'POST',
+            body: JSON.stringify(reservationData),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        alert('예약이 완료되었습니다.');
+        setModalLayer(false);
+    };
 
     return (
         <ModalBackground className="modalBackground">
             <ModalBox className="modalBox">
                 <Header {...{ rental_fee_per_night, num_of_review, name }} />
                 <ReservationInfo />
-                <ReservationButton>예약하기</ReservationButton>
+                <ReservationButton onClick={requestPostReservation}>예약하기</ReservationButton>
                 <Message>예약 확정 전에는 요금이 청구되지 않습니다.</Message>
                 <PriceInfo {...{ rental_fee_per_night, diff }} />
                 <Divider />

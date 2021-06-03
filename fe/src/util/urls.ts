@@ -35,4 +35,5 @@ export const URL = {
         )}&priceMax=${addZero(priceMax, 'fee')}&adults=${adult}&children=${children}&infants=${kids}`;
     },
     feeChart: `https://codesquad-2021-api.herokuapp.com/airbnb/price`,
+    postReservation: (id: number): string => `rooms/${id}/reservations`,
 };

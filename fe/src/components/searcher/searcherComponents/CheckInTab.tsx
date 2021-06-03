@@ -28,27 +28,7 @@ const CheckInTab = (): React.ReactElement => {
                 <NavigatingText>체크인</NavigatingText>
                 <DateText>
                     <ResultText>{!isNotCheckedDate(checkIn) ? `${year} - ${month} - ${day}` : '날짜입력'}</ResultText>
-                    {!isNotCheckedDate(checkIn) && (
-                        <CloseButton handleCancel={handleCancel} />
-                        // <CloseButton onClick={handleCancel}>
-                        //     <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        //         <path
-                        //             d="M1 1L7 7"
-                        //             stroke="#333333"
-                        //             stroke-width="2"
-                        //             stroke-linecap="round"
-                        //             stroke-linejoin="round"
-                        //         />
-                        //         <path
-                        //             d="M7 1L1 7"
-                        //             stroke="#333333"
-                        //             stroke-width="2"
-                        //             stroke-linecap="round"
-                        //             stroke-linejoin="round"
-                        //         />
-                        //     </svg>
-                        // </CloseButton>
-                    )}
+                    {!isNotCheckedDate(checkIn) && <CloseButton handleCancel={handleCancel} />}
                 </DateText>
             </Tab>
             {checkInCalendarLayer && <Calendar isCheckIn={true} />}

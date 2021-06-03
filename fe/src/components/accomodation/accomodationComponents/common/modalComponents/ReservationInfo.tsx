@@ -2,7 +2,7 @@ import { useReservationState } from 'hooks/ReservationHook';
 import React from 'react';
 import styled from 'styled-components';
 
-const ReservationInfo = () => {
+const ReservationInfo = (): React.ReactElement => {
     const { checkIn, checkOut, people } = useReservationState();
     const { adult, children, kids } = people;
 

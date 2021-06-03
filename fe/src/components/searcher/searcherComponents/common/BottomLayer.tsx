@@ -33,7 +33,6 @@ const Layer = styled.ul<LayerSpecType>`
     position: ${({ theme }) => theme.LayerTheme.position};
     top: ${({ top }) => top}px;
     left: ${({ left }) => left}px;
-    // border: ${({ theme }) => theme.LayerTheme.border};
     width: ${({ width }) => width}px;
     height: ${({ height }) => height}px;
     background: #fff;
