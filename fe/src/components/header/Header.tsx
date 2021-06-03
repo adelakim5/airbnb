@@ -22,7 +22,7 @@ const Header = ({ isFull, setFullState }: HeaderType): React.ReactElement => {
                 </MidHeader>
             ) : (
                 <MidHeader>
-                    <AbbreviatedSearcher setFullState={setFullState}></AbbreviatedSearcher>
+                    <AbbreviatedSearcher setFullState={setFullState} />
                 </MidHeader>
             )}
             <RightHeader>
@@ -35,9 +35,13 @@ const Header = ({ isFull, setFullState }: HeaderType): React.ReactElement => {
 export default Header;
 
 const HeaderPage = styled.section`
+    position: abolute;
+    top: 0;
+    left: 0;
     display: flex;
     padding: 0 100px;
     justify-content: space-between;
+    z-index: 2;
 `;
 
 const LeftHeader = styled.div`

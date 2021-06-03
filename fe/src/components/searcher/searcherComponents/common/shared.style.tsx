@@ -6,10 +6,22 @@ const Container = styled.div`
     width: 100%;
 `;
 
-const Tab = styled.div`
+interface TabProps {
+    isClicked: boolean;
+}
+
+const Tab = styled.div<TabProps>`
     display: flex;
     flex-direction: column;
     width: 100%;
+    cursor: pointer;
+    &:hover {
+        border-radius: 60px;
+        background: #f7f7f7;
+    }
+    box-shadow: ${({ isClicked }) =>
+        isClicked ? '0px 4px 10px rgba(51, 51, 51, 0.1), 0px 0px 4px rgba(51, 51, 51, 0.05)' : 'none'};
+    border-radius: ${({ isClicked }) => (isClicked ? '60px' : '0')};
 `;
 
 const NavigatingText = styled.p`

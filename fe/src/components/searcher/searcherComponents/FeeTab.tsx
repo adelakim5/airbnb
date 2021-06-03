@@ -8,7 +8,6 @@ import FeeController from './feeController/FeeController';
 
 const FeeTab = (): React.ReactElement => {
     const { fee } = useReservationState();
-
     const { feeLayer } = useSearcherState();
     const searcherDispatch = useSearcherDispatch();
 
@@ -18,7 +17,7 @@ const FeeTab = (): React.ReactElement => {
 
     return (
         <Container>
-            <Tab onClick={handleFeeLayer}>
+            <Tab onClick={handleFeeLayer} isClicked={feeLayer}>
                 <NavigatingText>요금</NavigatingText>
                 <ResultText>
                     {fee[0]}만원 {fee[1]}만원

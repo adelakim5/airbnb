@@ -18,12 +18,12 @@ const Calendar = ({ isCheckIn }: CalendarType): React.ReactElement => {
     const [calendarQueue, setCalendarQueue] = useState<Date[]>(getInitialDate());
 
     // carousel
-    const transitionDefault = '500ms';
+    const transitionDefault = 500;
     const panelWidth = 375;
 
     const [x, setX] = useState(-panelWidth);
     const [moving, setMoving] = useState(false);
-    const [transitionValue, setTransitionValue] = useState(transitionDefault);
+    const [transitionValue, setTransitionValue] = useState(`${transitionDefault}ms`);
     const [addedDate, setAddedDate] = useState<Date | null>(null);
     const [lastDirection, setLastDirection] = useState(0);
 
@@ -43,17 +43,17 @@ const Calendar = ({ isCheckIn }: CalendarType): React.ReactElement => {
             }
             setCalendarQueue(newCalendarQueue);
             setX(-panelWidth);
-            setTransitionValue('0ms');
-        }, 500);
+            setTransitionValue('0');
+        }, transitionDefault);
 
         return () => clearTimeout(timer);
     }, [addedDate]);
 
     const handleCalendarButton = (direction: number) => {
-        setX((prevX) => prevX - direction * 375);
+        setX((prevX) => prevX - direction * panelWidth);
         setMoving(true);
         setLastDirection(direction);
-        if (transitionValue === '0ms') setTransitionValue(transitionDefault);
+        if (transitionValue === '0') setTransitionValue(`${transitionDefault}ms`);
         const currDate = direction < 0 ? calendarQueue[0] : calendarQueue[calendarQueue.length - 1];
         const newDate = new Date();
         newDate.setFullYear(currDate.getFullYear(), currDate.getMonth() + direction, 1);

@@ -14,7 +14,7 @@ const initialState = {
         id: 0,
         address: '',
         latitude: null,
-        logitude: null,
+        longitude: null,
     },
     checkIn: {
         year: 0,
@@ -72,7 +72,8 @@ const Accomodation = (): React.ReactElement => {
 export default Accomodation;
 
 const HeaderSection = styled.section`
-    background: #ddd;
+    background: #fff;
+    box-shadow: 0px 4px 10px rgba(51, 51, 51, 0.1), 0px 0px 4px rgba(51, 51, 51, 0.05);
     width: 100vw;
     z-index: 2;
     position: fixed;

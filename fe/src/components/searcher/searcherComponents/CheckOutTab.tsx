@@ -24,7 +24,7 @@ const CheckOutTab = (): React.ReactElement => {
 
     return (
         <Container>
-            <Tab onClick={handleCalendarLayer}>
+            <Tab onClick={handleCalendarLayer} isClicked={checkOutCalendarLayer}>
                 <NavigatingText>체크아웃</NavigatingText>
                 <DateText>
                     <ResultText>{!isNotCheckedDate(checkOut) ? `${year} - ${month} - ${day}` : '날짜입력'}</ResultText>

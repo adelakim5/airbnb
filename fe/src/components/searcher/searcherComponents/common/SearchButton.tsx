@@ -2,13 +2,17 @@ import React from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import styled from 'styled-components';
 
-interface SearchHandlerType {
+interface SearchButtonProps {
+    isFullVersion: boolean;
+}
+
+interface SearchHandlerType extends SearchButtonProps {
     searchHandler: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
-const SearchButton = ({ searchHandler }: SearchHandlerType): React.ReactElement => {
+const SearchButton = ({ isFullVersion, searchHandler }: SearchHandlerType): React.ReactElement => {
     return (
-        <SearchBtn onClick={searchHandler}>
+        <SearchBtn onClick={searchHandler} isFullVersion={isFullVersion}>
             <SearchIcon />
         </SearchBtn>
     );
@@ -16,12 +20,12 @@ const SearchButton = ({ searchHandler }: SearchHandlerType): React.ReactElement 
 
 export default SearchButton;
 
-const SearchBtn = styled.button`
-    width: 40px;
-    height: 40px;
+const SearchBtn = styled.button<SearchButtonProps>`
+    width: ${({ isFullVersion }) => (isFullVersion ? '40px' : '30px')};
+    height: ${({ isFullVersion }) => (isFullVersion ? '40px' : '30px')};
     background: #e84c60;
-    border-radius: 30px;
+    border-radius: 50%;
     color: #fff;
-    margin-top: 18px;
-    margin-right: 18px;
+    margin-top: ${({ isFullVersion }) => (isFullVersion ? '18px' : '0')};
+    margin-right: ${({ isFullVersion }) => (isFullVersion ? '18px' : '0')};
 `;

@@ -101,7 +101,7 @@ const PeopleTab = (): React.ReactElement => {
 
     return (
         <Container>
-            <Tab onClick={handlePeopleLayer}>
+            <Tab onClick={handlePeopleLayer} isClicked={peopleLayer}>
                 <PeopleTabBox>
                     <PeopleText>
                         <NavigatingText>인원</NavigatingText>
@@ -112,7 +112,7 @@ const PeopleTab = (): React.ReactElement => {
                         </ResultText>
                     </PeopleText>
                     <Link to="/accomodation">
-                        <SearchButton searchHandler={handleSearchWithAllReservationInfo} />
+                        <SearchButton isFullVersion searchHandler={handleSearchWithAllReservationInfo} />
                     </Link>
                 </PeopleTabBox>
             </Tab>

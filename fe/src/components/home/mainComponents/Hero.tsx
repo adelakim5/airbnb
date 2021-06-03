@@ -5,13 +5,14 @@ import { ReservationContext } from 'shared/interface';
 import reservationReducer from 'shared/reservationReducer';
 import Header from 'components/header/Header';
 import Searcher from 'components/searcher/Searcher';
+import heroImage from 'assets/heroImage.png';
 
 const initialState = {
     location: {
         id: 0,
         address: '',
         latitude: null,
-        logitude: null,
+        longitude: null,
     },
     checkIn: {
         year: 0,
@@ -38,6 +39,8 @@ const Hero = (): React.ReactElement => {
     return (
         <ReservationDispatchContext.Provider value={reservationDispatch}>
             <ReservationStateContext.Provider value={reservationState}>
+                <HeroImage src={heroImage} alt="" />
+                {/* <HeroTitle></HeroTitle> */}
                 <HeroSection>
                     <Header isFull={fullState} setFullState={setFullState} />
                     <Searcher />
@@ -50,6 +53,17 @@ const Hero = (): React.ReactElement => {
 export default Hero;
 
 const HeroSection = styled.section`
-    height: 640px;
-    background: #ddd;
+    height: 90vh;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
 `;
+
+const HeroImage = styled.img`
+    margin-bottom: 40px;
+    height: 90vh;
+    width: 100%;
+`;
+
+// const HeroTitle = styled.h1``;

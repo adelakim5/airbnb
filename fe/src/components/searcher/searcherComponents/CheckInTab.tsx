@@ -25,7 +25,7 @@ const CheckInTab = (): React.ReactElement => {
 
     return (
         <Container>
-            <Tab onClick={handleCalendarLayer}>
+            <Tab onClick={handleCalendarLayer} isClicked={checkInCalendarLayer}>
                 <NavigatingText>체크인</NavigatingText>
                 <DateText>
                     <ResultText>{!isNotCheckedDate(checkIn) ? `${year} - ${month} - ${day}` : '날짜입력'}</ResultText>

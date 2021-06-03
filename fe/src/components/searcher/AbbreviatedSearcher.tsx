@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
 import { useReservationState } from 'hooks/ReservationHook';
+import SearchButton from './searcherComponents/common/SearchButton';
 
 interface AbbreviatedSearcherProps {
     setFullState: (param: boolean) => void;
@@ -14,7 +15,7 @@ const AbbreviatedSearcher = ({ setFullState }: AbbreviatedSearcherProps) => {
     const [checkOutMonth, checkOutDay] = [checkOut.month, checkOut.day];
     const { adult, children, kids } = people;
 
-    const handleSearchWithAllReservationInfo = (e: React.MouseEvent<HTMLElement>) => {
+    const handleSearchWithAllReservationInfo = (e: React.MouseEvent<HTMLElement>): void => {
         e.stopPropagation();
         sessionStorage.setItem('reservationState', JSON.stringify(reservationState));
     };
@@ -30,11 +31,14 @@ const AbbreviatedSearcher = ({ setFullState }: AbbreviatedSearcherProps) => {
             <AbbreviatedPeopleTab>
                 게스트: {adult + children}명, 유아: {kids}명
             </AbbreviatedPeopleTab>
-            <div>
+            <ButtonTab>
+                <SearchButton isFullVersion={false} searchHandler={handleSearchWithAllReservationInfo} />
+            </ButtonTab>
+            {/* <div>
                 <button className="tempButton">
                     <SearchIcon />
                 </button>
-            </div>
+            </div> */}
         </AbbreviatedBarSection>
     );
 };
@@ -51,19 +55,25 @@ const AbbreviatedBarSection = styled.section`
     text-align: center;
     font-size: 12px;
     padding: 0 15px;
-
-    div {
-        border: 1px solid red;
-    }
 `;
 
 const Tab = styled.div`
     display: flex;
     align-items: center;
+    justify-content: center;
+`;
+
+const AbbreviatedPeriodTab = styled(Tab)`
+    width: 100%;
+    height: 100%;
+`;
+const AbbreviatedFeeTab = styled(Tab)`
+    width: 100%;
+    height: 100%;
+`;
+const AbbreviatedPeopleTab = styled(Tab)`
     width: 100%;
     height: 100%;
 `;
 
-const AbbreviatedPeriodTab = styled(Tab)``;
-const AbbreviatedFeeTab = styled(Tab)``;
-const AbbreviatedPeopleTab = styled(Tab)``;
+const ButtonTab = styled(Tab)``;

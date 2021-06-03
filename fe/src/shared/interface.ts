@@ -7,7 +7,7 @@ export interface UsefulObject {
 export interface Location {
     id: number;
     latitude: number | null;
-    logitude: number | null;
+    longitude: number | null;
     address: string;
 }
 
@@ -37,7 +37,7 @@ export interface ReservationContext {
 }
 
 export type ReservationAction =
-    | { type: 'LOCATION'; id: number; latitude: number | null; logitude: number | null; address: string }
+    | { type: 'LOCATION'; id: number; latitude: number | null; longitude: number | null; address: string }
     | { type: 'CHECKIN'; year: number; month: number; day: number }
     | { type: 'CHECKOUT'; year: number; month: number; day: number }
     | { type: 'PEOPLE'; adult: number; children: number; kids: number }

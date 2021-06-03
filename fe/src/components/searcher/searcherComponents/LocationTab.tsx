@@ -7,10 +7,11 @@ import { useReservationDispatch } from 'hooks/ReservationHook';
 import { Container, Tab, NavigatingText, ResultText } from './common/shared.style';
 import ModalLayer from './common/ModalLayer';
 import { theme } from 'styles/theme';
+import useFetch from 'hooks/fetchHook';
+import { URL } from 'util/urls';
 
 const LocationTab = (): React.ReactElement => {
     const reservationDispatch = useReservationDispatch();
-
     const searcherState = useSearcherState();
     const searcherDispatch = useSearcherDispatch();
 
@@ -35,7 +36,16 @@ const LocationTab = (): React.ReactElement => {
                 searcherDispatch({ type: 'SHOW_LOCATION_LIST', list: [] });
                 return;
             }
+            async function getLocationData() {
+                const response = await fetch(URL.endPoint + URL.location(event.target.value));
+                const json = await response.json();
+                const currLocationList = json.location_list;
+                searcherDispatch({ type: 'SHOW_LOCATION_LIST', list: currLocationList });
+            }
 
+            getLocationData();
+
+            // const currLocationList = getLocationData();
             // fetch(`http://airbnb.clone.r-e.kr/api/search/${event.target.value}`)
             //     .then((res) => res.json())
             //     .then((res) => {
@@ -43,16 +53,15 @@ const LocationTab = (): React.ReactElement => {
             //         const currLocationList = res.location_list;
             //         searcherDispatch({ type: 'SHOW_LOCATION_LIST', list: currLocationList });
             //     });
-            const currLocationList: LocationList = mockupLocationData.location_list.filter((el) =>
-                el.address.includes(event.target.value),
-            );
-            searcherDispatch({ type: 'SHOW_LOCATION_LIST', list: currLocationList });
+            // const currLocationList: LocationList = mockupLocationData.location_list.filter((el) =>
+            //     el.address.includes(event.target.value),
+            // );
         }, 200);
     };
 
     const setUpLocation = (place: Location) => {
-        const { id, logitude, latitude, address } = place;
-        reservationDispatch({ type: 'LOCATION', id, logitude, latitude, address });
+        const { id, longitude, latitude, address } = place;
+        reservationDispatch({ type: 'LOCATION', id, longitude, latitude, address });
         searcherDispatch({ type: 'SHOW_INPUTOFLOCATION', value: place.address });
         if (inputRef?.current) {
             inputRef.current.value = place.address;
@@ -63,10 +72,11 @@ const LocationTab = (): React.ReactElement => {
 
     return (
         <Container>
-            <Tab onClick={handleInputLayer}>
+            <Tab onClick={handleInputLayer} isClicked={locationLayer}>
                 <NavigatingText>위치</NavigatingText>
                 <ResultText>
                     <LocationInput
+                        placeholder="어디로 여행가세요?"
                         ref={inputRef}
                         onFocus={() => searcherDispatch({ type: 'SHOW_LOCATION_LAYER', state: true })}
                         onChange={handleInputLocationList}
@@ -99,7 +109,7 @@ const LocationTab = (): React.ReactElement => {
 export default LocationTab;
 
 const LocationInput = styled.input`
-    margin: 0;
+    all: unset;
 `;
 
 const LocationResultListAll = styled.ul`

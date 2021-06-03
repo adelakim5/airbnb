@@ -23,7 +23,7 @@ export default function reservationReducer(state: ReservationContext, action: Re
                     id: action.id,
                     address: action.address,
                     latitude: action.latitude,
-                    logitude: action.logitude,
+                    longitude: action.longitude,
                 },
             };
         case 'CHECKIN':
