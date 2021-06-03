@@ -71,7 +71,7 @@ public class SearchRoom { // POJO
         this.priceMax = priceMax;
     }
 
-    public int getAdults() {
+    public Integer getAdults() {
         return adults;
     }
 
@@ -79,7 +79,7 @@ public class SearchRoom { // POJO
         this.adults = adults;
     }
 
-    public int getChildren() {
+    public Integer getChildren() {
         return children;
     }
 
@@ -87,7 +87,7 @@ public class SearchRoom { // POJO
         this.children = children;
     }
 
-    public int getInfants() {
+    public Integer getInfants() {
         return infants;
     }
 
@@ -95,7 +95,13 @@ public class SearchRoom { // POJO
         this.infants = infants;
     }
 
-    public int sumOfPeople(){
-        return adults+children;
+    public Integer sumOfPeople() {
+        if(children == null){
+            return adults;
+        }
+        else if(adults != null) {
+            return adults + children;
+        }
+        return 0;
     }
 }

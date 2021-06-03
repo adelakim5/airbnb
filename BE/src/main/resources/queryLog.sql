@@ -167,3 +167,27 @@ WHERE (SELECT COUNT(*)
                      OR (:checkOut BETWEEN R.check_in AND R.check_out)
                      OR ((:checkIn <= R.check_out) AND (:checkOut >= R.check_in))
                  )) = 0;
+
+
+# 숙소 ID와 예약 날짜를 통해 예약 가능한지 여부 확인
+
+SELECT COUNT(*)
+FROM Reservation AS R
+WHERE 1=1
+AND R.room_id
+          IN (
+              (:checkIn BETWEEN R.check_in AND R.check_out)
+              OR (:checkOut BETWEEN R.check_in AND R.check_out)
+              OR ((:checkIn <= R.check_out) AND (:checkOut >= R.check_in))
+          ) = 1
+AND R.room_id = :roomdId;
+
+
+SELECT COUNT(*)
+FROM Reservation AS R
+WHERE R.room_id
+          IN (
+              (:checkIn BETWEEN R.check_in AND R.check_out)
+              OR (:checkOut BETWEEN R.check_in AND R.check_out)
+              OR ((:checkIn <= R.check_out) AND (:checkOut >= R.check_in))
+          )

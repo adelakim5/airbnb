@@ -13,7 +13,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -64,14 +63,6 @@ public class RoomRepostiory implements MyRepository {
         SqlParameterSource namedParameter = setNamedParametersBySearchRoom(searchRoom);
 
         return jdbc.query(findRoomByConditions(searchRoom), namedParameter, new RoomMapper());
-    }
-
-    public List<Room> findRoomListByPeriod(LocalDate checkIn, LocalDate checkOut) {
-        SqlParameterSource namedParameter = new MapSqlParameterSource()
-                .addValue("checkIn", checkIn)
-                .addValue("checkOut",checkOut);
-
-        return jdbc.query(FIND_ALL_BY_STAY_PERIOD, namedParameter, new RoomMapper());
     }
 
     private SqlParameterSource setNamedParametersBySearchRoom(SearchRoom searchRoom) {

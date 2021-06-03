@@ -10,7 +10,6 @@ import com.codesquad21.team07.airbnb.exception.NotFoundException;
 import com.codesquad21.team07.airbnb.repository.RoomRepostiory;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -43,14 +42,6 @@ public class RoomService {
 
         RoomList roomList = new RoomList();
         List<Room> rooms = roomRepostiory.findRoomListByPeriod(searchRoom);
-
-        return getRoomList(roomList, rooms);
-    }
-
-    public RoomList findRoomListByPeriod(LocalDate checkIn, LocalDate checkOut){
-
-        RoomList roomList = new RoomList();
-        List<Room> rooms = roomRepostiory.findRoomListByPeriod(checkIn,checkOut);
 
         return getRoomList(roomList, rooms);
     }
