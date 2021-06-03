@@ -1,7 +1,7 @@
 package com.codesquad21.team07.airbnb.controller;
 
 import com.codesquad21.team07.airbnb.domain.User;
-import com.codesquad21.team07.airbnb.dto.request.ReservationDto;
+import com.codesquad21.team07.airbnb.dtoGroup.request.ReservationDto;
 import com.codesquad21.team07.airbnb.service.UserService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;

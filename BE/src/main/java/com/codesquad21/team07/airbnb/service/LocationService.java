@@ -1,6 +1,6 @@
 package com.codesquad21.team07.airbnb.service;
 
-import com.codesquad21.team07.airbnb.dto.response.LocationDTO;
+import com.codesquad21.team07.airbnb.dtoGroup.response.LocationDTO;
 import com.codesquad21.team07.airbnb.repository.LocationRepository;
 import org.springframework.stereotype.Service;
 

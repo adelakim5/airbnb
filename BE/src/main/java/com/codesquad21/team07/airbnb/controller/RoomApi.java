@@ -1,8 +1,8 @@
 package com.codesquad21.team07.airbnb.controller;
 
-import com.codesquad21.team07.airbnb.dto.request.SearchRoom;
-import com.codesquad21.team07.airbnb.dto.response.RoomDTO;
-import com.codesquad21.team07.airbnb.dto.response.RoomList;
+import com.codesquad21.team07.airbnb.dtoGroup.request.SearchRoom;
+import com.codesquad21.team07.airbnb.dtoGroup.response.RoomDTO;
+import com.codesquad21.team07.airbnb.dtoGroup.response.RoomList;
 import com.codesquad21.team07.airbnb.service.RoomService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

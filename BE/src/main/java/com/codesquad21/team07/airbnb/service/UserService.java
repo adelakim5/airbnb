@@ -1,7 +1,7 @@
 package com.codesquad21.team07.airbnb.service;
 
 import com.codesquad21.team07.airbnb.domain.ReservationStatus;
-import com.codesquad21.team07.airbnb.dto.request.ReservationDto;
+import com.codesquad21.team07.airbnb.dtoGroup.request.ReservationDto;
 import com.codesquad21.team07.airbnb.exception.NonReservationException;
 import com.codesquad21.team07.airbnb.repository.ReservationRepository;
 import org.springframework.stereotype.Service;

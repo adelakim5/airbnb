@@ -1,7 +1,7 @@
 package com.codesquad21.team07.airbnb.repository;
 
 import com.codesquad21.team07.airbnb.domain.ReservationStatus;
-import com.codesquad21.team07.airbnb.dto.request.ReservationDto;
+import com.codesquad21.team07.airbnb.dtoGroup.request.ReservationDto;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;

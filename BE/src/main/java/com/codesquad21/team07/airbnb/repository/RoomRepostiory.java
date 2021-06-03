@@ -3,7 +3,7 @@ package com.codesquad21.team07.airbnb.repository;
 import com.codesquad21.team07.airbnb.domain.Amenity;
 import com.codesquad21.team07.airbnb.domain.Image;
 import com.codesquad21.team07.airbnb.domain.Room;
-import com.codesquad21.team07.airbnb.dto.request.SearchRoom;
+import com.codesquad21.team07.airbnb.dtoGroup.request.SearchRoom;
 import com.codesquad21.team07.airbnb.repository.mapper.AmenityMapper;
 import com.codesquad21.team07.airbnb.repository.mapper.ImageMapper;
 import com.codesquad21.team07.airbnb.repository.mapper.RoomMapper;

@@ -1,6 +1,6 @@
 package com.codesquad21.team07.airbnb.repository.sql;
 
-import com.codesquad21.team07.airbnb.dto.request.SearchRoom;
+import com.codesquad21.team07.airbnb.dtoGroup.request.SearchRoom;
 
 import static com.codesquad21.team07.airbnb.repository.sql.RoomQueriesKt.FIND_ALL_ROOM;
 
