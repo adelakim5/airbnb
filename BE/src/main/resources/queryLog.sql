@@ -191,3 +191,24 @@ WHERE R.room_id
               OR (:checkOut BETWEEN R.check_in AND R.check_out)
               OR ((:checkIn <= R.check_out) AND (:checkOut >= R.check_in))
           )
+
+
+
+INSERT INTO Reservation (room_id, user_id, check_in, check_out, num_of_adults, num_of_children, num_of_infants, total_price, status)
+VALUES (
+        :roomId,
+        :userId,
+        :checkIn,
+        :checkOut,
+        :numOfAdults,
+        :numOfChildren,
+        :numOfInfants,
+        :totalPrice,
+        :status
+);
+
+UPDATE Reservation SET status = :status
+WHERE 1=1
+AND room_id = :roomId
+AND user_id = :userI
+AND id = :reservationId

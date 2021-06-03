@@ -27,13 +27,16 @@ public class UserApi {
 
     @PostMapping("/rooms/{roomId}/reservations")
     @ResponseStatus(HttpStatus.CREATED)
-    public void reservation(@PathVariable Long roomId, @RequestBody ReservationDto reservationDto) {
+    public String reservation(@PathVariable Long roomId, @RequestBody ReservationDto reservationDto) {
 
         //m 임시 유저
-        User user = new User(3L, "네오","neo@codsquad.com","http://imgur.com/profile.png");
+        User user = new User(3L, "네오", "neo@codsquad.com", "http://imgur.com/profile.png");
 
-        userService.reservation(roomId, user.getId(), reservationDto);
+        Integer reservedId = userService.reservation(roomId, user.getId(), reservationDto);
+
+        return "📣 예약번호 "+reservedId + "로 예약이 완료됐습니다.";
     }
+
 
 
 }
