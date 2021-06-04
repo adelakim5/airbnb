@@ -1,24 +1,34 @@
 const mockupLocationData = {
-    location: [
+    location_list: [
         {
-            id: 1,
-            city: '서울특별시',
+            id: 176,
+            address: '서울특별시,종로구,청운동',
+            latitude: null,
+            logitude: null,
         },
         {
-            id: 2,
-            city: '서울 강남구',
+            id: 177,
+            address: '서울특별시,종로구,부암동',
+            latitude: null,
+            logitude: null,
         },
         {
-            id: 3,
-            city: '서울 송파구',
+            id: 178,
+            address: '서울특별시,종로구,신교동',
+            latitude: null,
+            logitude: null,
         },
         {
-            id: 4,
-            city: '서울 종로구',
+            id: 179,
+            address: '서울특별시,종로구,옥인동',
+            latitude: null,
+            logitude: null,
         },
         {
-            id: 5,
-            city: '서울 마포구',
+            id: 180,
+            address: '서울특별시,종로구,궁정동',
+            latitude: null,
+            logitude: null,
         },
     ],
 };

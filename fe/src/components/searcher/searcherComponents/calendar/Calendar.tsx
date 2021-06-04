@@ -1,0 +1,134 @@
+import React, { useEffect, useState } from 'react';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import { MonthsPresenter } from './calendar.presenter';
+import { getInitialDate } from './calendarDate';
+import { CalendarType } from 'shared/interface';
+import { useReservationDispatch, useReservationState } from 'hooks/ReservationHook';
+import { useSearcherDispatch } from 'hooks/SearcherHook';
+import { getDateSum, isBefore, isNotCheckedDate } from './calendarChecker';
+import { CalendarContainer, CarouselBox, LayerContentContainer } from './calendar.style';
+import { theme } from 'styles/theme';
+import BottomLayer from '../common/BottomLayer';
+
+const Calendar = ({ isCheckIn }: CalendarType): React.ReactElement => {
+    const { checkIn, checkOut } = useReservationState();
+    const reservationDispatch = useReservationDispatch();
+    const searcherDispatch = useSearcherDispatch();
+    const [calendarQueue, setCalendarQueue] = useState<Date[]>(getInitialDate());
+
+    // carousel
+    const transitionDefault = 500;
+    const panelWidth = 375;
+
+    const [x, setX] = useState(-panelWidth);
+    const [, setMoving] = useState(false);
+    const [transitionValue, setTransitionValue] = useState(`${transitionDefault}ms`);
+    const [addedDate, setAddedDate] = useState<Date | null>(null);
+    const [lastDirection, setLastDirection] = useState(0);
+
+    useEffect(() => {
+        if (addedDate === null) return;
+        const timer = setTimeout(() => {
+            const currDate = lastDirection < 0 ? calendarQueue[0] : calendarQueue[calendarQueue.length - 1];
+            const newCalendarQueue = [...calendarQueue];
+            const newDate = new Date();
+            newDate.setFullYear(currDate.getFullYear(), currDate.getMonth() + lastDirection, 1);
+            if (lastDirection < 0) {
+                newCalendarQueue.unshift(newDate);
+                newCalendarQueue.pop();
+            } else {
+                newCalendarQueue.push(newDate);
+                newCalendarQueue.shift();
+            }
+            setCalendarQueue(newCalendarQueue);
+            setX(-panelWidth);
+            setTransitionValue('0');
+        }, transitionDefault);
+
+        return () => clearTimeout(timer);
+    }, [addedDate]);
+
+    const handleCalendarButton = (direction: number) => {
+        setX((prevX) => prevX - direction * panelWidth);
+        setMoving(true);
+        setLastDirection(direction);
+        if (transitionValue === '0') setTransitionValue(`${transitionDefault}ms`);
+        const currDate = direction < 0 ? calendarQueue[0] : calendarQueue[calendarQueue.length - 1];
+        const newDate = new Date();
+        newDate.setFullYear(currDate.getFullYear(), currDate.getMonth() + direction, 1);
+        setAddedDate(currDate);
+    };
+
+    const handleCheckDate = (
+        event: React.MouseEvent<HTMLElement>,
+        dataSets: string[] | null,
+        possibleDate: boolean,
+    ) => {
+        const $target = event.target as HTMLDivElement;
+        const $day = $target.closest('.day');
+        if (!$day || !dataSets || !possibleDate) return;
+
+        const targetDate = new Date(dataSets[1]);
+        const targetDateSum = getDateSum({
+            year: targetDate.getFullYear(),
+            month: targetDate.getMonth() + 1,
+            day: +dataSets[0],
+        });
+        const checkInSum = getDateSum(checkIn);
+
+        if (!isCheckIn && (isBefore(targetDateSum, checkInSum) || isNotCheckedDate(checkIn))) {
+            reservationDispatch({
+                type: 'CHECKIN',
+                year: targetDate.getFullYear(),
+                month: targetDate.getMonth() + 1,
+                day: +dataSets[0],
+            });
+            return;
+        }
+
+        reservationDispatch({
+            type: isCheckIn ? 'CHECKIN' : 'CHECKOUT',
+            year: targetDate.getFullYear(),
+            month: targetDate.getMonth() + 1,
+            day: +dataSets[0],
+        });
+        searcherDispatch({ type: 'SHOW_CHECKOUT_CALENDAR_LAYER', state: isCheckIn });
+    };
+
+    return (
+        <BottomLayer
+            options={{
+                width: theme.LayerSize.lgWidth,
+                top: theme.LayerLocation.top,
+                left: theme.LayerLocation.left,
+                height: theme.LayerSize.xlgHeight,
+            }}
+        >
+            <LayerContentContainer>
+                <CalendarContainer>
+                    <div>
+                        <NavigateBeforeIcon onClick={() => handleCalendarButton(-1)} />
+                    </div>
+                    <CarouselBox>
+                        <MonthsPresenter
+                            {...{
+                                x,
+                                checkIn,
+                                checkOut,
+                                calendarQueue,
+                                handleCheckDate,
+                                transitionValue,
+                            }}
+                        />
+                    </CarouselBox>
+                    <div>
+                        <NavigateNextIcon onClick={() => handleCalendarButton(1)} />
+                    </div>
+                </CalendarContainer>
+            </LayerContentContainer>
+        </BottomLayer>
+    );
+};
+
+export default Calendar;

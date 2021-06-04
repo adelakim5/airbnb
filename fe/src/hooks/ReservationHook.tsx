@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { ReservationStateContext, ReservationDispatchContext } from '../Contexts';
-import { ReservationDispatch, ReservationContext } from '../shared/interface';
+import { ReservationStateContext, ReservationDispatchContext } from 'Contexts';
+import { ReservationDispatch, ReservationContext } from 'shared/interface';
 
 export function useReservationState(): ReservationContext {
     const state = useContext(ReservationStateContext);

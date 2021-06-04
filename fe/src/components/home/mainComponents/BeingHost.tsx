@@ -1,7 +1,7 @@
 import React from 'react';
 
 const BeingHost = (): React.ReactElement => {
-    return <div>BeingHost</div>;
+    return <div></div>;
 };
 
 export default BeingHost;
