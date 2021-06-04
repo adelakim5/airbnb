@@ -57,7 +57,7 @@ const AccomodationList = (props: AccomodationListPropsType): React.ReactElement 
 export default AccomodationList;
 
 const Accomodations = styled.div`
-    width: 70%;
+    width: 88%;
     height: 100vh;
     padding: 24px 0 24px 24px;
     overflow: auto;

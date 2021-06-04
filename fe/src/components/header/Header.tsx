@@ -9,6 +9,8 @@ export interface HeaderType {
 }
 
 const Header = ({ isFull, setFullState }: HeaderType): React.ReactElement => {
+    const extraCategories = ['숙소', '체험', '온라인체험'];
+
     return (
         <HeaderPage>
             <LeftHeader>
@@ -16,9 +18,12 @@ const Header = ({ isFull, setFullState }: HeaderType): React.ReactElement => {
             </LeftHeader>
             {isFull ? (
                 <MidHeader>
-                    <span>숙소</span>
+                    {extraCategories.map((category) => (
+                        <span>{category}</span>
+                    ))}
+                    {/* <span>숙소</span>
                     <span>체험</span>
-                    <span>온라인체험</span>
+                    <span>온라인체험</span> */}
                 </MidHeader>
             ) : (
                 <MidHeader>

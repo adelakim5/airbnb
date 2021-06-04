@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
 import { Container, NavigatingText, ResultText, Tab } from './common/shared.style';
 import { Link } from 'react-router-dom';
 import { useSearcherDispatch, useSearcherState } from 'hooks/SearcherHook';
@@ -10,31 +8,17 @@ import { useReservationDispatch, useReservationState } from 'hooks/ReservationHo
 import { theme } from 'styles/theme';
 import SearchButton from './common/SearchButton';
 import BottomLayer from './common/BottomLayer';
-
-const peopleType = {
-    adult: '성인',
-    children: '어린이',
-    kids: '유아',
-};
-
-const peopleDescription = {
-    adult: '만 13세 이상',
-    children: '만 2~12세',
-    kids: '만 2세 미만',
-};
+import PeopleCountContent from './peopleComponents/PeopleCountContent';
 
 const PeopleTab = (): React.ReactElement => {
     const reservationState = useReservationState();
     const reservationDispatch = useReservationDispatch();
     const { adult, children, kids } = reservationState.people;
+
     const { peopleLayer } = useSearcherState();
     const searcherDispatch = useSearcherDispatch();
 
-    const [peopleCount, setPeopleCount] = useState<PeopleCount>({
-        adult,
-        children,
-        kids,
-    });
+    const [peopleCount, setPeopleCount] = useState({ adult, children, kids });
 
     const handlePeopleLayer: React.MouseEventHandler<HTMLDivElement> = () => {
         searcherDispatch({ type: 'SHOW_PEOPLE_LAYER', state: true });
@@ -72,32 +56,9 @@ const PeopleTab = (): React.ReactElement => {
         return adult + children + kids > 0;
     };
 
-    const renderPeopleCountList = () => {
-        const keys: Array<keyof PeopleCount> = ['adult', 'children', 'kids'];
-        return (
-            <PeopleCountContent>
-                {keys.map((key) => (
-                    <CountList>
-                        <PeopleTypeInfo>
-                            <PeopleTypeTitle>{peopleType[key]}</PeopleTypeTitle>
-                            <PeopleTypeDescription>{peopleDescription[key]}</PeopleTypeDescription>
-                        </PeopleTypeInfo>
-                        <PeopleCounter>
-                            <PeopleCountController>
-                                <ControlButton className="removeButton">
-                                    <RemoveIcon onClick={() => handleCount(key, -1)} />
-                                </ControlButton>
-                                <Count>{peopleCount[key]}</Count>
-                                <ControlButton className="addButton">
-                                    <AddIcon onClick={() => handleCount(key, 1)} />
-                                </ControlButton>
-                            </PeopleCountController>
-                        </PeopleCounter>
-                    </CountList>
-                ))}
-            </PeopleCountContent>
-        );
-    };
+    // const renderPeopleCountList = (): React.ReactElement => {
+    //     return <PeopleCountContent {...{ handleCount, peopleCount }} />;
+    // };
 
     return (
         <Container>
@@ -107,7 +68,7 @@ const PeopleTab = (): React.ReactElement => {
                         <NavigatingText>인원</NavigatingText>
                         <ResultText>
                             {isGuestExisted()
-                                ? `게스트: ${peopleCount.adult + peopleCount.children}, 유아: ${peopleCount.kids}`
+                                ? `게스트: ${peopleCount.adult + peopleCount.children}명...`
                                 : '게스트추가'}
                         </ResultText>
                     </PeopleText>
@@ -125,7 +86,7 @@ const PeopleTab = (): React.ReactElement => {
                         height: theme.LayerSize.smHeight,
                     }}
                 >
-                    {renderPeopleCountList()}
+                    <PeopleCountContent {...{ handleCount, peopleCount }} />
                 </BottomLayer>
             )}
         </Container>
@@ -142,45 +103,4 @@ const PeopleTabBox = styled.div`
 
 const PeopleText = styled.div`
     height: 100%;
-`;
-
-const PeopleCountContent = styled.ul`
-    margin: 32px 64px;
-`;
-
-const CountList = styled.li`
-    height: 91px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-`;
-
-const PeopleCountController = styled.div`
-    display: flex;
-    width: 110px;
-    justify-content: space-between;
-
-    button {
-        all: unset;
-        border-radius: 50%;
-        border: 1px solid #828282;
-        color: #828282;
-        display: flex;
-        align-items: center;
-    }
-`;
-
-const PeopleTypeInfo = styled.div``;
-
-const PeopleTypeTitle = styled.h3``;
-
-const PeopleTypeDescription = styled.p``;
-
-const Count = styled.p``;
-
-const PeopleCounter = styled.div``;
-
-const ControlButton = styled.button`
-    cursor: pointer;
 `;

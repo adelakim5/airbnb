@@ -20,7 +20,7 @@ const CardList = (props: CardListProps): React.ReactElement => {
     );
 
     const { roomInfo, accomodationInfoArray, showSelectedAccomodationModal } = props;
-    const { images_fe, name, amenities, avg_rating, rental_fee_per_night } = roomInfo;
+    const { images_fe, name, amenities, avg_rating, rental_fee_per_night, num_of_review } = roomInfo;
     const { thumbnail } = images_fe;
 
     const priceSum = rental_fee_per_night * diff;
@@ -52,6 +52,7 @@ const CardList = (props: CardListProps): React.ReactElement => {
                                 />
                             </svg>
                             <span>{avg_rating}</span>
+                            <span>후기({num_of_review})</span>
                         </Rate>
                         <Price>
                             <PerNight>₩{rental_fee_per_night.toLocaleString()} / 박</PerNight>
@@ -120,6 +121,10 @@ const CardFooter = styled.div`
 const Rate = styled.div`
     display: flex;
     align-items: flex-end;
+
+    span {
+        margin-right: 5px;
+    }
 `;
 
 const Price = styled.div`

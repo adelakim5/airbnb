@@ -5,7 +5,7 @@ const isDateNull = (date: Date) => {
     return year === 0 && month === 0 && day === 0;
 };
 
-const addZero = (value: number, type: string) => {
+export const addZero = (value: number, type: string) => {
     switch (type) {
         case 'date':
             return value < 10 ? `0${value}` : `${value}`;

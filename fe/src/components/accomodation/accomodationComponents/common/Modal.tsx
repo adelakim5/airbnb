@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Header from './modalComponents/Header';
 import ReservationInfo from './modalComponents/ReservationInfo';
 import PriceInfo from './modalComponents/PriceInfo';
-import { URL } from 'util/urls';
+import { URL, addZero } from 'util/urls';
 import { useReservationState } from 'hooks/ReservationHook';
 
 interface ModalProps {
@@ -36,22 +36,37 @@ const Modal = ({ selectedAccomodation, setModalLayer }: ModalProps): React.React
         const { adult, children, kids } = people;
 
         const reservationData = {
-            check_in: `${checkIn.year}-${checkIn.month}-${checkIn.day}`,
-            check_out: `${checkOut.year}-${checkOut.month}-${checkOut.day}`,
+            check_in: `${addZero(checkIn.year, 'date')}-${addZero(checkIn.month, 'date')}-${addZero(
+                checkIn.day,
+                'date',
+            )}`,
+            check_out: `${addZero(checkOut.year, 'date')}-${addZero(checkOut.month, 'date')}-${addZero(
+                checkOut.day,
+                'date',
+            )}`,
             num_of_adults: adult,
             num_of_children: children,
             num_of_infants: kids,
             total_price: rental_fee_per_night * diff,
         };
 
-        fetch(URL.endPoint + URL.postReservation(id), {
-            method: 'POST',
-            body: JSON.stringify(reservationData),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        alert('예약이 완료되었습니다.');
+        async function requestPost() {
+            try {
+                const response = await fetch(URL.endPoint + URL.postReservation(id), {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(reservationData),
+                });
+                if (!response.ok) throw new Error(JSON.stringify(response));
+            } catch (e) {
+                console.error(e.message);
+            }
+            alert('예약이 완료되었습니다.');
+        }
+
+        requestPost();
         setModalLayer(false);
     };
 

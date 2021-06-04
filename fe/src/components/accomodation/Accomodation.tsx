@@ -15,8 +15,8 @@ const Accomodation = (): React.ReactElement => {
     const tmpReservationState = sessionStorage.getItem('reservationState');
     const initialReservationState = tmpReservationState !== null ? JSON.parse(tmpReservationState) : initialState;
     const requestUrl = URL.endPoint + URL.searchRoomWithQuery(initialReservationState);
-    const [totalAccomodations, setTotalAccomodations] = useState<any[]>([]);
-    const [currAccomodations, setCurrAccomodations] = useState<any[]>([]);
+    const [totalAccomodations, setTotalAccomodations] = useState<AccomodationType[]>([]);
+    const [currAccomodations, setCurrAccomodations] = useState<AccomodationType[]>([]);
 
     useEffect(() => {
         async function request() {
