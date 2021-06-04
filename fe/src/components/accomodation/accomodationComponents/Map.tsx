@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { GoogleMap, useJsApiLoader, OverlayView } from '@react-google-maps/api';
-import { apiKey } from '../private.js';
+// import { apiKey } from '../private.js';
 import dateDiff from '../dateDiff.js';
 import { useReservationState } from 'hooks/ReservationHook';
 import { AccomodationType, ReservationContext } from 'shared/interface.js';
@@ -28,7 +28,7 @@ interface MapProps {
 const Map = (props: MapProps): React.ReactElement => {
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: apiKey,
+        googleMapsApiKey: 'AIzaSyAG6a29gO1LLdgcVI3nhqFVHPt_fZioj10',
     });
 
     const { currAccomodations, filterAccomodations, showSelectedAccomodationModal, initialReservationState } = props;
